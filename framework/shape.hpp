@@ -13,6 +13,8 @@ public:
     //functions
     virtual double area() = 0;
 	virtual double volume() = 0;
+    //Task 5.4
+    virtual std::ostream& print(std::ostream& os) const;
 
     //getter
     std::string getName();
@@ -23,5 +25,7 @@ protected:
     std::string name_;
     Color color_;
 };
+
+std::ostream& operator<<(std::ostream& os, Shape const& s);
 
 #endif
