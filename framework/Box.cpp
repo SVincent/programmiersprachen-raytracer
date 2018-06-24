@@ -8,14 +8,14 @@ Box::Box() :
 	maximum_({0.0,0.0,0.0})
     {};
 
-Box::Box(glm::vec3 const& min, glm::vec3 const& max): {
-    Shape();
+Box::Box(glm::vec3 const& min, glm::vec3 const& max) : 
+    Shape(),
 	minimum_{min},
 	maximum_{max}
     {};
 
 //functions
-double Box::area() {
+double Box::area()  {
     double lenght = maximum_.x - minimum_.x;
     double width = maximum_.y - minimum_.y;
     double height = maximum_.z - minimum_.z;
@@ -23,7 +23,7 @@ double Box::area() {
     return 2*(lenght*height+lenght*width+height*width);
 };
 
-double Box::volume() {
+double Box::volume()  {
     /* double lenght = maximum_.x - minimum_.x;
     double width = maximum_.y - minimum_.y;
     double height = maximum_.z - minimum_.z; */
@@ -33,10 +33,10 @@ double Box::volume() {
 };
 
 //getter
-glm::vec3 Sphere::getCenter() const {
-    return center_;
+glm::vec3 Box::getMinimum() const {
+    return minimum_;
 };
 
-float Sphere::getRadius() {
-    return radius_;
+glm::vec3 Box::getMaximum() const {
+    return maximum_;
 };

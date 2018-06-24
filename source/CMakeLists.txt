@@ -17,6 +17,8 @@ install(TARGETS raytracer DESTINATION .)
 
 # Build tests
 add_executable(tests
+  ../framework/sphere.cpp
+  ../framework/Box.cpp
   tests.cpp)
 target_link_libraries(tests
   ${GLFW_LIBRARIES}

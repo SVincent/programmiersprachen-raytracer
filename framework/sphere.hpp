@@ -11,11 +11,11 @@ public:
     Sphere(glm::vec3 const& center, float radius);
 
     //functions
-    double area();
-	double volume();
+    double area() override;
+	double volume() override;
 
     //getter
-    glm::vec3 getCenter();
+    glm::vec3 getCenter() const;
     float getRadius();
 
 private:

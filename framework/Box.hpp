@@ -11,12 +11,12 @@ public:
     Box(glm::vec3 const& min, glm::vec3 const& max);
 
     //functions
-    double area();
-	double volume();
+    double area() override;
+	double volume() override;
 
     //getter
-    glm::vec3 getMinimum();
-    float getMaximum();
+    glm::vec3 getMinimum() const;
+    glm::vec3 getMaximum() const;
 
 private:
     //member variables
