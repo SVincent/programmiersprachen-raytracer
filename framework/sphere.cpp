@@ -16,6 +16,15 @@ Sphere::Sphere(glm::vec3 const& cen, float rad) :
 	radius_{rad}
     {};
 
+//Task 5.3
+Sphere::Sphere(glm::vec3 const& cen, float rad, std::string name, Color const& color) : 
+    Shape(name,color),
+    //name_{name},
+    //color_{color},
+	center_{cen},
+	radius_{rad}
+    {};
+
 //functions
 double Sphere::area() { //override causes error: virt-specifiers in 'area' not allowed outside a class definition
     return 4*M_PI*radius_*radius_;

@@ -9,6 +9,8 @@ public:
     //constructors
     Box();
     Box(glm::vec3 const& min, glm::vec3 const& max);
+    //Task 5.3
+    Box(glm::vec3 const& min, glm::vec3 const& max, std::string name, Color const& color);
 
     //functions
     double area() override;

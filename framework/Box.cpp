@@ -3,13 +3,21 @@
 
 //constructors
 Box::Box() :
-    Shape(),
+    Shape("default",Color{0.0f,0.0f,0.0f}),
 	minimum_({0.0,0.0,0.0}),
 	maximum_({0.0,0.0,0.0})
     {};
 
 Box::Box(glm::vec3 const& min, glm::vec3 const& max) : 
-    Shape(),
+    Shape("default",Color{0.0f,0.0f,0.0f}),
+	minimum_{min},
+	maximum_{max}
+    {};
+
+//Task 5.3
+
+Box::Box(glm::vec3 const& min, glm::vec3 const& max, std::string name, Color const& color) : 
+    Shape(name,color),
 	minimum_{min},
 	maximum_{max}
     {};

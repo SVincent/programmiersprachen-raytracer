@@ -9,6 +9,8 @@ public:
     //constructors
     Sphere();
     Sphere(glm::vec3 const& center, float radius);
+    //Task 5.3
+    Sphere(glm::vec3 const& center, float radius, std::string name, Color const& color);
 
     //functions
     double area() override;

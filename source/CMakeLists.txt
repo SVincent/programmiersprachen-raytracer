@@ -17,6 +17,7 @@ install(TARGETS raytracer DESTINATION .)
 
 # Build tests
 add_executable(tests
+  ../framework/shape.cpp
   ../framework/sphere.cpp
   ../framework/Box.cpp
   tests.cpp)
