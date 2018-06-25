@@ -17,12 +17,17 @@ Box::Box(glm::vec3 const& min, glm::vec3 const& max) :
     {};
 
 //Task 5.3
-
 Box::Box(glm::vec3 const& min, glm::vec3 const& max, std::string name, Color const& color) : 
     Shape(name,color),
 	minimum_{min},
 	maximum_{max}
     {};
+
+//destructors
+//Task 5.8
+Box::~Box() {
+    cout << "destructor class Box\n";
+};
 
 //functions
 double Box::area()  {
@@ -48,7 +53,7 @@ std::ostream& Box::print(std::ostream& os) const {
 	os << "Minimum: " << "x: " << minimum_.x << " y: " << minimum_.y << " z: " << minimum_.z << endl;
 	os << "Maximum: " << "x: " << maximum_.x << " y: " << maximum_.y << " z: " << maximum_.z << endl;
 	return os;
-}
+};
 
 //getter
 glm::vec3 Box::getMinimum() const {

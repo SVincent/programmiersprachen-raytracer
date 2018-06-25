@@ -1,5 +1,5 @@
-#ifndef SHAPE
-#define SHAPE
+#ifndef SHAPE_HPP
+#define SHAPE_HPP
 
 #include <string>
 #include "color.hpp"
@@ -9,6 +9,11 @@ public:
     //constructors
     Shape();
     Shape(std::string name, Color const& color);
+
+    //destructors
+    //Task 5.8
+    virtual ~Shape();
+
 
     //functions
     virtual double area() = 0;

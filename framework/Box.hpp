@@ -1,5 +1,5 @@
-#ifndef BOX
-#define BOX
+#ifndef BOX_HPP
+#define BOX_HPP
 
 #include "shape.hpp"
 #include <glm/vec3.hpp>
@@ -11,6 +11,10 @@ public:
     Box(glm::vec3 const& min, glm::vec3 const& max);
     //Task 5.3
     Box(glm::vec3 const& min, glm::vec3 const& max, std::string name, Color const& color);
+
+    //destructors
+    //Task 5.8
+    ~Box();
 
     //functions
     double area() override;
