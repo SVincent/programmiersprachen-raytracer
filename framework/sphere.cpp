@@ -53,9 +53,9 @@ std::ostream& Sphere::print(std::ostream& os) const {
 
 //Task 5.6
 bool Sphere::intersect(Ray const& ray) {
-    //glm::vec3 direction = glm::normalize(ray.direction);
-    //return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,0.0f);
-    return true;
+    glm::vec3 direction = glm::normalize(ray.direction);
+    float distance = 0.0f;
+    return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance);
 };
 
 //getter

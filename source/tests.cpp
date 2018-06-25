@@ -71,14 +71,16 @@ TEST_CASE("print test", "task 5.5") {
 TEST_CASE("intersect_ray_sphere","[intersect]") {
   // Ray
   glm::vec3 ray_origin{0.0f, 0.0f, 0.0f};//1
-  // ray direction has to be normalized !
-  // you can use :
-  // v = glm :: normalize ( some_vector )
   glm::vec3 ray_direction{0.0f, 0.0f, 1.0f};
+  Ray ray{};
   auto v = glm::normalize(ray_direction);
   // Sphere
   glm::vec3 sphere_center{0.0f, 0.0f, 5.0f};
   float sphere_radius{1.0f};
+  Sphere sphere0{sphere_center, sphere_radius};
+  Sphere sphere1{glm::vec3{1.0,1.0,1.0}, 2.0f};
+
+  //intersectRaySphere
   float distance = 0.0f;
   auto result = glm::intersectRaySphere(
     ray_origin, v,
@@ -86,6 +88,10 @@ TEST_CASE("intersect_ray_sphere","[intersect]") {
     sphere_radius*sphere_radius, // squared radius !!!
     distance);
   REQUIRE(distance == Approx(4.0f));
+
+  //intersect
+  REQUIRE(sphere0.intersect(ray) == false);
+  REQUIRE(sphere1.intersect(ray) == true);
 }
 
 //Task 5.8
