@@ -15,6 +15,8 @@ public:
     //functions
     double area() override;
 	double volume() override;
+    //Task 5.5
+    std::ostream& print(std::ostream& os) const override;
 
     //getter
     glm::vec3 getCenter() const;

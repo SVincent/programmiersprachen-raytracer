@@ -1,6 +1,8 @@
 #include "Box.hpp"
 #include <cmath>
 
+using namespace std;
+
 //constructors
 Box::Box() :
     Shape("default",Color{0.0f,0.0f,0.0f}),
@@ -39,6 +41,14 @@ double Box::volume()  {
     //return length*width*height;
     return (maximum_.x - minimum_.x)*(maximum_.y - minimum_.y)*(maximum_.z - minimum_.z);
 };
+
+//Task 5.5
+std::ostream& Box::print(std::ostream& os) const {
+	Shape::print(os);
+	os << "Minimum: " << "x: " << minimum_.x << " y: " << minimum_.y << " z: " << minimum_.z << endl;
+	os << "Maximum: " << "x: " << maximum_.x << " y: " << maximum_.y << " z: " << maximum_.z << endl;
+	return os;
+}
 
 //getter
 glm::vec3 Box::getMinimum() const {
