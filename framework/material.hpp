@@ -1,7 +1,7 @@
 #ifndef MATERIAL_HPP
 #define MATERIAL_HPP
 
-#include "color.hpp";
+#include "color.hpp"
 
 struct Material {
 

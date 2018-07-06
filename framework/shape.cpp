@@ -7,11 +7,19 @@ Shape::Shape() :
     name_{"default"},
     color_{Color{0.0f,0.0f,0.0f}}
     {};
-    
+
+
 Shape::Shape(string name, Color const& color) :
     name_{name},
     color_{color}
     {};
+
+
+Shape::Shape(string name, std::shared_ptr<Material> material) :
+    name_{name},
+    color_{Color{0.0f,0.0f,0.0f}},
+    material_{material}
+    {}; 
 
 //destructors
 //Task 5.8

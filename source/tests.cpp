@@ -90,8 +90,8 @@ TEST_CASE("intersect_ray_sphere","[intersect]") {
   REQUIRE(distance == Approx(4.0f));
 
   //intersect
-  REQUIRE(sphere0.intersect(ray) == false);
-  REQUIRE(sphere1.intersect(ray) == true);
+  REQUIRE(sphere0.intersect(ray, distance) == false);
+  REQUIRE(sphere1.intersect(ray, distance) == true);
 }
 
 //Task 5.8

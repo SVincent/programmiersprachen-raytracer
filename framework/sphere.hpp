@@ -23,7 +23,7 @@ public:
     //Task 5.5
     std::ostream& print(std::ostream& os) const override;
     //Task 5.6
-    bool intersect(Ray const& ray);
+    bool intersect(Ray const& ray, float& t) override;
 
     //getter
     glm::vec3 getCenter() const;

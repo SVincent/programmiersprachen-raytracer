@@ -24,4 +24,3 @@ add_executable(tests
 target_link_libraries(tests
   ${GLFW_LIBRARIES}
   )
-

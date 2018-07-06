@@ -2,6 +2,7 @@
 #define BOX_HPP
 
 #include "shape.hpp"
+#include "ray.hpp"
 #include <glm/vec3.hpp>
 
 class Box : public Shape {
@@ -21,6 +22,8 @@ public:
 	double volume() override;
     //Task 5.5
     std::ostream& print(std::ostream& os) const override;
+    //Task 6.3
+    bool intersect(Ray const& ray, float& t);
 
     //getter
     glm::vec3 getMinimum() const;

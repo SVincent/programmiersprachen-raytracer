@@ -35,11 +35,11 @@ Sphere::~Sphere() {
 };
 
 //functions
-double Sphere::area() { //override causes error: virt-specifiers in 'area' not allowed outside a class definition
+double Sphere::area() { 
     return 4*M_PI*radius_*radius_;
 };
 
-double Sphere::volume() { //override causes error: virt-specifiers in 'volume' not allowed outside a class definition
+double Sphere::volume() { 
     return (4.0/3.0)*M_PI*(radius_*radius_*radius_);
 };
 
@@ -52,7 +52,7 @@ std::ostream& Sphere::print(std::ostream& os) const {
 };
 
 //Task 5.6
-bool Sphere::intersect(Ray const& ray) {
+bool Sphere::intersect(Ray const& ray, float& t) {
     glm::vec3 direction = glm::normalize(ray.direction);
     float distance = 0.0f;
     return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance);

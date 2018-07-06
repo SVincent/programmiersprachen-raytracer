@@ -1,22 +1,23 @@
-#include "material.hpp";
+#include "material.hpp"
+#include <string>
 
 using namespace std;
 
 //constructors
-Material::Material() : 
-    name_("default material"),
-    reflexivity_(1.0f),
-    ambientcoefficient_(0.5f,0.5f,0.5f),
-    diffusecoefficient_(0.5f,0.5f,0.5f),
-    specularcoefficient_(0.5f,0.5f,0.5f)
+Material::Material() :
+    name_{"default material"},
+    reflexivity_{1.0f},
+    ambientcoefficient_{Color{0.5f,0.5f,0.5f}},
+    diffusecoefficient_{Color{0.5f,0.5f,0.5f}},
+    specularcoefficient_{Color{0.5f,0.5f,0.5f}} 
     {};
 
 Material::Material(string name, float m) :
-    name_(name),
-    reflexivity_(m),
-    ambientcoefficient_(0.5f,0.5f,0.5f),
-    diffusecoefficient_(0.5f,0.5f,0.5f),
-    specularcoefficient_(0.5f,0.5f,0.5f)
+    name_{name},
+    reflexivity_{m},
+    ambientcoefficient_{Color{0.5f,0.5f,0.5f}},
+    diffusecoefficient_{Color{0.5f,0.5f,0.5f}},
+    specularcoefficient_{Color{0.5f,0.5f,0.5f}}
     {};
 
 Material::Material(string name, float m, Color ka, Color kd, Color ks) :
