@@ -8,11 +8,14 @@ struct Material {
 public:
     //constructors
     Material();
+    Material(std::string name);
     Material(std::string name, float specular);
     Material(std::string name, float specular, Color ka, Color kd, Color ks);
 
     //methods
     std::ostream& print(std::ostream& os) const;
+
+    std::string getMaterialName();
 
 private:
     //member variables

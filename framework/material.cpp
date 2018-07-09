@@ -12,6 +12,10 @@ Material::Material() :
     specularcoefficient_{Color{0.5f,0.5f,0.5f}} 
     {};
 
+Material::Material(string name) :
+    name_{name}
+    {};
+
 Material::Material(string name, float m) :
     name_{name},
     reflexivity_{m},
@@ -29,6 +33,10 @@ Material::Material(string name, float m, Color ka, Color kd, Color ks) :
     {};
 
 //methods
+
+std::string Material::getMaterialName(){
+    return name_;
+}
 
 std::ostream& Material::print(std::ostream& os) const {
 	os << "Name: " << name_ << endl;
