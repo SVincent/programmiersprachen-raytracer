@@ -4,6 +4,8 @@
 #include "../framework/sphere.hpp"
 #include "../framework/Box.hpp"
 #include "../framework/color.hpp"
+#include "../framework/sdfreader.hpp"
+#include "../framework/scene.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
 
@@ -105,7 +107,34 @@ TEST_CASE("destructor tests","Task 5.8") {
   delete s1;
   delete s2;
 }
+TEST_CASE("box_intersect","[intersect]"){
+  // Box
+  glm::vec3 minimum1{-1.0,-1.0,-1.0};
+  glm::vec3 maximum1{-2.0,-2.0,-2.0};
+  Box box1{minimum1,maximum1};
 
+  // Ray (Standard constructor)
+  // glm::vec3 ray_origin{0.0f, 0.0f, 0.0f};
+  // glm::vec3 ray_direction{0.0f, 0.0f, -1.0f};
+  Ray ray1{};
+  float distance= 0.0f;
+
+  REQUIRE(box1.intersect(ray1,distance) == false);
+
+
+}
+
+TEST_CASE("read_sdf"){
+  //Scene s{};
+  //s = sdfReader::readSdf("materials.sdf");
+  //shared_ptr<Material> m =s.materials_.find("red")->second;
+  
+  Material m2{"red",20.0f, Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f}};
+  //shared_ptr<Material> m2pt = make_shared<Material>("red",20.0f, Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f})
+  //REQUIRE(s.materials_.find("red")->second->getMaterialName()=="red");
+ // m2.print(std::cout);
+  cout << m2;
+}
 
 int main(int argc, char *argv[])
 {
