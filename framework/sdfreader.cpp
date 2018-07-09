@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Scene readSdf(string const& fileInput)
+Scene sdfReader::readSdf(string const& fileInput)
 {
 
     Scene outputScene;
@@ -69,21 +69,34 @@ Scene readSdf(string const& fileInput)
         
     }
     return outputScene;
-}
-
-shared_ptr<Material> searchMatVec(string const& matName){
-    shared_ptr<Material> resMaterial;
-    vector<shared_ptr<Material>>::iterator iter;
-    vector<shared_ptr<Material>> materialsVec = sdfReader::matVec_;
-
-    auto lam = [matName](const shared_ptr<Material>& material){
-        return material->getMaterialName==matName;
-    };
-    //find
-
-    return resMaterial;
-}
+};
 
 
-shared_ptr<Material> searchMatSet(string const& matName);
-shared_ptr<Material> searchMatMap(string const& matName);
+shared_ptr<Material> sdfReader::searchMatVec(string const& matName) {
+    /*auto it = matVec_.begin();
+
+    while (it != matVec_.end()) {
+        if (it->getMaterialName() == matName) {
+            return it;
+        }
+    }*/
+    return nullptr;
+};
+
+
+shared_ptr<Material> sdfReader::searchMatSet(string const& matName) {
+    set<shared_ptr<Material>>::iterator it;
+    auto matSearch = make_shared<Material>(matName);
+    it = matSet_.find(matSearch);
+    return *it;
+};
+
+shared_ptr<Material> sdfReader::searchMatMap(string const& matName) {
+    map<string,shared_ptr<Material>>::iterator it;
+    it = matMap_.find(matName);
+    return it->second;
+};
+
+bool operator<(shared_ptr<Material> const& lhs, shared_ptr<Material> const& rhs) {
+    return (lhs->getMaterialName() < rhs->getMaterialName());
+};

@@ -10,6 +10,7 @@
 #include <vector>
 #include <algorithm>
 #include "scene.hpp"
+#include "material.hpp"
 
 using namespace std;
 
@@ -24,9 +25,12 @@ struct sdfReader{
     static shared_ptr<Material> searchMatSet(string const& matName);
     static shared_ptr<Material> searchMatMap(string const& matName);
 
+    //member variables
     static vector<shared_ptr<Material>> matVec_;
     static set<shared_ptr<Material>> matSet_;
     static map<string,shared_ptr<Material>> matMap_;
 };
+
+bool operator<(shared_ptr<Material> const& lhs, shared_ptr<Material> const& rhs);
 
 #endif

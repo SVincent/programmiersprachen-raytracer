@@ -86,7 +86,6 @@ bool Box::intersect(Ray const& ray, float& t) {
     }
 
     t = t_min; //distance to the nearest intersection-point
-    
     //todo: store t_min and t_max in Hit-struct
 
     return true;
