@@ -10,19 +10,15 @@ public:
     //constructors
     Sphere();
     Sphere(glm::vec3 const& center, float radius);
-    //Task 5.3
-    Sphere(glm::vec3 const& center, float radius, std::string name, Color const& color);
+    Sphere(glm::vec3 const& center, float radius, std::string name, std::shared_ptr<Material> material);
 
     //destructors
-    //Task 5.8
     ~Sphere();
 
     //functions
     double area() override;
 	double volume() override;
-    //Task 5.5
     std::ostream& print(std::ostream& os) const override;
-    //Task 5.6
     bool intersect(Ray const& ray, float& t) override;
 
     //getter

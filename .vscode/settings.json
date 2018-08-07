@@ -2,6 +2,7 @@
     "files.associations": {
         "typeinfo": "cpp",
         "deque": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "cmath": "cpp"
     }
 }

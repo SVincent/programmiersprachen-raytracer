@@ -1,7 +1,6 @@
 #include "sphere.hpp"
 #include "shape.hpp"
 #include <glm/gtx/intersect.hpp>
-//#include "ray.hpp"
 #include <cmath>
 
 using namespace std;
@@ -20,16 +19,13 @@ Sphere::Sphere(glm::vec3 const& cen, float rad) :
     {};
 
 //Task 5.3
-Sphere::Sphere(glm::vec3 const& cen, float rad, std::string name, Color const& color) : 
-    Shape(name,color),
-    //name_{name},
-    //color_{color},
+Sphere::Sphere(glm::vec3 const& cen, float rad, string name, shared_ptr<Material> material) : 
+    Shape(name, material),
 	center_{cen},
 	radius_{rad}
     {};
 
 //destructors
-//Task 5.8
 Sphere::~Sphere() {
     cout << "destructor class Sphere\n";
 };
@@ -43,7 +39,6 @@ double Sphere::volume() {
     return (4.0/3.0)*M_PI*(radius_*radius_*radius_);
 };
 
-//Task 5.5
 std::ostream& Sphere::print(std::ostream& os) const {
 	Shape::print(os);
 	os << "Center: " << "x: " << center_.x << " y: " << center_.y << " z: " <<center_.z << endl;
@@ -51,7 +46,6 @@ std::ostream& Sphere::print(std::ostream& os) const {
  	return os;
 };
 
-//Task 5.6
 bool Sphere::intersect(Ray const& ray, float& t) {
     glm::vec3 direction = glm::normalize(ray.direction);
     float distance = 0.0f;

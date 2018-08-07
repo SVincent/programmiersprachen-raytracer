@@ -10,19 +10,15 @@ public:
     //constructors
     Box();
     Box(glm::vec3 const& min, glm::vec3 const& max);
-    //Task 5.3
-    Box(glm::vec3 const& min, glm::vec3 const& max, std::string name, Color const& color);
+    Box(glm::vec3 const& min, glm::vec3 const& max, std::string name, std::shared_ptr<Material> material);
 
     //destructors
-    //Task 5.8
     ~Box();
 
     //functions
     double area() override;
 	double volume() override;
-    //Task 5.5
     std::ostream& print(std::ostream& os) const override;
-    //Task 6.3
     bool intersect(Ray const& ray, float& t);
 
     //getter

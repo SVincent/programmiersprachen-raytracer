@@ -6,26 +6,24 @@ using namespace std;
 
 //constructors
 Box::Box() :
-    Shape("default",Color{0.0f,0.0f,0.0f}),
+    Shape("default", make_shared<Material>(Material())),
 	minimum_({0.0,0.0,0.0}),
 	maximum_({0.0,0.0,0.0})
     {};
 
 Box::Box(glm::vec3 const& min, glm::vec3 const& max) : 
-    Shape("default",Color{0.0f,0.0f,0.0f}),
+    Shape("default", make_shared<Material>(Material())),
 	minimum_{min},
 	maximum_{max}
     {};
 
-//Task 5.3
-Box::Box(glm::vec3 const& min, glm::vec3 const& max, std::string name, Color const& color) : 
-    Shape(name,color),
+Box::Box(glm::vec3 const& min, glm::vec3 const& max, string name, shared_ptr<Material> material) : 
+    Shape(name, material),
 	minimum_{min},
 	maximum_{max}
     {};
 
 //destructors
-//Task 5.8
 Box::~Box() {
     cout << "destructor class Box\n";
 };
@@ -40,15 +38,15 @@ double Box::area()  {
 };
 
 double Box::volume()  {
-    /* double lenght = maximum_.x - minimum_.x;
+    /* functionally equivalent to the following
+    double lenght = maximum_.x - minimum_.x;
     double width = maximum_.y - minimum_.y;
-    double height = maximum_.z - minimum_.z; */
+    double height = maximum_.z - minimum_.z; 
+    return length*width*height; */
 
-    //return length*width*height;
     return (maximum_.x - minimum_.x)*(maximum_.y - minimum_.y)*(maximum_.z - minimum_.z);
 };
 
-//Task 5.5
 std::ostream& Box::print(std::ostream& os) const {
 	Shape::print(os);
 	os << "Minimum: " << "x: " << minimum_.x << " y: " << minimum_.y << " z: " << minimum_.z << endl;
@@ -56,7 +54,6 @@ std::ostream& Box::print(std::ostream& os) const {
 	return os;
 };
 
-//Task 6.3
 bool Box::intersect(Ray const& ray, float& t) {
     //calculate intersections with lines parallel to X, Y and Z axis which contain minimum_ and maximum_
     float tx_min = (minimum_.x - ray.origin.x) / ray.direction.x;
