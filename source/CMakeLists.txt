@@ -21,6 +21,8 @@ add_executable(tests
   ../framework/sphere.cpp
   ../framework/Box.cpp
   ../framework/material.cpp
+  ../framework/scene.hpp
+  ../framework/sdfreader.cpp
   tests.cpp)
 target_link_libraries(tests
   ${GLFW_LIBRARIES}

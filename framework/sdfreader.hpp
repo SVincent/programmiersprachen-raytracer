@@ -11,24 +11,28 @@
 #include <algorithm>
 #include "scene.hpp"
 #include "material.hpp"
+#include "shape.hpp"
+#include "Box.hpp"
+#include "sphere.hpp"
+#include <glm/vec3.hpp>
 
 using namespace std;
 
 struct sdfReader{
     // Constructor
-    sdfReader();
+    //sdfReader();
 
     // read sdf file 
-    static Scene readSdf(string const& fileInput);
+    Scene readSdf(string const& fileInput);
 
-    static shared_ptr<Material> searchMatVec(string const& matName);
-    static shared_ptr<Material> searchMatSet(string const& matName);
-    static shared_ptr<Material> searchMatMap(string const& matName);
+    //shared_ptr<Material> searchMatVec(string const& matName);
+    //shared_ptr<Material> searchMatSet(string const& matName);
+    shared_ptr<Material> searchMatMap(string const& matName);
 
     //member variables
-    static vector<shared_ptr<Material>> matVec_;
-    static set<shared_ptr<Material>> matSet_;
-    static map<string,shared_ptr<Material>> matMap_;
+    vector<shared_ptr<Material>> matVec_;
+    set<shared_ptr<Material>> matSet_;
+    map<string,shared_ptr<Material>> matMap_;
 };
 
 bool operator<(shared_ptr<Material> const& lhs, shared_ptr<Material> const& rhs);

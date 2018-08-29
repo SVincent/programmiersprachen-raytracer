@@ -120,20 +120,21 @@ TEST_CASE("box_intersect","[intersect]"){
   float distance= 0.0f;
 
   REQUIRE(box1.intersect(ray1,distance) == false);
-
-
 }
 
 TEST_CASE("read_sdf"){
-  //Scene s{};
-  //s = sdfReader::readSdf("materials.sdf");
-  //shared_ptr<Material> m =s.materials_.find("red")->second;
+  sdfReader sdf;
+  Scene s{};
+  s = sdf.readSdf("/home/jannis/Programmiersprachen/programmiersprachen-raytracer/materials.sdf");
   
-  Material m2{"red",20.0f, Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f}};
+  //shared_ptr<Material> b = a.searchMatSet("red");
+  //cout << "Material is: " << c << endl;
+
+  // Material m2{"red",20.0f, Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f}};
   //shared_ptr<Material> m2pt = make_shared<Material>("red",20.0f, Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f})
   //REQUIRE(s.materials_.find("red")->second->getMaterialName()=="red");
  // m2.print(std::cout);
-  cout << m2;
+  // cout << m2;
 }
 
 int main(int argc, char *argv[])

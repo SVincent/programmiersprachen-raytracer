@@ -9,16 +9,14 @@
 
 using namespace std;
 
-
 struct Scene{
 
     // Constructors 
-    Scene();
+    //Scene();
 
     // Members
     map<string,shared_ptr<Material>> materials_;
-
-    vector<shared_ptr<Shape>> shapes_;
+    map<string, shared_ptr<Shape>> shapes_;
 };
 
 #endif
