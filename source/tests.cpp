@@ -23,9 +23,6 @@ TEST_CASE("Sphere tests","Task 5.2") {
   Sphere sphere1{center,radius0};
   Sphere sphere2{glm::vec3{1.0,1.0,1.0}, radius1};
 
-  REQUIRE(sphere0.area() == 0.0);
-  REQUIRE(sphere0.volume() == 0.0);
-
   REQUIRE(sphere1.area() == Approx(12.5663706144));
   REQUIRE(sphere1.volume() == Approx(4.18879020479));
 
@@ -123,19 +120,18 @@ TEST_CASE("box_intersect","[intersect]"){
 }
 
 TEST_CASE("read_sdf"){
-  sdfReader sdf;
-  Scene s{};
-  s = sdf.readSdf("/home/jannis/Programmiersprachen/programmiersprachen-raytracer/materials.sdf");
-  
-  //shared_ptr<Material> b = a.searchMatSet("red");
-  //cout << "Material is: " << c << endl;
-
-  // Material m2{"red",20.0f, Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f}};
-  //shared_ptr<Material> m2pt = make_shared<Material>("red",20.0f, Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f},Color{1.0f, 0.0f,0.0f})
-  //REQUIRE(s.materials_.find("red")->second->getMaterialName()=="red");
- // m2.print(std::cout);
-  // cout << m2;
+  //sdfReader sdf;
+  //Scene s{};
+  //s = sdf.readSdf("/home/jannis/Programmiersprachen/programmiersprachen-raytracer/materials.sdf");
 }
+/*
+TEST_CASE("intersect"){
+  Sphere sp({3.0, 3.0, -6.0},2.0);
+  Ray ray{};
+  float c = 1.0f;
+  //sp.intersect(ray, c);
+  REQUIRE(sp.intersect(ray,c) == true);
+}*/
 
 int main(int argc, char *argv[])
 {

@@ -1,0 +1,18 @@
+#ifndef HIT_HPP
+#define HIT_HPP
+
+#include <glm/vec3.hpp>
+#include "shape.hpp"
+
+struct Hit{
+    //constructors
+    Hit();
+
+    Hit(bool hit, Shape* shape, glm::vec3 intersectionPoint);
+
+    //members
+    bool hit_;
+    Shape* shape_;
+    glm::vec3 intersectionPoint_;
+};
+#endif
