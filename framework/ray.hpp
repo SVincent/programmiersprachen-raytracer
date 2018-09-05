@@ -1,7 +1,7 @@
 #ifndef RAY_HPP
 #define RAY_HPP
 
-#include <glm/vec3.hpp>
+#include <glm/glm.hpp>
 
 struct Ray {
 
@@ -22,6 +22,9 @@ struct Ray {
         {};
 
     // members
+
+    Ray transformRay(glm::mat4 inv_transfMat, Ray const& ray);
+
     glm::vec3 origin;
     glm::vec3 direction;
 };
