@@ -138,17 +138,17 @@ TEST_CASE("translate & intersect") {
   //General variables
   Ray ray1{};
   float distance = 1.0f;
-  glm::vec3 translateVec{1.5f,1.5f,1.5f};
+  glm::vec3 translateVec{2.5f,2.5f,-2.5f};
 
   //Box
-  glm::vec3 minimum1{-1.0,-1.0,-1.0};
-  glm::vec3 maximum1{2.0,2.0,2.0};
+  glm::vec3 minimum1{-1.0,-1.0,1.0};
+  glm::vec3 maximum1{2.0,2.0,-2.0};
   Box box1{minimum1,maximum1};
 
   REQUIRE(box1.intersect(ray1,distance) == true);
 
-  //Ray ray2 = box1.translate(translateVec);
-  Ray ray2{1.5f,1.5f,1.5f};
+  Ray ray2 = box1.translate(translateVec, ray1);
+  //Ray ray2{1.5f,1.5f,1.5f};
 
   REQUIRE(box1.intersect(ray1,distance) == true);
   REQUIRE(box1.intersect(ray2,distance) == false);
@@ -159,7 +159,7 @@ TEST_CASE("translate & intersect") {
 
   REQUIRE(sphere1.intersect(ray1,distance) == true);
 
-  ray2 = sphere1.translate(translateVec);
+  ray2 = sphere1.translate(translateVec, ray1);
 
   REQUIRE(box1.intersect(ray1,distance) == true);
   REQUIRE(box1.intersect(ray2,distance) == false);
@@ -167,7 +167,7 @@ TEST_CASE("translate & intersect") {
 
 
 }
-
+/*
 TEST_CASE("rotate & intersect") {
   //General variables
   Ray ray1{};
@@ -181,7 +181,7 @@ TEST_CASE("rotate & intersect") {
 
   REQUIRE(box1.intersect(ray1,distance) == true);
 
-  Ray ray2 = box1.translate(rotateVec);
+  Ray ray2 = box1.rotate(rotateVec, ray1);
 
   REQUIRE(box1.intersect(ray1,distance) == true);
   REQUIRE(box1.intersect(ray2,distance) == false);
@@ -192,13 +192,13 @@ TEST_CASE("rotate & intersect") {
 
   REQUIRE(sphere1.intersect(ray1,distance) == true);
 
-  ray2 = sphere1.translate(rotateVec);
+  ray2 = sphere1.rotate(rotateVec, ray1);
 
   REQUIRE(box1.intersect(ray1,distance) == true);
   REQUIRE(box1.intersect(ray2,distance) == false);
 
-}
-
+}*/
+/*
 TEST_CASE("scale & intersect") {
   //General variables
   Ray ray1{};
@@ -230,7 +230,7 @@ TEST_CASE("scale & intersect") {
 
 
 
-}
+}*/
 int main(int argc, char *argv[])
 {
   return Catch::Session().run(argc, argv);
