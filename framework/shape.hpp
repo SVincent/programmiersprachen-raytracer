@@ -21,9 +21,9 @@ public:
 	virtual double volume() = 0;
     virtual std::ostream& print(std::ostream& os) const;
     virtual bool intersect(Ray const& ray, float& t) = 0;
-    void translate(glm::vec3 translationVec);
-    void rotate(glm::vec3 rotationVec);
-    void scale(glm::vec3 scaleVec);
+    Ray translate(glm::vec3 translationVec, Ray const& ray );
+    Ray rotate(glm::vec3 rotationVec, Ray const& ray);
+    Ray scale(glm::vec3 scaleVec, Ray const& ray);
 
     //getter
     std::string getName();
