@@ -5,6 +5,7 @@
 #include "ray.hpp"
 #include "material.hpp"
 #include <memory>
+#include <glm/vec3.hpp>
 
 class Shape {
 public:
@@ -20,6 +21,9 @@ public:
 	virtual double volume() = 0;
     virtual std::ostream& print(std::ostream& os) const;
     virtual bool intersect(Ray const& ray, float& t) = 0;
+    void translate(glm::vec3 translationVec);
+    void rotate(glm::vec3 rotationVec);
+    void scale(glm::vec3 scaleVec);
 
     //getter
     std::string getName();
@@ -29,6 +33,9 @@ protected:
     //member variables
     std::string name_;
     std::shared_ptr<Material> material_;
+    float translateMatrix_[4][4];
+    float rotationMatrix_[4][4];
+    float scaleMatrix_[4][4];
 };
 
 std::ostream& operator<<(std::ostream& os, Shape const& s);
