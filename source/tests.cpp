@@ -133,6 +133,104 @@ TEST_CASE("intersect"){
   REQUIRE(sp.intersect(ray,c) == true);
 }*/
 
+
+TEST_CASE("translate & intersect") {
+  //General variables
+  Ray ray1{};
+  float distance = 1.0f;
+  glm::vec3 translateVec{1.5f,1.5f,1.5f};
+
+  //Box
+  glm::vec3 minimum1{-1.0,-1.0,-1.0};
+  glm::vec3 maximum1{2.0,2.0,2.0};
+  Box box1{minimum1,maximum1};
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+
+  //Ray ray2 = box1.translate(translateVec);
+  Ray ray2{1.5f,1.5f,1.5f};
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+  REQUIRE(box1.intersect(ray2,distance) == false);
+
+  //Sphere
+  glm::vec3 center{0.0,0.0,0.0};
+  Sphere sphere1{center, 1.0f};
+
+  REQUIRE(sphere1.intersect(ray1,distance) == true);
+
+  ray2 = sphere1.translate(translateVec);
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+  REQUIRE(box1.intersect(ray2,distance) == false);
+
+
+
+}
+
+TEST_CASE("rotate & intersect") {
+  //General variables
+  Ray ray1{};
+  float distance = 1.0f;
+  glm::vec3 rotateVec{1.5f,1.5f,1.5f};
+
+  //Box
+  glm::vec3 minimum1{-1.0,-1.0,-1.0};
+  glm::vec3 maximum1{2.0,2.0,2.0};
+  Box box1{minimum1,maximum1};
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+
+  Ray ray2 = box1.translate(rotateVec);
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+  REQUIRE(box1.intersect(ray2,distance) == false);
+
+  //Sphere
+  glm::vec3 center{0.0,0.0,0.0};
+  Sphere sphere1{center, 1.0f};
+
+  REQUIRE(sphere1.intersect(ray1,distance) == true);
+
+  ray2 = sphere1.translate(rotateVec);
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+  REQUIRE(box1.intersect(ray2,distance) == false);
+
+}
+
+TEST_CASE("scale & intersect") {
+  //General variables
+  Ray ray1{};
+  float distance = 1.0f;
+  glm::vec3 scaleVec{1.5f,1.5f,1.5f};
+
+  //Box
+  glm::vec3 minimum1{-1.0,-1.0,-1.0};
+  glm::vec3 maximum1{2.0,2.0,2.0};
+  Box box1{minimum1,maximum1};
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+
+  Ray ray2 = box1.translate(scaleVec);
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+  REQUIRE(box1.intersect(ray2,distance) == false);
+
+  //Sphere
+  glm::vec3 center{0.0,0.0,0.0};
+  Sphere sphere1{center, 1.0f};
+
+  REQUIRE(sphere1.intersect(ray1,distance) == true);
+
+  ray2 = sphere1.translate(scaleVec);
+
+  REQUIRE(box1.intersect(ray1,distance) == true);
+  REQUIRE(box1.intersect(ray2,distance) == false);
+
+
+
+}
 int main(int argc, char *argv[])
 {
   return Catch::Session().run(argc, argv);
