@@ -51,6 +51,15 @@ Ray Shape::translate(glm::vec3 translationVec, Ray const& ray){
 //Ray rotate(glm::vec3 rotationVec, Ray const& ray);
 //Ray scale(glm::vec3 scaleVec, Ray const& ray);
 
+Ray Shape::transform(Ray const& ray){
+    glm::vec3 zeroVec{0.0f,0.0f,0.0f}; //translate & rotate without changing anything
+    glm::vec3 oneVec{1.0f,1.0f,1.0f}; //scale without changing anything
+    Ray transformedRay = Shape::translate(zeroVec, ray);
+    //transformedRay = Shape::rotate(zeroVec, transformedRay);
+    //transformedRay = Shape::scale(oneVec, transformedRay);
+    return transformedRay;
+}
+
 //Task 5.4
 std::ostream& Shape::print(std::ostream& os) const {
 	os << "Name: " << name_ << endl;

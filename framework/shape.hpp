@@ -24,6 +24,7 @@ public:
     Ray translate(glm::vec3 translationVec, Ray const& ray );
     Ray rotate(glm::vec3 rotationVec, Ray const& ray);
     Ray scale(glm::vec3 scaleVec, Ray const& ray);
+    Ray transform(Ray const& ray);
 
     //getter
     std::string getName();

@@ -58,14 +58,6 @@ TEST_CASE("Box tests","Task 5.2") {
   REQUIRE(box4.volume() == 1.0);
 }
 
-//Task 5.5
-TEST_CASE("print test", "task 5.5") {
-  Sphere sphere0{glm::vec3{1.0,1.0,1.0}, 2.0f};
-	cout << sphere0;
-	Box box0({0.0f,0.5f,1.0f}, {1.0f,1.0f,2.0f}, "Some box", make_shared<Material>(Material()));
-	cout << box0;
-}
-
 //Task 5.6
 TEST_CASE("intersect_ray_sphere","[intersect]") {
   // Ray
@@ -93,17 +85,6 @@ TEST_CASE("intersect_ray_sphere","[intersect]") {
   REQUIRE(sphere1.intersect(ray, distance) == true);
 }
 
-//Task 5.8
-TEST_CASE("destructor tests","Task 5.8") {
-  shared_ptr<Material> redmat{make_shared<Material>(Material())};
-  glm::vec3 position{0.0f, 0.0f, 0.0f};
-  Sphere* s1 = new Sphere{position, 1.2f, "sphere0", redmat};
-  Shape* s2 = new Sphere{position, 1.2f, "sphere1", redmat};
-  s1->print(std::cout);
-  s2->print(std::cout);
-  delete s1;
-  delete s2;
-}
 TEST_CASE("box_intersect","[intersect]"){
   // Box
   glm::vec3 minimum1{-1.0,-1.0,-1.0};
