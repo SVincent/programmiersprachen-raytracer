@@ -3,6 +3,7 @@
 
 #include <glm/vec3.hpp>
 #include "shape.hpp"
+#include <limits>
 
 struct Hit{
     //constructors
@@ -14,5 +15,6 @@ struct Hit{
     bool hit_;
     Shape* shape_;
     glm::vec3 intersectionPoint_;
+    float distance_;
 };
 #endif

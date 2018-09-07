@@ -9,13 +9,35 @@
 
 #include "renderer.hpp"
 
-Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
-  : width_(w)
+Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
+  : scene_(scene)
+  , width_(w)
   , height_(h)
   , color_buffer_(w*h, Color(0.0, 0.0, 0.0))
   , filename_(file)
   , ppm_(width_, height_)
 {}
+
+Color Renderer::rayTrace(Ray const& ray){
+  Hit closestHit{};
+  std::shared_ptr<Shape> closestObject = nullptr;
+  for (int i = 0; i < scene_.shapes_.size;i++){
+    Hit hit = scene_.shapes_[i]->intersect();
+    if (hit.distance_ < closestHit.distance_) {
+      closestHit = hit;
+      closestObject = scene_.shapes_[i];
+    }
+  }
+  if (closestObject != nullptr) {
+    return shade(closestObject, ray, Hit hit);
+  } else {
+    return Color(0.0, 0.0, 0.0); //default backgroundcolor
+  }
+}
+
+Color Renderer::shade(std::shared_ptr<Shape> Object, Ray const& ray, Hit hit) {
+  return Color(100.0, 100.0, 100.0);
+}
 
 void Renderer::render()
 {
@@ -23,6 +45,8 @@ void Renderer::render()
 
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
+
+      
       Pixel p(x,y);
       if ( ((x/checker_pattern_size)%2) != ((y/checker_pattern_size)%2)) {
         p.color = Color(0.0, 1.0, float(x)/height_);
