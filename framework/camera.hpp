@@ -1,27 +1,11 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
-#include <glm/glm.hpp>
-#include "ray.hpp"
+#include <glm/vec3.hpp>
 
 struct camera {
-    //constructors
-    camera();
-    camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec);
 
-    Ray shootRay(float x_s, float y_);
-
-    //members 
-    //Beobachtungspunkt e = origin
-    //Blickrichtung n = direction
-    //Up-Vektor up = upVec
-    glm::vec3 origin_;
-    glm::vec3 direction_;
-    glm::vec3 upVec_;
-
-    glm::vec3 u_;
-    glm::vec3 v_;
-    
-    float distance_;
+    //members
+    glm::vec3 origin;
 };
 #endif

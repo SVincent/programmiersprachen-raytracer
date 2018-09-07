@@ -4,7 +4,6 @@
 #include <string>
 #include "ray.hpp"
 #include "material.hpp"
-#include "Hit.hpp"
 #include <memory>
 #include <glm/vec3.hpp>
 #include <glm/glm.hpp>
@@ -22,8 +21,9 @@ public:
     virtual double area() = 0;
 	virtual double volume() = 0;
     virtual std::ostream& print(std::ostream& os) const;
-    virtual Hit intersect(Ray const& ray, float& t) = 0;
+    virtual bool intersect(Ray const& ray, float& t) = 0;
 
+    Ray transform(Ray const& ray);
 
     void translate(glm::vec3 const& translation);
     void rotate(glm::vec3 const& rotationAxis);

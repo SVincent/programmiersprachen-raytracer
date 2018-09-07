@@ -5,11 +5,10 @@
 #include <glm/vec3.hpp>
 #include "color.hpp"
 
-struct Light{
+struct light{
     //constructors
-    Light();
-    Light(std::string lightName, glm::vec3 lightPosition);
-    Light(std::string lightName, Color color, glm::vec3 lightPosition);
+    light();
+    light(std::string lightName, glm::vec3 lightPosition);
 
     //members
     std::string name_;

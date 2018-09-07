@@ -26,6 +26,7 @@ public:
 
   void render();
   Color rayTrace(Ray const& ray);
+  Color shade(std::shared_ptr<Shape> Object, Ray const& ray, Hit hit);
   void write(Pixel const& p);
 
   inline std::vector<Color> const& color_buffer() const
