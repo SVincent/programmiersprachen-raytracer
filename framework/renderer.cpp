@@ -19,8 +19,10 @@ Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
 {}
 
 Color Renderer::rayTrace(Ray const& ray){
+  float t;
   for (int i = 0; i < scene_.shapes_.size;i++){
-    Hit hit = scene_.shapes_[i]->intersect();
+    Hit hit = scene_.shapes_[i]->intersect(ray, t);
+    //Shape shape = scene_.shapes_[i].get();
   }
 }
 
