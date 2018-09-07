@@ -19,6 +19,7 @@ Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
 {}
 
 Color Renderer::rayTrace(Ray const& ray){
+<<<<<<< HEAD
   Hit closestHit{};
   std::shared_ptr<Shape> closestObject = nullptr;
   for (int i = 0; i < scene_.shapes_.size;i++){
@@ -32,6 +33,12 @@ Color Renderer::rayTrace(Ray const& ray){
     return shade(closestObject, ray, Hit hit);
   } else {
     return Color(0.0, 0.0, 0.0); //default backgroundcolor
+=======
+  float t;
+  for (int i = 0; i < scene_.shapes_.size;i++){
+    Hit hit = scene_.shapes_[i]->intersect(ray, t);
+    //Shape shape = scene_.shapes_[i].get();
+>>>>>>> c55da907e3a4af9b0989d14ba414bd8697e18957
   }
 }
 
