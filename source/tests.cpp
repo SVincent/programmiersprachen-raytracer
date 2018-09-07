@@ -114,7 +114,7 @@ TEST_CASE("intersect"){
   REQUIRE(sp.intersect(ray,c) == true);
 }*/
 
-
+/*
 TEST_CASE("translate & intersect") {
   //General variables
   Ray ray1{};
@@ -147,7 +147,7 @@ TEST_CASE("translate & intersect") {
 
 
 
-}
+}*/
 /*
 TEST_CASE("rotate & intersect") {
   //General variables

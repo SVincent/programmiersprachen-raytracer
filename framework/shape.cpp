@@ -97,17 +97,6 @@ void Shape::scale(glm::vec3 const& scales){
     inv_transformationMatrix_ = glm::inverse(transformationMatrix_);
 }
 
-Ray Shape::transform(Ray const& ray){
-    glm::vec3 zeroVec{0.0f,0.0f,0.0f}; //translate & rotate without changing anything
-    glm::vec3 oneVec{1.0f,1.0f,1.0f}; //scale without changing anything
-    //transformedRay = Shape::scale(oneVec, transformedRay);
-    //transformedRay = Shape::rotate(zeroVec, transformedRay);
-    //Ray transformedRay = Shape::translate(zeroVec, ray);
-    Ray transformedRay;
-    
-    return transformedRay;
-}
-
 //Task 5.4
 std::ostream& Shape::print(std::ostream& os) const {
 	os << "Name: " << name_ << endl;
