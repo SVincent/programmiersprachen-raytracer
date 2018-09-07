@@ -51,7 +51,7 @@ bool Sphere::intersect(Ray const& ray, float& t) {
     float distance = 0.0f;
     return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance);
 };*/
-
+/*
 Hit Sphere::intersect(Ray const& ray, float& t){
     glm::vec3 direction = glm::normalize(ray.direction);
     float distance = 0.0f;
@@ -64,6 +64,34 @@ Hit Sphere::intersect(Ray const& ray, float& t){
         Hit hitFalse{};
         return hitFalse;
     }
+}*/
+
+// Line-Sphere intersection as described on wikipedia
+Hit Sphere::intersect(Ray const& ray, float& t){
+    Ray newRay = ray.transformRay(inv_transformationMatrix_);
+    newRay.direction = glm::normalize(newRay.direction);
+    glm::vec3 rDirection = newRay.direction;
+    glm::vec3 rOrigin = newRay.origin;
+
+    glm::vec3 ocVec = rOrigin - center_;
+    float docScalar = (rDirection.x* ocVec.x) + (rDirection.y* ocVec.y) + (rDirection.z* ocVec.z);
+    float tempValue = (docScalar*docScalar)-((glm::length(rOrigin - center_))*(glm::length(rOrigin - center_))) + (radius_ * radius_);
+
+    float rootValue = std::min(sqrt(tempValue), -sqrt(tempValue));
+    float fullCalc = -1 * (docScalar) + rootValue;
+
+    if (tempValue > 0){
+        if (fullCalc > 0){
+
+            glm::vec3 position = rOrigin + rDirection;
+            //glm::vec3 normalized = glm::normalize(position - center_);
+            glm::vec3 transformedPos{transformationMatrix_ * glm::vec4{position,1}};
+
+            Hit returnHit(true, this, transformedPos);            
+        }
+    }
+
+
 }
 
 //getter
