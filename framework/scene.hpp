@@ -13,9 +13,9 @@ using namespace std;
 struct Scene{
 
     // Members
-    map<string,shared_ptr<Material>> materials_;
-    map<string, shared_ptr<Shape>> shapes_;
-    map<string,shared_ptr<Light>> lights_;
+    vector<shared_ptr<Material>> materials_;
+    vector<shared_ptr<Shape>> shapes_;
+    vector<shared_ptr<Light>> lights_;
 };
 
 #endif

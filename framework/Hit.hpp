@@ -14,5 +14,6 @@ struct Hit{
     bool hit_;
     Shape* shape_;
     glm::vec3 intersectionPoint_;
+    float distance_;
 };
 #endif

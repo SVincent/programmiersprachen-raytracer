@@ -14,16 +14,18 @@
 #include "pixel.hpp"
 #include "ppmwriter.hpp"
 #include "ray.hpp"
+#include "scene.hpp"
+#include "Hit.hpp"
 #include <string>
 #include <glm/glm.hpp>
 
 class Renderer
 {
 public:
-  Renderer(unsigned w, unsigned h, std::string const& file);
+  Renderer(Scene scene, unsigned w, unsigned h, std::string const& file);
 
   void render();
-  void rayTrace(Ray const& ray);
+  Color rayTrace(Ray const& ray);
   void write(Pixel const& p);
 
   inline std::vector<Color> const& color_buffer() const
@@ -37,6 +39,7 @@ private:
   std::vector<Color> color_buffer_;
   std::string filename_;
   PpmWriter ppm_;
+  Scene scene_;
 };
 
 #endif // #ifndef BUW_RENDERER_HPP

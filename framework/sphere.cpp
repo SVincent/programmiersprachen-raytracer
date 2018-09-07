@@ -45,14 +45,14 @@ std::ostream& Sphere::print(std::ostream& os) const {
 	os << "Radius: " << radius_ << endl;
  	return os;
 };
-
+/*
 bool Sphere::intersect(Ray const& ray, float& t) {
     glm::vec3 direction = glm::normalize(ray.direction);
     float distance = 0.0f;
     return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance);
-};
+};*/
 
-Hit Sphere::intersect(Ray const& ray){
+Hit Sphere::intersect(Ray const& ray, float& t){
     glm::vec3 direction = glm::normalize(ray.direction);
     float distance = 0.0f;
     glm::vec3 intersectionPoint; //TODO: get coordinates of intersection
