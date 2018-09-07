@@ -45,7 +45,7 @@ std::ostream& Sphere::print(std::ostream& os) const {
 	os << "Radius: " << radius_ << endl;
  	return os;
 };
-
+/*
 bool Sphere::intersect(Ray const& ray, float& t) {
     glm::vec3 direction = glm::normalize(ray.direction);
     float distance = 0.0f;
@@ -65,9 +65,10 @@ Hit Sphere::intersect(Ray const& ray){
         return hitFalse;
     }
 }
-
+*/
 // Line-Sphere intersection as described on wikipedia
 Hit Sphere::intersect(Ray const& ray, float& t){
+    Hit returnHit;
     Ray newRay = ray.transformRay(inv_transformationMatrix_);
     newRay.direction = glm::normalize(newRay.direction);
     glm::vec3 rDirection = newRay.direction;
@@ -86,10 +87,14 @@ Hit Sphere::intersect(Ray const& ray, float& t){
             glm::vec3 position = rOrigin + rDirection;
             //glm::vec3 normalized = glm::normalize(position - center_);
             glm::vec3 transformedPos{transformationMatrix_ * glm::vec4{position,1}};
-
-            Hit returnHit(true, this, transformedPos);            
+     
+            returnHit.hit_= true;
+            returnHit.shape_=this;
+            returnHit.intersectionPoint_=transformedPos;
+            returnHit.distance_= fullCalc;
         }
     }
+    return returnHit;
 
 
 }

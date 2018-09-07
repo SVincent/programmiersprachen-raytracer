@@ -20,8 +20,8 @@ public:
     double area() override;
 	double volume() override;
     std::ostream& print(std::ostream& os) const override;
-    bool intersect(Ray const& ray, float& t) override;
-    Hit intersect(Ray const& ray);
+    //bool intersect(Ray const& ray, float& t) override;
+    Hit intersect(Ray const& ray, float& t);
  
     //getter
     glm::vec3 getCenter() const;
