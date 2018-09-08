@@ -2,11 +2,9 @@
 #define BOX_HPP
 
 #include "shape.hpp"
-#include "ray.hpp"
-#include "Hit.hpp"
 #include <glm/vec3.hpp>
 
-class Box : public Shape {
+class Box: public Shape {
 public:
     //constructors
     Box();
@@ -20,7 +18,7 @@ public:
     double area() override;
 	double volume() override;
     std::ostream& print(std::ostream& os) const override;
-   // bool intersect(Ray const& ray, float& t);
+    //bool intersect(Ray const& ray, float& t);
     Hit intersect(Ray ray, float& t) override;
 
     //getter

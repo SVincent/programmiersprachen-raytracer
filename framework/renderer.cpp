@@ -43,17 +43,23 @@ Color Renderer::shade(std::shared_ptr<Shape> Object, Ray const& ray, Hit hit) {
 void Renderer::render()
 {
   std::size_t const checker_pattern_size = 20;
+  camera mainCamera;
 
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
-
-      
+      Ray thisRay = mainCamera.shootRay(x, y);
       Pixel p(x,y);
+      Color c {1,0,0};
+      c = rayTrace(thisRay);
+      p.color = c;
+      
+
+      /*
       if ( ((x/checker_pattern_size)%2) != ((y/checker_pattern_size)%2)) {
         p.color = Color(0.0, 1.0, float(x)/height_);
       } else {
         p.color = Color(1.0, 0.0, float(y)/width_);
-      }
+      }*/
 
       write(p);
     }

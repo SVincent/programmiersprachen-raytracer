@@ -19,6 +19,9 @@ int main(int argc, char* argv[])
   Scene newScene;
   newScene = sdfR.readSdf("/home/jannis/Programmiersprachen/programmiersprachen-raytracer/sceneOne.sdf");
 
+  newScene.shapes_[0]->translate(glm::vec3{0,1,1});
+  newScene.shapes_[0]->setMaterial(newScene.materials_[0]);
+
   Renderer renderer{newScene, image_width, image_height, filename};
 
   //create separate thread to see updates of pixels while rendering

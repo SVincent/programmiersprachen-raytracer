@@ -17,6 +17,7 @@
 #include "scene.hpp"
 #include "Hit.hpp"
 #include "shape.hpp"
+#include "camera.hpp"
 #include <string>
 #include <glm/glm.hpp>
 

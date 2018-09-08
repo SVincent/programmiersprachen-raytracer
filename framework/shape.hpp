@@ -35,6 +35,9 @@ public:
     std::string getName();
     std::shared_ptr<Material> getMaterial();
 
+    //setter
+    void setMaterial(std::shared_ptr<Material> material);
+
 protected:
     //member variables
     std::string name_;

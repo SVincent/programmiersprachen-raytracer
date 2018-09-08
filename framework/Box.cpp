@@ -88,10 +88,10 @@ bool Box::intersect(Ray const& ray, float& t) {
     return true;
 };*/
 
-Hit intersect(Ray ray, float& t){
+Hit Box::intersect(Ray ray, float& t){
     Hit hitFalse;
     return hitFalse;
-}
+};
 
 //getter
 glm::vec3 Box::getMinimum() const {

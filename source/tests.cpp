@@ -12,7 +12,7 @@
 #include <glm/glm.hpp>
 
 using namespace std;
-
+/*
 //Task 5.2
 TEST_CASE("Sphere tests","Task 5.2") {
   glm::vec3 center{0.0,0.0,0.0};
@@ -112,7 +112,7 @@ TEST_CASE("intersect"){
   float c = 1.0f;
   //sp.intersect(ray, c);
   REQUIRE(sp.intersect(ray,c) == true);
-}*/
+}
 
 
 TEST_CASE("translate & intersect") {
@@ -216,10 +216,10 @@ TEST_CASE("scale & intersect") {
 
   REQUIRE(box1.intersect(ray1,distance) == true);
   REQUIRE(box1.intersect(ray2,distance) == false);
+}*/
 
 
 
-}
 int main(int argc, char *argv[])
 {
   return Catch::Session().run(argc, argv);

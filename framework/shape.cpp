@@ -38,6 +38,10 @@ shared_ptr<Material> Shape::getMaterial() {
     return material_;
 };
 
+void Shape::setMaterial(shared_ptr<Material> material){
+    material_ = material;
+};
+
 void Shape::translate(glm::vec3 const& translation){
     glm::mat4 tempMatrix;
     tempMatrix [0] = glm::vec4{1.0, 0.0, 0.0, 0.0};
