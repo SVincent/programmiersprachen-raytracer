@@ -4,13 +4,16 @@
 #include <glm/vec3.hpp>
 #include <glm/glm.hpp>
 #include "ray.hpp"
+
 struct camera {
     //constructors
     camera();
-    camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec);
-    //members
-    glm::vec3 origin;
-    Ray shootRay(float x_s, float y_);
+    camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec, float fov);
+
+    //methods
+    Ray shootRay(float x, float y, float distance);
+    Ray shootRay(float x_, float y_);
+
     //members 
     //Beobachtungspunkt e = origin
     //Blickrichtung n = direction
@@ -22,5 +25,6 @@ struct camera {
     glm::vec3 v_;
     
     float distance_;
+    float fov_;
 };
 #endif 

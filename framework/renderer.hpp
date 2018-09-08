@@ -18,6 +18,7 @@
 #include "Hit.hpp"
 #include "shape.hpp"
 #include "camera.hpp"
+#include <cmath>
 #include <string>
 #include <glm/glm.hpp>
 
@@ -28,6 +29,7 @@ public:
 
   void render();
   Color rayTrace(Ray const& ray);
+  Hit closestHit(Ray const& ray) const;
   Color shade(std::shared_ptr<Shape> Object, Ray const& ray, Hit hit);
   void write(Pixel const& p);
 

@@ -1,4 +1,5 @@
 #include "camera.hpp"
+#include <iostream>
  
 camera::camera():
     origin_{0.0,0.0,0.0},
@@ -6,13 +7,25 @@ camera::camera():
     upVec_{0.0,0.0,0.0}
     {u_ = glm::normalize(glm::cross(direction_,upVec_));
      v_ = glm::normalize(glm::cross(u_, direction_));
+     fov_ = 45.0;
     }
-camera::camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec):
+
+camera::camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec, float fov):
     origin_{origin},
     direction_{direction},
-    upVec_{upVec}
+    upVec_{upVec},
+    fov_{fov}
     {}
+
+Ray camera::shootRay(float x, float y, float distance){
+    Ray newRay;
+    newRay.origin = glm::vec3(glm::mat4(1.0)*glm::vec4(0,0,0,1));
+    newRay.direction = glm::vec3(glm::mat4(1.0)*(glm::vec4(x,y,-distance,0)));
+    return newRay;
+}
+
 Ray camera::shootRay(float x_, float y_){
+    //std::cout << "shooting ray from camera." << std::endl;
     glm::mat4 camMatrix_ = {u_.x, v_.x, -direction_.x, origin_.x,
                             u_.y, v_.y, -direction_.y, origin_.y,
                             u_.z, v_.z, -direction_.z, origin_.z,

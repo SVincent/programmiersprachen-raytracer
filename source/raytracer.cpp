@@ -12,14 +12,14 @@
 int main(int argc, char* argv[])
 {
   unsigned const image_width = 800;
-  unsigned const image_height = 600;
+  unsigned const image_height = 700;
   std::string const filename = "./checkerboard.ppm";
 
   sdfReader sdfR;
   Scene newScene;
   newScene = sdfR.readSdf("/home/jannis/Programmiersprachen/programmiersprachen-raytracer/sceneOne.sdf");
 
-  newScene.shapes_[0]->translate(glm::vec3{0,1,1});
+  //newScene.shapes_[0]->translate(glm::vec3{0,1,1});
   newScene.shapes_[0]->setMaterial(newScene.materials_[0]);
 
   Renderer renderer{newScene, image_width, image_height, filename};

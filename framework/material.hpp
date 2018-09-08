@@ -16,6 +16,7 @@ public:
     std::ostream& print(std::ostream& os) const;
 
     std::string getMaterialName();
+    Color getColor();
 
 private:
     //member variables

@@ -19,35 +19,45 @@ Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
 {}
 
 Color Renderer::rayTrace(Ray const& ray){
+  Color backgroundcolor = Color(0.0, 1.0, 0.0);
   Hit closestHit{};
-  float f = 1.0f; // nur temporaer, float wert aus funktionskopf von intersect kann wohl entfernt werden
   std::shared_ptr<Shape> closestObject = nullptr;
   for (int i = 0; i < scene_.shapes_.size();i++){
-    Hit hit = scene_.shapes_[i]->intersect(ray, f);
+    Hit hit = scene_.shapes_[i]->intersect(ray);
     if (hit.distance_ < closestHit.distance_) {
+      //std::cout << "hit with distance: " << hit.distance_ << std::endl;
       closestHit = hit;
       closestObject = scene_.shapes_[i];
     }
   }
+  if (closestHit.hit_){
+    return closestObject->getMaterial()->getColor();
+    //return Color(1.0,0.0,0.0);
+  }
   if (closestObject != nullptr) {
-    return shade(closestObject, ray, closestHit);
+    std::cout << "Hit with color red" << std::endl;
+    return Color(1.0,0.0,0.0);
+    //return shade(closestObject, ray, closestHit);
   } else {
-    return Color(0.0, 0.0, 0.0); //default backgroundcolor
+    return backgroundcolor; //default backgroundcolor
   }
 }
 
 Color Renderer::shade(std::shared_ptr<Shape> Object, Ray const& ray, Hit hit) {
-  return Color(100.0, 100.0, 100.0);
+  return Color(1.0, 0.0, 0.0);
 }
+
 
 void Renderer::render()
 {
   std::size_t const checker_pattern_size = 20;
   camera mainCamera;
+  float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
 
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
-      Ray thisRay = mainCamera.shootRay(x, y);
+      Ray thisRay = mainCamera.shootRay(x, y, distance);
+      //std::cout << "shoot ray through " << x << ", " << y << std::endl;
       Pixel p(x,y);
       Color c {1,0,0};
       c = rayTrace(thisRay);
@@ -62,6 +72,7 @@ void Renderer::render()
       }*/
 
       write(p);
+      
     }
   }
   ppm_.save(filename_);

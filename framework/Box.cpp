@@ -88,9 +88,9 @@ bool Box::intersect(Ray const& ray, float& t) {
     return true;
 };*/
 
-Hit Box::intersect(Ray ray, float& t){
+Hit Box::intersect(Ray ray){
     Hit hitFalse;
-    return hitFalse;
+    return hitFalse; 
 };
 
 //getter

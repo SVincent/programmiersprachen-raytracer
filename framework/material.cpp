@@ -36,14 +36,18 @@ Material::Material(string name, float m, Color ka, Color kd, Color ks) :
 
 std::string Material::getMaterialName(){
     return name_;
-}
+};
+
+Color Material::getColor(){
+    return Color(ambientcoefficient_);
+};
 
 std::ostream& Material::print(std::ostream& os) const {
 	os << "Name: " << name_ << endl;
     os << "reflexivity: " << reflexivity_ << endl;
     os << "ambient coefficient: " << ambientcoefficient_ <<  endl;
-    os << "ambient coefficient: " << diffusecoefficient_ <<  endl;
-    os << "ambient coefficient: " << specularcoefficient_ <<  endl;
+    os << "diffuse coefficient: " << diffusecoefficient_ <<  endl;
+    os << "specular coefficient: " << specularcoefficient_ <<  endl;
 	return os;
 };
 
