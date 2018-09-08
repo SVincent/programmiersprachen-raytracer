@@ -5,7 +5,8 @@ add_dependencies(example glfw ${FRAMEWORK_NAME} ${COPY_BINARY})
 
 install(TARGETS example DESTINATION .)
 
-add_executable(raytracer raytracer.cpp)
+add_executable(raytracer
+  raytracer.cpp)
 
 target_link_libraries(raytracer ${FRAMEWORK_NAME} ${LIBRARIES}
   glfw
@@ -24,6 +25,7 @@ add_executable(tests
   ../framework/scene.hpp
   ../framework/sdfreader.cpp
   ../framework/Hit.cpp
+  ../framework/ray.cpp
   tests.cpp)
 target_link_libraries(tests
   ${GLFW_LIBRARIES}

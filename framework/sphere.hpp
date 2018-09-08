@@ -2,8 +2,6 @@
 #define SPHERE_HPP
 
 #include "shape.hpp"
-#include "ray.hpp"
-#include "Hit.hpp"
 #include <glm/vec3.hpp>
 
 class Sphere : public Shape {
@@ -21,7 +19,7 @@ public:
 	double volume() override;
     std::ostream& print(std::ostream& os) const override;
     //bool intersect(Ray const& ray, float& t) override;
-    Hit intersect(Ray const& ray, float& t);
+    Hit intersect(Ray ray, float& t) override;
  
     //getter
     glm::vec3 getCenter() const;

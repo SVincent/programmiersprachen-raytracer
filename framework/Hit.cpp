@@ -4,7 +4,7 @@ Hit::Hit():
     hit_{false},
     shape_ {nullptr},
     intersectionPoint_{0.0, 0.0, 0.0},
-    distance_{std::numeric_limits<float>::infinity();} //muss vielleicht aus der initialisierungsliste heraus
+    distance_{std::numeric_limits<float>::infinity()} //muss vielleicht aus der initialisierungsliste heraus
     {};
 
 Hit::Hit(bool hit, Shape* shape, glm::vec3 intersectionPoint):

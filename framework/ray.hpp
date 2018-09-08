@@ -24,7 +24,7 @@ struct Ray {
     // members
 
     Ray transformRay(glm::mat4 inv_transfMat, Ray const& ray) const;
-    Ray transformRay(glm::mat4 inv_transfMat) const;
+    Ray transformRay(glm::mat4 inv_transfMat);
 
     glm::vec3 origin;
     glm::vec3 direction;

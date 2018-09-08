@@ -1,5 +1,8 @@
 #include <renderer.hpp>
 #include <window.hpp>
+#include "sdfreader.hpp"
+#include "scene.hpp"
+#include "shape.hpp"
 
 #include <GLFW/glfw3.h>
 #include <thread>
@@ -12,7 +15,11 @@ int main(int argc, char* argv[])
   unsigned const image_height = 600;
   std::string const filename = "./checkerboard.ppm";
 
-  Renderer renderer{image_width, image_height, filename};
+  sdfReader sdfR;
+  Scene newScene;
+  newScene = sdfR.readSdf("/home/jannis/Programmiersprachen/programmiersprachen-raytracer/sceneOne.sdf");
+
+  Renderer renderer{newScene, image_width, image_height, filename};
 
   //create separate thread to see updates of pixels while rendering
   std::thread render_thread([&renderer]() {renderer.render();});

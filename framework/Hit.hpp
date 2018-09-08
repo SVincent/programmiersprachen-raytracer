@@ -2,8 +2,10 @@
 #define HIT_HPP
 
 #include <glm/vec3.hpp>
-#include "shape.hpp"
+//#include "shape.hpp"
 #include <limits>
+
+class Shape;
 
 struct Hit{
     //constructors
@@ -13,7 +15,8 @@ struct Hit{
 
     //members
     bool hit_;
-    Shape* shape_;
+    //Shape* shape_;
+    Shape* shape_{nullptr};
     glm::vec3 intersectionPoint_;
     float distance_;
 };

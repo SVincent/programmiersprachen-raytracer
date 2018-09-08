@@ -53,7 +53,7 @@ std::ostream& Box::print(std::ostream& os) const {
 	os << "Maximum: " << "x: " << maximum_.x << " y: " << maximum_.y << " z: " << maximum_.z << endl;
 	return os;
 };
-
+/*
 bool Box::intersect(Ray const& ray, float& t) {
     //calculate intersections with lines parallel to X, Y and Z axis which contain minimum_ and maximum_
     float tx_min = (minimum_.x - ray.origin.x) / ray.direction.x;
@@ -86,9 +86,9 @@ bool Box::intersect(Ray const& ray, float& t) {
     //todo: store t_min and t_max in Hit-struct
 
     return true;
-};
+};*/
 
-Hit intersect(Ray const& ray){
+Hit intersect(Ray ray, float& t){
     Hit hitFalse;
     return hitFalse;
 }

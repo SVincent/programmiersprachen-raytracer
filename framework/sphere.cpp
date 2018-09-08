@@ -67,8 +67,8 @@ Hit Sphere::intersect(Ray const& ray){
 }
 */
 // Line-Sphere intersection as described on wikipedia
-Hit Sphere::intersect(Ray const& ray, float& t){
-    Hit returnHit;
+Hit Sphere::intersect(Ray ray, float& t){
+    Hit returnHit; 
     Ray newRay = ray.transformRay(inv_transformationMatrix_);
     newRay.direction = glm::normalize(newRay.direction);
     glm::vec3 rDirection = newRay.direction;
@@ -89,7 +89,8 @@ Hit Sphere::intersect(Ray const& ray, float& t){
             glm::vec3 transformedPos{transformationMatrix_ * glm::vec4{position,1}};
      
             returnHit.hit_= true;
-            returnHit.shape_=this;
+            //returnHit.shape_=make_shared<Shape>(this);
+            returnHit.shape_ = this;
             returnHit.intersectionPoint_=transformedPos;
             returnHit.distance_= fullCalc;
         }
