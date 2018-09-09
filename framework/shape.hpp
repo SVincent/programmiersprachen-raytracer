@@ -22,7 +22,7 @@ public:
     virtual double area() = 0;
 	virtual double volume() = 0;
     virtual std::ostream& print(std::ostream& os) const;
-    //virtual bool intersect(Ray const& ray, float& t) = 0;
+    virtual bool intersectBool(Ray const& ray) = 0;
     virtual Hit intersect(Ray ray) = 0;
 
     Ray transform(Ray const& ray);

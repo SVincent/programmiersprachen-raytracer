@@ -18,7 +18,7 @@ public:
     double area() override;
 	double volume() override;
     std::ostream& print(std::ostream& os) const override;
-    //bool intersect(Ray const& ray, float& t) override;
+    bool intersectBool(Ray const& ray) override;
     Hit intersect(Ray ray) override;
  
     //getter

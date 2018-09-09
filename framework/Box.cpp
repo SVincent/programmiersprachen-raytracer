@@ -53,8 +53,8 @@ std::ostream& Box::print(std::ostream& os) const {
 	os << "Maximum: " << "x: " << maximum_.x << " y: " << maximum_.y << " z: " << maximum_.z << endl;
 	return os;
 };
-/*
-bool Box::intersect(Ray const& ray, float& t) {
+
+bool Box::intersectBool(Ray const& ray) {
     //calculate intersections with lines parallel to X, Y and Z axis which contain minimum_ and maximum_
     float tx_min = (minimum_.x - ray.origin.x) / ray.direction.x;
     float tx_max = (maximum_.x - ray.origin.x) / ray.direction.x;
@@ -82,11 +82,11 @@ bool Box::intersect(Ray const& ray, float& t) {
         t_max = tz_max;
     }
 
-    t = t_min; //distance to the nearest intersection-point
+    float t = t_min; //distance to the nearest intersection-point
     //todo: store t_min and t_max in Hit-struct
 
     return true;
-};*/
+};
 
 Hit Box::intersect(Ray ray){
     Hit hitFalse;

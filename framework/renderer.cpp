@@ -20,8 +20,18 @@ Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
 
 Color Renderer::rayTrace(Ray const& ray){
   Color backgroundcolor = Color(0.0, 1.0, 0.0);
-  Hit closestHit{};
+  Hit closestHit;
+  Hit tempHit;
   std::shared_ptr<Shape> closestObject = nullptr;
+
+  for(auto& shape : scene_.shapes_){
+    tempHit = shape->intersect(ray);
+    if (tempHit.distance_ < closestHit.distance_){
+      closestHit = tempHit;
+    }
+    closestObject = shape;
+  }
+/*
   for (int i = 0; i < scene_.shapes_.size();i++){
     Hit hit = scene_.shapes_[i]->intersect(ray);
     if (hit.distance_ < closestHit.distance_) {
@@ -29,16 +39,18 @@ Color Renderer::rayTrace(Ray const& ray){
       closestHit = hit;
       closestObject = scene_.shapes_[i];
     }
-  }
+    }*/
   if (closestHit.hit_){
+    std::cout << "HIT" << std::endl;
     return closestObject->getMaterial()->getColor();
     //return Color(1.0,0.0,0.0);
-  }
+  }/*
   if (closestObject != nullptr) {
     std::cout << "Hit with color red" << std::endl;
     return Color(1.0,0.0,0.0);
     //return shade(closestObject, ray, closestHit);
-  } else {
+  }*/ else {
+    std::cout << "NO HIT" << std::endl;
     return backgroundcolor; //default backgroundcolor
   }
 }
@@ -62,18 +74,28 @@ void Renderer::render()
       Color c {1,0,0};
       c = rayTrace(thisRay);
       p.color = c;
-      
-
-      /*
-      if ( ((x/checker_pattern_size)%2) != ((y/checker_pattern_size)%2)) {
-        p.color = Color(0.0, 1.0, float(x)/height_);
-      } else {
-        p.color = Color(1.0, 0.0, float(y)/width_);
-      }*/
 
       write(p);
-      
     }
+  }
+  ppm_.save(filename_);
+}
+
+
+void Renderer::render2(){
+  for (int y=0; y < height_; ++y){
+    for (int x=0; x < width_; ++x){
+      Pixel p(x,y);
+      Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
+      //shared_ptr<Shape> shape = scene_.shapes_[0];
+      for (auto& shape : scene_.shapes_){
+      if (shape->intersectBool(ray)){
+        std::cout << "intersected " << shape->getName() << " with material: " << shape->getMaterial()->getMaterialName() << " and color: " << shape->getMaterial()->getColor() << std::endl;
+        Color c = shape->getMaterial()->getColor();
+        p.color = c;
+      }
+      write(p);
+    }}
   }
   ppm_.save(filename_);
 }

@@ -45,13 +45,13 @@ std::ostream& Sphere::print(std::ostream& os) const {
 	os << "Radius: " << radius_ << endl;
  	return os;
 };
-/*
-bool Sphere::intersect(Ray const& ray, float& t) {
+
+bool Sphere::intersectBool(Ray const& ray) {
     glm::vec3 direction = glm::normalize(ray.direction);
     float distance = 0.0f;
     return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance);
 };
-
+/*
 Hit Sphere::intersect(Ray const& ray){
     glm::vec3 direction = glm::normalize(ray.direction);
     float distance = 0.0f;
@@ -93,12 +93,10 @@ Hit Sphere::intersect(Ray ray){
             returnHit.shape_ = this;
             returnHit.intersectionPoint_=transformedPos;
             returnHit.distance_= fullCalc;
-            std::cout << "Hit sphere! at point: " << transformedPos.x << ", " << transformedPos.y << ", " << transformedPos.z << std::endl;
+            //std::cout << "Hit sphere! at point: " << transformedPos.x << ", " << transformedPos.y << ", " << transformedPos.z << std::endl;
         }
     }
     return returnHit;
-
-
 }
 
 //getter
