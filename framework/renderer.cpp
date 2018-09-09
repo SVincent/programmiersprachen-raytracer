@@ -81,13 +81,13 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
-
 void Renderer::render2(){
   for (int y=0; y < height_; ++y){
     for (int x=0; x < width_; ++x){
       Pixel p(x,y);
       Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
       //shared_ptr<Shape> shape = scene_.shapes_[0];
+      //std::cout << "shoot ray through " << x << ", " << y << std::endl;
       for (auto& shape : scene_.shapes_){
       if (shape->intersectBool(ray)){
         std::cout << "intersected " << shape->getName() << " with material: " << shape->getMaterial()->getMaterialName() << " and color: " << shape->getMaterial()->getColor() << std::endl;
@@ -99,6 +99,29 @@ void Renderer::render2(){
   }
   ppm_.save(filename_);
 }
+
+
+void Renderer::render3()
+{
+  for (unsigned y = 0; y < height_; ++y) {
+    for (unsigned x = 0; x < width_; ++x) {
+      //Ray thisRay = mainCamera.shootRay(x, y, distance);
+      Ray thisRay(glm::vec3(x,y,0),glm::vec3(0,0,1));
+      //std::cout << "shoot ray through " << x << ", " << y << std::endl;
+      Pixel p(x,y);
+      for (auto& shape : scene_.shapes_) {
+        if (shape->intersectBool(thisRay)) {
+          Color c {1,1,1};
+          p.color = c;
+        }
+      }
+
+      write(p);
+    }
+  }
+  ppm_.save(filename_);
+}
+
 
 void Renderer::write(Pixel const& p)
 {

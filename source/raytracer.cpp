@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 
   sdfReader sdfR;
   Scene newScene;
-  newScene = sdfR.readSdf("/home/jannis/Programmiersprachen/programmiersprachen-raytracer/sceneOne.sdf");
+  newScene = sdfR.readSdf("/home/vincent/Documents/programming/programmiersprachen-raytracer/sceneOne.sdf");
 
   //newScene.shapes_[0]->translate(glm::vec3{0,1,1});
   newScene.shapes_[0]->setMaterial(newScene.materials_[0]);

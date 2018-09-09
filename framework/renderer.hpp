@@ -30,6 +30,7 @@ public:
 
   void render();
   void render2();
+  void render3();
   Color rayTrace(Ray const& ray);
   Hit closestHit(Ray const& ray) const;
   Color shade(std::shared_ptr<Shape> Object, Ray const& ray, Hit hit);
