@@ -35,7 +35,7 @@ public:
   Color rayTrace(Ray const& ray, float factor);
   Hit calcClosestHit(Ray const& ray); 
   Color calcShade(Ray const& ray, Hit const & hit, float depth);
-  //Color calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit);
+  Color calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit);
   Color calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay);
   Color calcSpecularColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay, Ray const& ray);
   Color calcReflection(Hit const& hit, Ray const& ray, float factor);

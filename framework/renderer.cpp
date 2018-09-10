@@ -136,6 +136,23 @@ Color Renderer::calcReflection(Hit const& hit, Ray const& ray, float factor){
   return reflectColor;
 }
 
+Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit){
+  Color lightColor;
+  glm::vec3 lightDir = glm::normalize((light->position_)-(hit.intersectionPoint_));
+
+  Ray tempRay(hit.intersectionPoint_ + (0.01f * hit.normalizedVec_), lightDir);
+
+  Hit shadowHit;
+  shadowHit = calcClosestHit(tempRay);
+  if (shadowHit.hit_){
+    return lightColor;
+  }
+  else{
+    lightColor = light->color_ *(calcSpecularColor(light,hit, ray, tempRay) + calcDiffuseColor(light, hit, ray));
+    return lightColor;
+  }
+}
+
 
 void Renderer::render()
 {
