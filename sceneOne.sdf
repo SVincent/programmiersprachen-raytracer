@@ -1,6 +1,7 @@
 define material red 1 0 0 1 0 0 1 0 0 20
 define material green 0 1 0 0 1 0 0 1 0 50
 define material blue 0 0 1 0 0 1 0 0 1 10
+<<<<<<< HEAD
 define material lightblue 0 0 0.5 0 0 0.5 0 0 0.5 20
 define shape sphere bsphere 400 350 110 60 blue
 define shape sphere csphere 300 350 50 150 red
@@ -8,3 +9,15 @@ define shape sphere dsphere 450 500 100 250 green
 define shape sphere esphere 100 100 10 80 lightblue
 define light apoint 0 0 0 0.8 0 0 80
 define light bpoint 400 400 0 0 0 1 1
+=======
+define material lightblue 0 0 0 0 0 0 0.2 0 0 20
+define shape sphere bsphere 400 350 120 60 blue
+define shape sphere csphere 300 350 50 150 red
+define shape sphere dsphere 450 500 100 250 green
+define light redpointlight 100 100 50 1.0 0.0 0.0 100
+define light greenpointlight 200 200 250 0.0 1.0 0.0 50
+define light bluepointlight 400 400 100 0.0 0.0 1.0 25
+define light purplepointlight 250 150 50 0.75 0.0 0.75 100
+define light yellowpointlight 300 500 250 0.75 0.75 0.0 50
+define light cyanpointlight 50 80 100 0.0 0.75 0.75 25
+>>>>>>> 9eef1aad72fe48bcd982cfd0dced2c71decc34ac

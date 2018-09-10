@@ -52,7 +52,7 @@ bool Sphere::intersectBool(Ray const& ray) {
     return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance);
 };
 
-bool Sphere::intersectBoolTwo(const Ray& ray, float &t) const {
+bool Sphere::intersectBoolTwo(const Ray& ray, float &t) const{
     const glm::vec3 o = ray.origin;
     const glm::vec3 d = ray.direction;
     const glm::vec3 oc = o - center_;

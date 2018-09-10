@@ -56,7 +56,7 @@ Scene sdfReader::readSdf(string const& fileInput)
                     strStream >> reflexivity;
 
                     material = make_shared<Material>(materialName,reflexivity, ambientcoefficient,diffusecoefficient,specularcoefficient);
-                    outputScene.materials_.insert(outputScene.materials_.begin(),material);
+                    outputScene.materials_.insert(outputScene.materials_.end(),material);
 
                     //matVec.push_back(material);
                     //matSet.insert(material);
@@ -100,7 +100,7 @@ Scene sdfReader::readSdf(string const& fileInput)
                        //boxMaterial->getMaterialName();
 
                         box = make_shared<Box>(minVec,maxVec,boxName,boxMaterial);
-                        outputScene.shapes_.insert(outputScene.shapes_.begin(),box);
+                        outputScene.shapes_.insert(outputScene.shapes_.end(),box);
                         cout << "Added box: " << boxName << " to the scene." << endl;
                     }
                     if (!currentWord.compare("sphere")){
@@ -130,7 +130,7 @@ Scene sdfReader::readSdf(string const& fileInput)
                         shared_ptr<Material> sphereMaterial = this->searchMatMap(materialName);
 
                         sphere = make_shared<Sphere>(centerVec, radius_value, sphereName, sphereMaterial);
-                        outputScene.shapes_.insert(outputScene.shapes_.begin(),sphere);
+                        outputScene.shapes_.insert(outputScene.shapes_.end(),sphere);
                         cout << "Added sphere: " << sphereName << " to the scene." << endl;
                     }
                 }
@@ -160,7 +160,7 @@ Scene sdfReader::readSdf(string const& fileInput)
                     strStream >> brightness;
 
                     light = make_shared<Light>(lightName, positionVec, lightColor, brightness);
-                    outputScene.lights_.insert(outputScene.lights_.begin(), light);
+                    outputScene.lights_.insert(outputScene.lights_.end(), light);
                     cout << "Added light: " << lightName << " to the scene." << endl;
                 }
                 if (!currentWord.compare("camera")){
