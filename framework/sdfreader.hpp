@@ -14,6 +14,7 @@
 #include "shape.hpp"
 #include "Box.hpp"
 #include "sphere.hpp"
+#include "camera.hpp"
 #include <glm/vec3.hpp>
 
 using namespace std;

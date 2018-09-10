@@ -5,6 +5,7 @@
 #include "shape.hpp"
 #include "color.hpp"
 #include "light.hpp"
+#include "camera.hpp"
 #include <vector>
 #include <string>
 #include <memory>
@@ -21,6 +22,7 @@ struct Scene{
     vector<shared_ptr<Shape>> shapes_;
     vector<shared_ptr<Light>> lights_;
     Color ambientLightCol_;
+    camera mainCam_;
 };
 
 #endif

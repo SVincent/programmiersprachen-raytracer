@@ -2,6 +2,7 @@
 #include <iostream>
  
 camera::camera():
+    name_{"defaultCam"},
     origin_{0.0,0.0,0.0},
     direction_{0.0,0.0,-1.0},
     upVec_{0.0,0.0,0.0}
@@ -23,6 +24,7 @@ Ray camera::shootRay(float x, float y, float distance){
     newRay.direction = glm::vec3(glm::mat4(1.0)*(glm::vec4(x,y,-distance,0)));
     return newRay;
 }
+
 
 Ray camera::shootRay(float x_, float y_){
     //std::cout << "shooting ray from camera." << std::endl;

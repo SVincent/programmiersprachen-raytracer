@@ -3,6 +3,7 @@
 
 #include <glm/vec3.hpp>
 #include <glm/glm.hpp>
+#include <string>
 #include "ray.hpp"
 
 struct camera {
@@ -26,5 +27,7 @@ struct camera {
     
     float distance_;
     float fov_;
+
+    std::string name_;
 };
 #endif 
