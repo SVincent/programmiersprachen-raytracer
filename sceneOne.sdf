@@ -1,6 +1,7 @@
 define material red 1 0 0 1 0 0 1 0 0 20
 define material green 0 1 0 0 1 0 0 1 0 50
 define material blue 0 0 1 0 0 1 0 0 1 10
-define shape sphere bsphere 400 350 50 200 blue
-define shape sphere csphere 100 200 40 100 red
+define material light blue 0 0 0 0 0 0 0.2 0 0 20
+define shape sphere bsphere 400 350 40 200 blue
+define shape sphere csphere 100 200 40 100 light blue
 define shape sphere dsphere 600 500 40 20 green

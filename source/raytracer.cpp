@@ -18,14 +18,14 @@ int main(int argc, char* argv[])
   sdfReader sdfR;
   Scene newScene;
   newScene = sdfR.readSdf("/home/jannis/Programmiersprachen/programmiersprachen-raytracer/sceneOne.sdf");
-  newScene.ambientLightCol_=Color(1.0,1.0,1.0);
+  //newScene.ambientLightCol_=Color(0.1,0.1,0.1);
   //newScene.shapes_[0]->translate(glm::vec3{0,1,1});
   //newScene.shapes_[0]->setMaterial(newScene.materials_[0]);
 
   Renderer renderer{newScene, image_width, image_height, filename};
 
   //create separate thread to see updates of pixels while rendering
-  std::thread render_thread([&renderer]() {renderer.render2();});
+  std::thread render_thread([&renderer]() {renderer.render3();});
 
   Window window{{image_width, image_height}};
 

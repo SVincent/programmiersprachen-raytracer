@@ -18,7 +18,75 @@ Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
   , ppm_(width_, height_)
 {}
 
-Color Renderer::rayTrace(Ray const& ray, float factor){
+void Renderer::render()
+{
+  camera mainCamera;
+  //float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
+  for (unsigned y = 0; y < height_; ++y) {
+    for (unsigned x = 0; x < width_; ++x) {
+      Ray thisRay = mainCamera.shootRay(x, y);
+      //std::cout << "shoot ray through " << x << ", " << y << std::endl;
+      Pixel p(x,y);
+      Color c {1,0,0};
+      c = rayTrace(thisRay, 1);
+      p.color = c;
+
+      write(p);
+    }
+  }
+  ppm_.save(filename_);
+}
+
+void Renderer::render2(){
+  camera mainCamera;
+  //float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
+
+  for (int y=0; y < height_; ++y){
+    for (int x=0; x < width_; ++x){
+      Pixel p(x,y);
+      Ray thisRay = mainCamera.shootRay(x, y, 100);
+      Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
+      //std::cout << "shoot ray through " << x << ", " << y << std::endl;
+      for (auto& shape : scene_.shapes_){
+      if (shape->intersectBool(ray)){
+        //std::cout << "intersected " << shape->getName() << " with material: " << shape->getMaterial()->getMaterialName() << " and color: " << shape->getMaterial()->getColor() << std::endl;
+        Color c = rayTrace(ray, 1);
+        //Color c = shape->getMaterial()->getColor();
+        p.color = c;
+      }
+      write(p);
+    }}
+  }
+  ppm_.save(filename_);
+}
+
+void Renderer::render3(){
+  Color backgroundcolor = Color(1.0,1.0,1.0);
+  Sphere light(glm::vec3(0,0,50),1);
+  float t;
+  for (int y=0; y < height_; ++y){
+    for (int x=0; x < width_; ++x){
+      Pixel p(x,y);
+      p.color = backgroundcolor;
+
+      const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
+      for (auto& shape: scene_.shapes_){
+        if (shape->intersectBoolTwo(ray, t)){
+          glm::vec3 pi = ray.origin + glm::vec3{(ray.direction.x *t),(ray.direction.y * t),(ray.direction.z *t)};
+          glm::vec3 l = light.getCenter() - pi;
+          glm::vec3 N = shape->getNormalized(pi); 
+          float dt = glm::dot(glm::normalize(l), glm::normalize(N));
+
+          p.color = (Color(1,0,0) + (Color(1,1,1)*dt));
+          write(p);
+        }
+      }
+    }
+  }
+  ppm_.save(filename_);
+}
+
+Color Renderer::rayTrace(Ray const& ray, float depth){
   Color backgroundcolor = Color(1.0, 1.0, 1.0);
   Hit closestHit;
   Hit tempHit;
@@ -29,26 +97,20 @@ Color Renderer::rayTrace(Ray const& ray, float factor){
     if (tempHit.distance_ < closestHit.distance_){
       closestHit = tempHit;
     }
-    closestObject = shape;
-  /*
-  for (int i = 0; i < scene_.shapes_.size();i++){
-    Hit hit = scene_.shapes_[i]->intersect(ray);
-    if (hit.distance_ < closestHit.distance_) {
-      //std::cout << "hit with distance: " << hit.distance_ << std::endl;
-      closestHit = hit;
-      closestObject = scene_.shapes_[i];
-    }
-  }*/
+    closestObject = shape;}
+/*
   if (closestHit.hit_){
-    return closestObject->getMaterial()->getColor();
-  }
-  if (closestObject != nullptr) {
+    return closestHit.shape_->getMaterial()->getColor();
+  }*/
+  if (closestHit.shape_ != nullptr) {
     return calcShade(ray, closestHit,1);
-  } else {
+    //return Color(0.0,0.5,0.0);
+  }
+  else {
     return backgroundcolor; //default backgroundcolor
-  }}
+  }
 }
-
+/*
 Color Renderer::rayTrace(Ray const& ray, float depth){
   Hit hit = calcClosestHit(ray);
 
@@ -57,7 +119,7 @@ Color Renderer::rayTrace(Ray const& ray, float depth){
   }
   else
     return scene_.ambientLightCol_;
-}
+}*/
 
 Color Renderer::calcShade( Ray const& ray, Hit const& hit, float depth) {
   // calculate ambient, slide 13
@@ -151,49 +213,6 @@ Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& r
     lightColor = light->color_ *(calcSpecularColor(light,hit, ray, tempRay) + calcDiffuseColor(light, hit, ray));
     return lightColor;
   }
-}
-
-
-void Renderer::render()
-{
-  camera mainCamera;
-  //float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
-  for (unsigned y = 0; y < height_; ++y) {
-    for (unsigned x = 0; x < width_; ++x) {
-      Ray thisRay = mainCamera.shootRay(x, y);
-      //std::cout << "shoot ray through " << x << ", " << y << std::endl;
-      Pixel p(x,y);
-      Color c {1,0,0};
-      c = rayTrace(thisRay, 1);
-      p.color = c;
-
-      write(p);
-    }
-  }
-  ppm_.save(filename_);
-}
-
-void Renderer::render2(){
-  camera mainCamera;
-  float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
-
-  for (int y=0; y < height_; ++y){
-    for (int x=0; x < width_; ++x){
-      Pixel p(x,y);
-      Ray thisRay = mainCamera.shootRay(x, y, distance);
-      Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
-      std::cout << "shoot ray through " << x << ", " << y << std::endl;
-      for (auto& shape : scene_.shapes_){
-      if (shape->intersectBool(ray)){
-        //std::cout << "intersected " << shape->getName() << " with material: " << shape->getMaterial()->getMaterialName() << " and color: " << shape->getMaterial()->getColor() << std::endl;
-        Color c = rayTrace(ray, 1);
-        //Color c = shape->getMaterial()->getColor();
-        p.color = c;
-      }
-      write(p);
-    }}
-  }
-  ppm_.save(filename_);
 }
 
 void Renderer::write(Pixel const& p)

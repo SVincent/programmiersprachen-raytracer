@@ -7,7 +7,7 @@ camera::camera():
     upVec_{0.0,0.0,0.0}
     {u_ = glm::normalize(glm::cross(direction_,upVec_));
      v_ = glm::normalize(glm::cross(u_, direction_));
-     fov_ = 45.0;
+     fov_ = 120.0;
     }
 
 camera::camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec, float fov):

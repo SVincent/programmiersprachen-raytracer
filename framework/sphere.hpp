@@ -18,14 +18,17 @@ public:
     double area() override;
 	double volume() override;
     std::ostream& print(std::ostream& os) const override;
+
     bool intersectBool(Ray const& ray) override;
+    bool intersectBoolTwo(Ray const& ray, float &t) const override;
     Hit intersect(Ray ray) override;
+
+    glm::vec3 getNormalized(const glm::vec3 pi) const override;
  
     //getter
     glm::vec3 getCenter() const;
-    float getRadius();
+    float getRadius() const;
 
-private:
     //member variables
 	glm::vec3 center_;
 	float radius_;

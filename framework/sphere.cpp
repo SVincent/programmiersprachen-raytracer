@@ -51,21 +51,21 @@ bool Sphere::intersectBool(Ray const& ray) {
     float distance = 0.0f;
     return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance);
 };
-/*
-Hit Sphere::intersect(Ray const& ray){
-    glm::vec3 direction = glm::normalize(ray.direction);
-    float distance = 0.0f;
-    glm::vec3 intersectionPoint; //TODO: get coordinates of intersection
-    if (glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance)){
-        Hit hitTrue(true, this, intersectionPoint);
-        return hitTrue;
-    }
-    else {
-        Hit hitFalse{};
-        return hitFalse;
-    }
+
+bool Sphere::intersectBoolTwo(const Ray& ray, float &t) const {
+    const glm::vec3 o = ray.origin;
+    const glm::vec3 d = ray.direction;
+    const glm::vec3 oc = o - center_;
+    const float b = 2 * glm::dot(oc, d);
+    const float c = glm::dot(oc, oc) - radius_*radius_;
+    float disc = b*b - 4 * c;
+    if (disc < 1e-4) return false;
+    disc = sqrt(disc);
+    const float t0 = -b - disc;
+    const float t1 = -b + disc;
+    t = (t0 < t1) ? t0 : t1;
+    return true;
 }
-*/
 // Line-Sphere intersection as described on wikipedia
 Hit Sphere::intersect(Ray ray){
     //cout << "intersecting sphere " << this->getName() << std::endl;
@@ -102,11 +102,15 @@ Hit Sphere::intersect(Ray ray){
     return returnHit;
 }
 
+ glm::vec3 Sphere::getNormalized(const glm::vec3 pi) const{
+     return (pi-center_)/radius_;
+ }
+
 //getter
 glm::vec3 Sphere::getCenter() const {
     return center_;
 };
 
-float Sphere::getRadius() {
+float Sphere::getRadius() const {
     return radius_;
 };

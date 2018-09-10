@@ -4,6 +4,7 @@
 #include "material.hpp"
 #include "shape.hpp"
 #include "color.hpp"
+#include "light.hpp"
 #include <vector>
 #include <string>
 #include <memory>

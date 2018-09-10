@@ -32,7 +32,7 @@ public:
   void render();
   void render2();
   void render3();
-  Color rayTrace(Ray const& ray, float factor);
+  Color rayTrace(Ray const& ray, float depth);
   Hit calcClosestHit(Ray const& ray); 
   Color calcShade(Ray const& ray, Hit const & hit, float depth);
   Color calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit);

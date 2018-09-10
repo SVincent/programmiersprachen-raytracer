@@ -54,6 +54,14 @@ std::ostream& Box::print(std::ostream& os) const {
 	return os;
 };
 
+bool Box::intersectBoolTwo(Ray const& ray, float& t) const{
+    return false;
+}
+
+glm::vec3 Box::getNormalized(const glm::vec3 pi) const{
+    return glm::vec3{1,1,1};
+}
+
 bool Box::intersectBool(Ray const& ray) {
     //calculate intersections with lines parallel to X, Y and Z axis which contain minimum_ and maximum_
     float tx_min = (minimum_.x - ray.origin.x) / ray.direction.x;

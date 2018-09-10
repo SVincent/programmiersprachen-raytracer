@@ -23,6 +23,7 @@ public:
 	virtual double volume() = 0;
     virtual std::ostream& print(std::ostream& os) const;
     virtual bool intersectBool(Ray const& ray) = 0;
+    virtual bool intersectBoolTwo(Ray const& ray, float& t) const = 0;
     virtual Hit intersect(Ray ray) = 0;
 
     Ray transform(Ray const& ray);
@@ -30,6 +31,8 @@ public:
     void translate(glm::vec3 const& translation);
     void rotate(glm::vec3 const& rotationAxis);
     void scale(glm::vec3 const& scales);
+
+    virtual glm::vec3 getNormalized(const glm::vec3 pi) const = 0;
 
     //getter
     std::string getName();
