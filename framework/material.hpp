@@ -17,6 +17,8 @@ public:
 
     std::string getMaterialName();
     Color getColor();
+    Color getDiffusec();
+    Color getSpecularc();
 
     //member variables
     std::string name_;
