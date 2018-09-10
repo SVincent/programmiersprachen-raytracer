@@ -58,6 +58,20 @@ struct Color
     return tmp;
   }
 
+  friend Color operator*(Color const& a, Color const& b)
+  {
+    auto tmp(a);
+    tmp *= b;
+    return tmp;
+  }
+
+  friend Color operator*(Color const& a, float b)
+  {
+    auto tmp(a);
+    temp *= b;
+    return tmp;
+  }
+
   float r;
   float g;
   float b;

@@ -18,8 +18,8 @@ Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
   , ppm_(width_, height_)
 {}
 
-Color Renderer::rayTrace(Ray const& ray){
-  Color backgroundcolor = Color(0.0, 1.0, 0.0);
+Color Renderer::rayTrace(Ray const& ray, float factor){
+  Color backgroundcolor = Color(1.0, 1.0, 1.0);
   Hit closestHit;
   Hit tempHit;
   std::shared_ptr<Shape> closestObject = nullptr;
@@ -30,7 +30,7 @@ Color Renderer::rayTrace(Ray const& ray){
       closestHit = tempHit;
     }
     closestObject = shape;
-  }
+  /*
   for (int i = 0; i < scene_.shapes_.size();i++){
     Hit hit = scene_.shapes_[i]->intersect(ray);
     if (hit.distance_ < closestHit.distance_) {
@@ -38,40 +38,116 @@ Color Renderer::rayTrace(Ray const& ray){
       closestHit = hit;
       closestObject = scene_.shapes_[i];
     }
-  }
+  }*/
   if (closestHit.hit_){
-    std::cout << "HIT" << std::endl;
     return closestObject->getMaterial()->getColor();
-    //return Color(1.0,0.0,0.0);
   }
   if (closestObject != nullptr) {
-    std::cout << "Hit with color red" << std::endl;
-    return Color(1.0,0.0,0.0);
-    //return shade(closestObject, ray, closestHit);
+    return calcShade(ray, closestHit,1);
   } else {
-    std::cout << "NO HIT" << std::endl;
     return backgroundcolor; //default backgroundcolor
-  }
+  }}
 }
 
-Color Renderer::shade(std::shared_ptr<Shape> Object, Ray const& ray, Hit hit) {
-  return Color(1.0, 0.0, 0.0);
+Color Renderer::rayTrace(Ray const& ray, float depth){
+  Hit hit = calcClosestHit(ray);
+
+  if (hit.hit_){
+    return calcShade(ray, hit, depth);
+  }
+  else
+    return scene_.ambientLightCol_;
+}
+
+Color Renderer::calcShade( Ray const& ray, Hit const& hit, float depth) {
+  // calculate ambient, slide 13
+  Color ambientColor = (scene_.ambientLightCol_ * hit.shape_->getMaterial()->ambientcoefficient_);
+  for (auto& light: scene_.lights_){
+    ambientColor += calcPointLight(light,ray, hit);
+  }
+
+  if (depth >= 1){
+    // calculate reflection
+    Color reflectCoeff = hit.shape_->getMaterial()->specularcoefficient_;
+    Color reflectColor = calcReflection(hit, ray, depth);
+
+    ambientColor += reflectColor * reflectCoeff;
+  }
+  return ambientColor;
+}
+
+
+
+Hit Renderer::calcClosestHit(Ray const& ray){
+  Hit temp;
+  Hit closest;
+
+  for (auto& shape: scene_.shapes_){
+    temp = shape->intersect(ray);
+    if (temp.distance_ < closest.distance_)
+      closest = temp;
+  }
+  return closest;
+}
+
+
+// Slides 11, 12
+Color Renderer::calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay){
+  Color returnColor;
+  glm::vec3 normDir = glm::normalize(lightRay.direction);
+  glm::vec3 normHit = glm::normalize(hit.normalizedVec_);
+  float temp = glm::dot(normHit, normDir);
+  if (temp > 0.0)
+    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_)*temp;
+  else
+    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * 0.0;
+ 
+  return returnColor;
+}
+
+// Slide 14
+Color Renderer::calcSpecularColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay, Ray const& ray){
+  Color returnColor;
+  glm::vec3 reflectVec;
+  // reflectVec = glm::normalize(lightRay.direction - 2.0* glm::dot(hit.normalizedVec_,lightRay.direction)*hit.normalizedVec_ );
+  reflectVec = glm::normalize(glm::reflect(-(lightRay.direction), hit.normalizedVec_));
+  
+  float temp;
+  float ifTemp = glm::dot(reflectVec, glm::normalize(-(ray.direction)));
+
+  if (ifTemp > 0){
+    temp = ifTemp;
+  }
+  else
+    temp = 0.0;
+
+  float squareTemp = pow(temp, hit.shape_->getMaterial()->reflexivity_);
+  returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * squareTemp;
+
+  return returnColor; 
+}
+
+Color Renderer::calcReflection(Hit const& hit, Ray const& ray, float factor){
+  Color reflectColor;
+  glm::vec3 reflectVec = glm::normalize(glm::reflect(ray.direction, hit.normalizedVec_));
+
+  Ray tempRay(((0.01f * reflectVec) + hit.intersectionPoint_),reflectVec);
+  reflectColor = rayTrace(tempRay, factor-1);
+  return reflectColor;
 }
 
 
 void Renderer::render()
 {
-  std::size_t const checker_pattern_size = 20;
   camera mainCamera;
-  float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
-
+  //float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
-      Ray thisRay = mainCamera.shootRay(x, y, distance);
+      Ray thisRay = mainCamera.shootRay(x, y);
       //std::cout << "shoot ray through " << x << ", " << y << std::endl;
       Pixel p(x,y);
       Color c {1,0,0};
-      c = rayTrace(thisRay);
+      c = rayTrace(thisRay, 1);
       p.color = c;
 
       write(p);
@@ -89,12 +165,11 @@ void Renderer::render2(){
       Pixel p(x,y);
       Ray thisRay = mainCamera.shootRay(x, y, distance);
       Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
-      //shared_ptr<Shape> shape = scene_.shapes_[0];
       std::cout << "shoot ray through " << x << ", " << y << std::endl;
       for (auto& shape : scene_.shapes_){
       if (shape->intersectBool(ray)){
         //std::cout << "intersected " << shape->getName() << " with material: " << shape->getMaterial()->getMaterialName() << " and color: " << shape->getMaterial()->getColor() << std::endl;
-        Color c = rayTrace(ray);
+        Color c = rayTrace(ray, 1);
         //Color c = shape->getMaterial()->getColor();
         p.color = c;
       }

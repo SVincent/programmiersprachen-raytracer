@@ -19,6 +19,7 @@
 #include "shape.hpp"
 #include "camera.hpp"
 #include "sphere.hpp"
+#include "light.hpp"
 #include <cmath>
 #include <string>
 #include <glm/glm.hpp>
@@ -31,9 +32,13 @@ public:
   void render();
   void render2();
   void render3();
-  Color rayTrace(Ray const& ray);
-  Hit closestHit(Ray const& ray) const;
-  Color shade(std::shared_ptr<Shape> Object, Ray const& ray, Hit hit);
+  Color rayTrace(Ray const& ray, float factor);
+  Hit calcClosestHit(Ray const& ray); 
+  Color calcShade(Ray const& ray, Hit const & hit, float depth);
+  //Color calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit);
+  Color calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay);
+  Color calcSpecularColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay, Ray const& ray);
+  Color calcReflection(Hit const& hit, Ray const& ray, float factor);
   void write(Pixel const& p);
 
   inline std::vector<Color> const& color_buffer() const

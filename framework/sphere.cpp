@@ -86,14 +86,17 @@ Hit Sphere::intersect(Ray ray){
         if (fullCalc > 0){
 
             glm::vec3 position = rOrigin + rDirection;
-            //glm::vec3 normalized = glm::normalize(position - center_);
+            glm::vec3 normalized = glm::normalize(position - center_);
             glm::vec3 transformedPos{transformationMatrix_ * glm::vec4{position,1}};
+
+            glm::vec4 normalizedTransf{glm::transpose(inv_transformationMatrix_)*glm::vec4{normalized,0}};
      
             returnHit.hit_= true;
             returnHit.shape_ = this;
             returnHit.intersectionPoint_=transformedPos;
             returnHit.distance_= fullCalc;
-            //std::cout << "Hit sphere! at point: " << transformedPos.x << ", " << transformedPos.y << ", " << transformedPos.z << std::endl;
+            returnHit.normalizedVec_=glm::vec3{normalizedTransf.x, normalizedTransf.y, normalizedTransf.z};
+            
         }
     }
     return returnHit;

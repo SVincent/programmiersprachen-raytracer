@@ -3,6 +3,7 @@
 
 #include "material.hpp"
 #include "shape.hpp"
+#include "color.hpp"
 #include <vector>
 #include <string>
 #include <memory>
@@ -17,6 +18,8 @@ struct Scene{
     // Members
     vector<shared_ptr<Material>> materials_;
     vector<shared_ptr<Shape>> shapes_;
+    vector<shared_ptr<Light>> lights_;
+    Color ambientLightCol_;
 };
 
 #endif

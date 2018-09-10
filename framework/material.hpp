@@ -18,7 +18,6 @@ public:
     std::string getMaterialName();
     Color getColor();
 
-private:
     //member variables
     std::string name_;
     float reflexivity_;
