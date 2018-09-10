@@ -88,6 +88,7 @@ void Renderer::render3(){
             p.color.b += (objectColor.b * light->color_.b) * dt;
           }
         }
+        p.color = calcToneMapping(p.color);
         write(p);
       }
     }
@@ -147,6 +148,13 @@ Color Renderer::calcShade( Ray const& ray, Hit const& hit, float depth) {
   return ambientColor;
 }
 
+Color Renderer::calcToneMapping(Color const& color){
+  Color returnColor;
+  returnColor.r = (color.r/(color.r +1));
+  returnColor.g = (color.g/(color.g +1));
+  returnColor.b = (color.b/(color.b +1 ));
+  return returnColor;
+}
 
 
 Hit Renderer::calcClosestHit(Ray const& ray){

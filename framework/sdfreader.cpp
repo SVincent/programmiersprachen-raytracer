@@ -163,6 +163,41 @@ Scene sdfReader::readSdf(string const& fileInput)
                     outputScene.lights_.insert(outputScene.lights_.end(), light);
                     cout << "Added light: " << lightName << " to the scene." << endl;
                 }
+                if (!currentWord.compare("camera")){
+                    cout << "initializing new camera." << endl;
+                    camera cam;
+
+                    string cameraName;
+                    float fov;
+                    glm::vec3 eye;
+                    glm::vec3 dir;
+                    glm::vec3 up;
+
+                    strStream >> cameraName;
+
+                    strStream >> fov;
+
+                    strStream >> eye.x;
+                    strStream >> eye.y;
+                    strStream >> eye.z;
+
+                    strStream >> dir.x;
+                    strStream >> dir.y;
+                    strStream >> dir.z;
+
+                    strStream >> up.x;
+                    strStream >> up.y;
+                    strStream >> up.z;                
+
+                    cam.name_ = cameraName;
+                    cam.fov_ = fov;
+                    cam.origin_= eye;
+                    cam.direction_=dir;
+                    cam.upVec_ = up;
+
+                    outputScene.mainCam_=cam;
+                    cout << "Added camera: " << cameraName << " to the scene." << endl;
+                }
             }
         currentLine = "";
         currentWord = "";
