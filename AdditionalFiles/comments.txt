@@ -1,0 +1,5 @@
+renderresult_001.ppm: Renderergebnis bevor wir Beleuchtung implementiert hatten. Flache Farben um zu testen ob intersect() überhaupt richtig funktioniert. Zu dem Zeitpunkt hatten wir auch gerade erst herausgefunden, dass die als .ppm gespeicherte File ohne Probleme rendert, während die Anzeige im Fenster nicht vollständig rendert.
+
+renderresult_002.ppm: Renderergebnis nach Implementierung rudimentärer Punktbeleuchtung. Probleme: Nicht alle Objekte werden beleuchtet.
+
+renderresult_003.ppm: Die Farbe des Lichts interagiert nun mit der Farbe des Materials. In diesem Beispiel: Licht mit 100% rot und 0% blau sowie grünanteil -> nur Rote Objekte sind sichtbar.
