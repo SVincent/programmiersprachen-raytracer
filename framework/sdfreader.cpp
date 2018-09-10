@@ -8,8 +8,8 @@ Scene sdfReader::readSdf(string const& fileInput)
 {
     Scene outputScene{};
 
-    vector<shared_ptr<Material>> matVec;
-    set<shared_ptr<Material>> matSet;
+    //vector<shared_ptr<Material>> matVec;
+    //set<shared_ptr<Material>> matSet;
     map<string,shared_ptr<Material>> matMap;
 
     string currentLine;
@@ -133,6 +133,35 @@ Scene sdfReader::readSdf(string const& fileInput)
                         outputScene.shapes_.insert(outputScene.shapes_.begin(),sphere);
                         cout << "Added sphere: " << sphereName << " to the scene." << endl;
                     }
+                }
+                if (!currentWord.compare("light")){
+                    cout << "initializing new light." << endl;
+                    shared_ptr<Light> light;
+
+                    string lightName;
+                    float brightness;
+                    Color lightColor;
+                    float x_value_position;
+                    float y_value_position;
+                    float z_value_position;
+
+                    strStream >> lightName;
+
+                    strStream >> x_value_position;
+                    strStream >> y_value_position;
+                    strStream >> z_value_position;
+
+                    glm::vec3 positionVec ={x_value_position,y_value_position,z_value_position};
+
+                    strStream >> lightColor.r;
+                    strStream >> lightColor.g;
+                    strStream >> lightColor.b;
+
+                    strStream >> brightness;
+
+                    light = make_shared<Light>(lightName, positionVec, lightColor, brightness);
+                    outputScene.lights_.insert(outputScene.lights_.begin(), light);
+                    cout << "Added light: " << lightName << " to the scene." << endl;
                 }
             }
         currentLine = "";
