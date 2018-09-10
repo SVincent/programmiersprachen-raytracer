@@ -61,9 +61,9 @@ void Renderer::render2(){
 }
 
 void Renderer::render3(){
-  Color backgroundcolor = Color(1.0,1.0,1.0);
+  Color backgroundcolor = Color(0.0,0.0,0.0);
   //shared_ptr<Light> light = make_shared<Light>(scene_.lights_[0]);
-  shared_ptr<Light> light = scene_.lights_[0];
+  //shared_ptr<Light> light = scene_.lights_[0];
   //light.color_=Color(1.0,1.0,1.0);
   float t;
   for (int y=0; y < height_; ++y){
@@ -73,22 +73,22 @@ void Renderer::render3(){
 
       const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
       for (auto& shape: scene_.shapes_){
-        if (shape->intersectBoolTwo(ray, t)){
-          glm::vec3 pi = ray.origin + glm::vec3{(ray.direction.x *t),(ray.direction.y * t),(ray.direction.z *t)};
-          glm::vec3 l = light->position_ - pi;
-          glm::vec3 N = shape->getNormalized(pi); 
-          float dt = glm::dot(glm::normalize(l), glm::normalize(N));
+        //Color tempColor = shape->getMaterial()->getColor();
+        Color objectColor = shape->getMaterial()->getColor();
+        for (auto& light: scene_.lights_){
+          if (shape->intersectBoolTwo(ray, t)){
+            glm::vec3 pi = ray.origin + glm::vec3{(ray.direction.x *t),(ray.direction.y * t),(ray.direction.z *t)};
+            glm::vec3 l = light->position_ - pi;
+            glm::vec3 N = shape->getNormalized(pi); 
+            float dt = glm::dot(glm::normalize(l), glm::normalize(N));
 
-          //p.color = (shape->getMaterial()->getColor() + light->color_ *dt);
-          Color tempColor = shape->getMaterial()->getColor();
-          tempColor.r *= light->color_.r;
-          tempColor.g *= light->color_.g;
-          tempColor.b *= light->color_.b;
-
-          p.color = tempColor; // * dt;
-
-          write(p);
+            //p.color = (shape->getMaterial()->getColor() + light->color_ *dt);
+            p.color.r += (objectColor.r * light->color_.r) * dt;
+            p.color.g += (objectColor.g * light->color_.g) * dt;
+            p.color.b += (objectColor.b * light->color_.b) * dt;
+          }
         }
+        write(p);
       }
     }
   }
