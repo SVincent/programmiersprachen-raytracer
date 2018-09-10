@@ -3,3 +3,5 @@ renderresult_001.ppm: Renderergebnis bevor wir Beleuchtung implementiert hatten.
 renderresult_002.ppm: Renderergebnis nach Implementierung rudimentärer Punktbeleuchtung. Probleme: Nicht alle Objekte werden beleuchtet.
 
 renderresult_003.ppm: Die Farbe des Lichts interagiert nun mit der Farbe des Materials. In diesem Beispiel: Licht mit 100% rot und 0% blau sowie grünanteil -> nur Rote Objekte sind sichtbar.
+
+renderresult_004.ppm: Schattierung + tonemapping. Das Tonemapping sorgt für seltsame Ergebnisse.

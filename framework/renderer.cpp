@@ -88,7 +88,7 @@ void Renderer::render3(){
             p.color.b += (objectColor.b * light->color_.b) * dt;
           }
         }
-        p.color = calcToneMapping(p.color);
+        //p.color = calcToneMapping(p.color);
         write(p);
       }
     }
