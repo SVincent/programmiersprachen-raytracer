@@ -62,7 +62,8 @@ void Renderer::render2(){
 
 void Renderer::render3(){
   Color backgroundcolor = Color(1.0,1.0,1.0);
-  Sphere light(glm::vec3(0,0,50),1);
+  Light light2;
+  light2.color_=Color(1.0,1.0,1.0);
   float t;
   for (int y=0; y < height_; ++y){
     for (int x=0; x < width_; ++x){
@@ -73,11 +74,11 @@ void Renderer::render3(){
       for (auto& shape: scene_.shapes_){
         if (shape->intersectBoolTwo(ray, t)){
           glm::vec3 pi = ray.origin + glm::vec3{(ray.direction.x *t),(ray.direction.y * t),(ray.direction.z *t)};
-          glm::vec3 l = light.getCenter() - pi;
+          glm::vec3 l = light2.position_ - pi;
           glm::vec3 N = shape->getNormalized(pi); 
           float dt = glm::dot(glm::normalize(l), glm::normalize(N));
 
-          p.color = (Color(1,0,0) + (Color(1,1,1)*dt));
+          p.color = (shape->getMaterial()->getColor() + light2.color_ *dt);
           write(p);
         }
       }
