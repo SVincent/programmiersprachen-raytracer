@@ -33,7 +33,7 @@ public:
   void render2();
   void render3();
 
-  Color rayTrace(Ray const& ray, float depth);
+  Color rayTrace(Ray const& ray);
   Hit calcClosestHit(Ray const& ray); 
   
   Color calcToneMapping(Color const& color);

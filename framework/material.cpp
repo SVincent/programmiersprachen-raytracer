@@ -42,6 +42,16 @@ Color Material::getColor(){
     return Color(ambientcoefficient_);
 };
 
+Color Material::getDiffusec(){
+    return Color(diffusecoefficient_);
+};
+
+Color Material::getSpecularc(){
+    return Color(specularcoefficient_);
+};
+
+
+
 std::ostream& Material::print(std::ostream& os) const {
 	os << "Name: " << name_ << endl;
     os << "reflexivity: " << reflexivity_ << endl;
