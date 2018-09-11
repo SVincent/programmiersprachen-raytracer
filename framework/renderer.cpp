@@ -73,12 +73,13 @@ void Renderer::render3(){
         //Color tempColor = shape->getMaterial()->getColor();
         Color objectColor = shape->getMaterial()->getColor();
         for (auto& light: scene_.lights_){
-          if (shape->intersectBoolTwo(ray, t)){
+          Hit hit = shape->intersect(ray);
+          if (hit.hit_){
             glm::vec3 pi = ray.origin + glm::vec3{(ray.direction.x *t),(ray.direction.y * t),(ray.direction.z *t)};
             glm::vec3 l = light->position_ - pi;
             glm::vec3 N = shape->getNormalized(pi); 
             float dt = glm::dot(glm::normalize(l), glm::normalize(N));
-            Hit hit = shape->intersect(ray);
+            //Hit hit = shape->intersect(ray);
 
             //p.color = (shape->getMaterial()->getColor() + light->color_ *dt);
             /*

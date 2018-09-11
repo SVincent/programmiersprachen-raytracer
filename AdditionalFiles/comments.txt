@@ -7,3 +7,9 @@ renderresult_003.ppm: Die Farbe des Lichts interagiert nun mit der Farbe des Mat
 renderresult_004.ppm: Schattierung + tonemapping. Das Tonemapping sorgt für seltsame Ergebnisse.
 
 renderresult_005.ppm & renderresult_006.ppm: Mehrere Lichtquellen bereiten noch Probleme (Rendern von verdeckten Objekten, oder es werden nicht alle Lichter berücksichtigt)
+
+renderresult_007.ppm: Dinge scheinen zu funktionieren?
+
+renderresult_008.ppm: Probleme mit box-intersect
+
+renderresult_009.ppm: irgendwas ging bei der box-intersect-methode gründlich schief
