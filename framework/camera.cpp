@@ -18,13 +18,13 @@ camera::camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec, float fov
     fov_{fov}
     {}
 
-Ray camera::shootRay(glm::vec3 dir){
+Ray camera::shootRay(int x, int y, float distance){
     Ray newRay;
-   // newRay.origin = glm::vec3(glm::mat4(1.0)*glm::vec4(0,0,0,1));
-   // newRay.direction = glm::vec3(glm::mat4(1.0)*(glm::vec4(x,y,-distance,0)));
-    newRay.origin = origin_;
-    newRay.direction = dir;
-    return newRay;
+    newRay.origin = glm::vec3(glm::mat4(1.0)*glm::vec4(0,0,0,1));
+    newRay.direction = glm::vec3(glm::mat4(1.0)*(glm::vec4(x,y,-distance,0)));
+    //newRay.origin = origin_;
+    //newRay.direction = dir;
+    return newRay; 
 }
 
 
