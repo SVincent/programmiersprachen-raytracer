@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Scene sdfReader::readSdf(string const& fileInput)
+Renderer sdfReader::readSdf(string const& fileInput)
 {
     Scene outputScene{};
 
@@ -198,35 +198,42 @@ Scene sdfReader::readSdf(string const& fileInput)
                     outputScene.mainCam_=cam;
                     cout << "Added camera: " << cameraName << " to the scene." << endl;
                 }
+                if (!currentWord.compare("ambient")){
+                    cout << "initializing new ambient color." << endl;
+                    Color ambientCol;
+
+                    strStream >> ambientCol.r;
+                    strStream >> ambientCol.g;
+                    strStream >> ambientCol.b;
+
+                    outputScene.ambientLightCol_= ambientCol;
+                }
+            }
+
+            if(!currentWord.compare("render")){
+                cout << "Initializing renderer" << endl;
+                string cameraName;
+                string fileName;
+                unsigned int x_res;
+                unsigned int y_res;
+
+                strStream >> cameraName;
+
+                strStream >> fileName;
+
+                strStream >> x_res;
+                strStream >> y_res;
+
+                return Renderer{outputScene,x_res,y_res,fileName};
             }
         currentLine = "";
         currentWord = "";
         }
         
     }
-    return outputScene;
+    return Renderer{outputScene, 800, 700, "sceneOne.ppm"};
 };
 
-/*
-shared_ptr<Material> sdfReader::searchMatVec(string const& matName) {
-    auto it = matVec_.begin();
-
-    while (it != matVec_.end()) {
-        if (it->getMaterialName() == matName) {
-            return it;
-        }
-    } 
-    return nullptr;
-};
-
-/*
-shared_ptr<Material> sdfReader::searchMatSet(string const& matName) {
-    set<shared_ptr<Material>>::iterator it;
-    auto matSearch = make_shared<Material>(matName);
-    it = matSet_.find(matSearch);
-    return *it;
-};
-*/
 shared_ptr<Material> sdfReader::searchMatMap(string const& matName) {
     map<string,shared_ptr<Material>>::iterator it;
     it = matMap_.find(matName);

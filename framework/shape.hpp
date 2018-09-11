@@ -24,7 +24,7 @@ public:
     virtual std::ostream& print(std::ostream& os) const;
     virtual bool intersectBool(Ray const& ray) = 0;
     virtual bool intersectBoolTwo(Ray const& ray, float& t) const = 0;
-    virtual Hit intersect(Ray ray) = 0;
+    virtual Hit intersect(Ray const& ray) = 0;
 
     Ray transform(Ray const& ray);
 

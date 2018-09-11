@@ -20,7 +20,7 @@ public:
     std::ostream& print(std::ostream& os) const override;
     bool intersectBool(Ray const& ray) override;
     bool intersectBoolTwo(Ray const& ray, float& t) const override;
-    Hit intersect(Ray ray) override;
+    Hit intersect(Ray const& ray) override;
 
     glm::vec3 getNormalized(const glm::vec3 pi) const;
 

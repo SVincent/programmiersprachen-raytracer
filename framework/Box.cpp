@@ -54,7 +54,7 @@ std::ostream& Box::print(std::ostream& os) const {
 	return os;
 };
 
-bool Box::intersectBoolTwo(Ray const& ray, float& t) const{
+bool Box::intersectBool(Ray const& ray){
     return false;
 }
 
@@ -62,7 +62,7 @@ glm::vec3 Box::getNormalized(const glm::vec3 pi) const{
     return glm::vec3{1,1,1};
 }
 
-bool Box::intersectBool(Ray const& ray) {
+bool Box::intersectBoolTwo(Ray const& ray, float& t)const {
     //calculate intersections with lines parallel to X, Y and Z axis which contain minimum_ and maximum_
     float tx_min = (minimum_.x - ray.origin.x) / ray.direction.x;
     float tx_max = (maximum_.x - ray.origin.x) / ray.direction.x;
@@ -90,16 +90,15 @@ bool Box::intersectBool(Ray const& ray) {
         t_max = tz_max;
     }
 
-    float t = t_min; //distance to the nearest intersection-point
+    t = t_min; //distance to the nearest intersection-point
     //todo: store t_min and t_max in Hit-struct
 
     return true;
 };
 
-/*
-Hit Box::intersect(Ray ray) {
-    Hit returnHit;
 
+Hit Box::intersect(Ray const& ray) {
+    Hit returnHit;
     //calculate intersections with lines parallel to X, Y and Z axis which contain minimum_ and maximum_
     float tx_min = (minimum_.x - ray.origin.x) / ray.direction.x;
     float tx_max = (maximum_.x - ray.origin.x) / ray.direction.x;
@@ -108,18 +107,57 @@ Hit Box::intersect(Ray ray) {
     float tz_min = (minimum_.z - ray.origin.z) / ray.direction.z;
     float tz_max = (maximum_.z - ray.origin.z) / ray.direction.z;
     //select the two points which possibly intersect with XY-plane of the box
-    float t_min = (tx_min > ty_min) ? tx_min : ty_min;
-    float t_max = (tx_max < ty_max) ? tx_max : ty_max;
-    //check whether ray even intersects the XY-ground-plane the box is made up of 
-    //if not, checking the z component is unnecessary
+    
+    // check if coordinates correct
+    if (tx_min > tx_max){
+        std::swap(tx_min, tx_max);
+    }
+    if (ty_min > ty_max){
+        std::swap(ty_min, ty_max);
+    }
+    if (tz_min > tz_max){
+        std::swap(tz_min, tz_max);
+    }
+
+    //hit not possible
     if (tx_min > ty_max || ty_min > tx_max) {
-        returnHit.hit_ = false;
+        returnHit.hit_=false;
+        return returnHit;
     }
-    //check whether possible intersection points are above or below the box
-    if (t_min > tz_max || tz_min > t_max) {
-        returnHit.hit_ = false;
+
+    if (ty_min > tx_min){
+        tx_min = ty_min;
     }
-    //check which intersection point is the nearest and which one the farthest away
+
+    if (ty_max < tx_max){
+        tx_max = ty_max;
+    }
+
+    if ((tx_min > tz_max) || (tz_min > tx_max)){
+        returnHit.hit_=false;
+        return returnHit;
+    }
+
+    if (tz_min > tx_min){
+        tx_min = tz_min;
+    }
+
+    if (tz_max < tx_max){
+        tx_max = tz_max;
+    }
+
+    // nearest and farthest intersection point
+    float t_min = (tx_min > ty_min) ? tx_min : ty_min;
+    if (t_min = tx_min){
+        glm::vec3 intersectPoint = glm::vec3(tx_min, minimum_.y,t_min);
+        returnHit.intersectionPoint_= intersectPoint;
+    }
+    else{
+        glm::vec3 intersectPoint = glm::vec3(minimum_.x, ty_min, t_min);
+        returnHit.intersectionPoint_= intersectPoint;
+    }
+    float t_max = (tx_max < ty_max) ? tx_max : ty_max;
+
     if (tz_min > t_min) {
         t_min = tz_min; 
     }
@@ -127,9 +165,10 @@ Hit Box::intersect(Ray ray) {
         t_max = tz_max;
     }
 
-    float t = t_min; //distance to the nearest intersection-point
+    float t = t_min;
 
-    returnHit.shape_ = this;
+    returnHit.hit_ = true;
+    returnHit.shape_=this;
     //returnHit.intersectionPoint_ = ; //todo: meinen eigenen code verstehen und rausfinden wo der intersectionpoint ist
     returnHit.distance_ = t;
 
@@ -137,12 +176,6 @@ Hit Box::intersect(Ray ray) {
     //todo: store t_min and t_max in Hit-struct
 
     return returnHit;
-};
-*/
-
-Hit Box::intersect(Ray ray){
-    Hit hitFalse;
-    return hitFalse; 
 };
 
 //getter

@@ -67,10 +67,10 @@ bool Sphere::intersectBoolTwo(const Ray& ray, float &t) const{
     return true;
 }
 // Line-Sphere intersection as described on wikipedia
-Hit Sphere::intersect(Ray ray){
+Hit Sphere::intersect(Ray const& ray){
     //cout << "intersecting sphere " << this->getName() << std::endl;
     Hit returnHit; 
-    Ray newRay = ray.transformRay(inv_transformationMatrix_);
+    Ray newRay = newRay.transformRay(inv_transformationMatrix_,ray);
     newRay.direction = glm::normalize(newRay.direction);
     glm::vec3 rDirection = newRay.direction;
     glm::vec3 rOrigin = newRay.origin;
