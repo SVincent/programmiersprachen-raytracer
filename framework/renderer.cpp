@@ -67,7 +67,7 @@ void Renderer::render3(){
     for (int x=0; x < width_; ++x){
       Pixel p(x,y);
       p.color = backgroundcolor;
-      const Ray ray = scene_.mainCam_.shootRay(x,y,1);
+      const Ray ray = scene_.mainCam_.shootRay(x,y,-1);
       //const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
       for (auto& shape: scene_.shapes_){
         //Color tempColor = shape->getMaterial()->getColor();
@@ -107,7 +107,7 @@ void Renderer::render3(){
 }
 
 Color Renderer::rayTrace(Ray const& ray){ 
-  Color backgroundcolor = Color(0.0, 0.0, 0.0);
+  Color backgroundcolor = Color(1.0, 0.0, 0.0);
   Hit closestHit;
   Hit tempHit;
   std::shared_ptr<Shape> closestObject = nullptr;

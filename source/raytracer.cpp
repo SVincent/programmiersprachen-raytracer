@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 
   //Renderer renderer{newScene, image_width, image_height, filename};
   //create separate thread to see updates of pixels while rendering
-  std::thread render_thread([&renderer]() {renderer.render2();});
+  std::thread render_thread([&renderer]() {renderer.render3();});
 
   Window window{{image_width, image_height}};
 
