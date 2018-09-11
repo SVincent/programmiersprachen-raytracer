@@ -60,7 +60,7 @@ Renderer sdfReader::readSdf(string const& fileInput)
 
                     //matVec.push_back(material);
                     //matSet.insert(material);
-                    //matMap_[materialName] = material;
+                    matMap_[materialName] = material;
                     matMap_.insert(pair<string,shared_ptr<Material>>(materialName,material));
                     cout << "Added material: " << materialName << " to the scene." << endl;
                 }
@@ -97,10 +97,10 @@ Renderer sdfReader::readSdf(string const& fileInput)
 
                         strStream >> materialName;
                         shared_ptr<Material> boxMaterial = this->searchMatMap(materialName);
-                       //boxMaterial->getMaterialName();
 
                         box = make_shared<Box>(minVec,maxVec,boxName,boxMaterial);
                         outputScene.shapes_.insert(outputScene.shapes_.end(),box);
+                        shapeMap_[boxName] = box;
                         cout << "Added box: " << boxName << " to the scene." << endl;
                     }
                     if (!currentWord.compare("sphere")){
@@ -131,6 +131,7 @@ Renderer sdfReader::readSdf(string const& fileInput)
 
                         sphere = make_shared<Sphere>(centerVec, radius_value, sphereName, sphereMaterial);
                         outputScene.shapes_.insert(outputScene.shapes_.end(),sphere);
+                        shapeMap_[sphereName] = sphere;
                         cout << "Added sphere: " << sphereName << " to the scene." << endl;
                     }
                 }
@@ -276,8 +277,11 @@ shared_ptr<Material> sdfReader::searchMatMap(string const& matName) {
 };
 
 shared_ptr<Shape> sdfReader::searchShapeMap(string const& shapeName) {
+    cout << "test1"<< endl;
     map<string,shared_ptr<Shape>>::iterator it;
+    cout << "test2" << endl;
     it = shapeMap_.find(shapeName);
+    cout << "test3";
     return it->second;
 };
 
