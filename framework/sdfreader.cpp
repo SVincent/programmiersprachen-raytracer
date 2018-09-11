@@ -211,6 +211,7 @@ Renderer sdfReader::readSdf(string const& fileInput)
             }
 
             if(!currentWord.compare("render")){
+
                 cout << "Initializing renderer" << endl;
                 string cameraName;
                 string fileName;
@@ -231,6 +232,7 @@ Renderer sdfReader::readSdf(string const& fileInput)
         }
         
     }
+    cout << "failed to find render instruction" << endl;
     return Renderer{outputScene, 800, 700, "sceneOne.ppm"};
 };
 
