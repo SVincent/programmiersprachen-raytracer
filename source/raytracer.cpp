@@ -17,12 +17,12 @@ int main(int argc, char* argv[])
 
   sdfReader sdfR;
   Scene newScene;
-  //newScene = sdfR.readSdf("/home/vincent/Documents/programming/programmiersprachen-raytracer/sceneOne.sdf");
-  Renderer renderer = sdfR.readSdf("/home/vincent/Documents/programming/programmiersprachen-raytracer/build/source/sceneOne.sdf");
+  newScene = sdfR.readSdf("/home/vincent/Documents/programming/programmiersprachen-raytracer/source/sceneOne.sdf");
+  //Renderer renderer = sdfR.readSdf("/home/vincent/Documents/programming/programmiersprachen-raytracer/source/sceneOne.sdf");
 
-  //Renderer renderer{newScene, image_width, image_height, filename};
+  Renderer renderer{newScene, image_width, image_height, filename};
   //create separate thread to see updates of pixels while rendering
-  std::thread render_thread([&renderer]() {renderer.render3();});
+  std::thread render_thread([&renderer]() {renderer.render();});
 
   Window window{{image_width, image_height}};
 

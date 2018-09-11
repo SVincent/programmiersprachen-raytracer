@@ -1,0 +1,9 @@
+define material red 1 0 0 1 0 0 1 0 0 20
+define material green 0 1 0 0 1 0 0 1 0 50
+define material blue 0 0 1 0 0 1 0 0 1 10
+define shape sphere bsphere 400 350 40 200 blue
+define shape sphere csphere 100 200 40 100 blue
+define shape sphere dsphere 0 0 0 300 blue
+define shape sphere esphere 400 350 -40 200 blue
+define shape sphere fsphere 100 200 -40 100 blue
+define shape sphere gsphere 800 700 100 300 blue

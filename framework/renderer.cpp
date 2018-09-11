@@ -13,93 +13,33 @@ Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
   : scene_(scene)
   , width_(w)
   , height_(h)
-  , color_buffer_(w*h, Color(0.0, 0.0, 0.0))
+  , color_buffer_(w*h, Color(0.0, 1.0, 0.0))
   , filename_(file)
   , ppm_(width_, height_)
 {}
 
-void Renderer::render()
-{
-  camera mainCamera;
-  //float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
-  for (unsigned y = 0; y < height_; ++y) {
-    for (unsigned x = 0; x < width_; ++x) {
-      Ray thisRay = mainCamera.shootRay(x, y);
-      //std::cout << "shoot ray through " << x << ", " << y << std::endl;
-      Pixel p(x,y);
-      Color c {1,0,0};
-      c = rayTrace(thisRay);
-      p.color = c;
-
-      write(p);
-    }
-  }
-  ppm_.save(filename_);
-}
-
-void Renderer::render2(){
-  camera mainCamera;
-  //float distance = (width_/2) / tan( mainCamera.fov_ * M_PI / 360);
-
-  for (int y=0; y < height_; ++y){
-    for (int x=0; x < width_; ++x){
-      Pixel p(x,y);
-      Ray thisRay = mainCamera.shootRay(x, y, 100);
-      Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
-      //std::cout << "shoot ray through " << x << ", " << y << std::endl;
-      for (auto& shape : scene_.shapes_){
-      if (shape->intersectBool(ray)){
-        //std::cout << "intersected " << shape->getName() << " with material: " << shape->getMaterial()->getMaterialName() << " and color: " << shape->getMaterial()->getColor() << std::endl;
-        Color c = rayTrace(ray);
-        //Color c = shape->getMaterial()->getColor();
-        p.color = c;
-      }
-      write(p);
-    }}
-  }
-  ppm_.save(filename_);
-}
-
-void Renderer::render3(){
-  Color backgroundcolor = Color(0.0,0.0,0.0);
+void Renderer::render(){
+  Color backgroundcolor = Color(0.5,0.5,0.5);
   float t;
   for (int y=0; y < height_; ++y){
     for (int x=0; x < width_; ++x){
       Pixel p(x,y);
       p.color = backgroundcolor;
-      const Ray ray = scene_.mainCam_.shootRay(x,y,-1);
-      //const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
+      //const Ray ray = scene_.mainCam_.shootRay(x,y,-1);
+      const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,-1));
       for (auto& shape: scene_.shapes_){
         //Color tempColor = shape->getMaterial()->getColor();
         Color objectColor = shape->getMaterial()->getColor();
         for (auto& light: scene_.lights_){
           Hit hit = shape->intersect(ray);
           if (hit.hit_){
-            glm::vec3 pi = ray.origin + glm::vec3{(ray.direction.x *t),(ray.direction.y * t),(ray.direction.z *t)};
-            glm::vec3 l = light->position_ - pi;
-            glm::vec3 N = shape->getNormalized(pi); 
-            float dt = glm::dot(glm::normalize(l), glm::normalize(N));
-            //Hit hit = shape->intersect(ray);
-
-            //p.color = (shape->getMaterial()->getColor() + light->color_ *dt);
-            /*
-            p.color.r += (objectColor.r * light->color_.r) * dt;
-            p.color.g += (objectColor.g * light->color_.g) * dt;
-            p.color.b += (objectColor.b * light->color_.b) * dt;
-            */
-
+           
+            //p.color = Color(1.0, 0.0, 0.0);
             p.color = rayTrace(ray);// * dt;
             
-            /*
-            Color ambientLight = calcShade(ray, hit, dt);
-            Color diffuseLight = calcDiffuseColor(light, hit, lightray);
-            Color specularLight = calcSpecularColor(light, hit, lightray, ray);
-
-            p.color = ambientLight + diffuseLight + specularLight;
-            */
           }
         }
-        //p.color = calcToneMapping(p.color);
+        p.color = calcToneMapping(p.color);
         write(p);
       }
     }
@@ -117,7 +57,7 @@ Color Renderer::rayTrace(Ray const& ray){
     tempHit = shape->intersect(ray);
     if (tempHit.distance_ < closestHit.distance_){
       closestHit = tempHit;
-      closestHit.normalizedVec_ =  shape->getNormalized(tempHit.intersectionPoint_); 
+      closestHit.normalVec_ =  shape->getNormalized(tempHit.intersectionPoint_); 
     }
     closestObject = shape;
   }
@@ -128,8 +68,8 @@ Color Renderer::rayTrace(Ray const& ray){
   }
   
   if (closestHit.shape_ != nullptr) { 
-    return calcShade(ray, closestHit);
-    //return Color(0.0,1.0,0.0);
+    //return calcShade(ray, closestHit);
+    return Color(0.0,0.0,1.0);
   }
   else {
     return backgroundcolor; //default backgroundcolor
@@ -157,6 +97,71 @@ Color Renderer::calcShade( Ray const& ray, Hit const& hit) {
   return ambientColor;
 }
 
+Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit){
+  Color lightColor;
+  /*
+  glm::vec3 pi = ray.origin + glm::vec3{(ray.direction.x *t),(ray.direction.y * t),(ray.direction.z *t)};
+  glm::vec3 l = light->position_ - pi;
+  glm::vec3 N = shape->getNormalized(pi); 
+  float dt = glm::dot(glm::normalize(l), glm::normalize(N));
+            */
+  glm::vec3 lightDir = glm::normalize((light->position_)-(hit.intersectionPoint_));
+  float dt = glm::dot(lightDir, hit.normalVec_);
+
+  //Ray tempRay(hit.intersectionPoint_ + (0.01f * hit.normalVec_), lightDir);
+  Ray tempRay(hit.intersectionPoint_, lightDir);
+
+  Hit closestHit;
+  closestHit = calcClosestHit(tempRay);
+  //if (closestHit.hit_){
+  if (true) {
+    lightColor = light->color_ *(calcSpecularColor(light,hit, tempRay, ray) + calcDiffuseColor(light, hit, tempRay));   
+    return lightColor;
+  }
+  else{
+    return Color(1.0,0.0,0.0);
+    return lightColor;
+  }
+}
+
+// Slides 11, 12
+Color Renderer::calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay){
+  Color returnColor;
+  glm::vec3 normDir = glm::normalize(lightRay.direction);
+  glm::vec3 normHit = glm::normalize(hit.normalVec_);
+  float temp = glm::dot(normHit, normDir);
+
+  if (temp > 0.0)
+    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_)*temp;
+  else
+    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * 0.0;
+ 
+  //return Color(0.0,1.0,1.0);
+  return returnColor;
+}
+
+// Slide 14
+Color Renderer::calcSpecularColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay, Ray const& ray){
+  Color returnColor;
+  glm::vec3 reflectVec;
+  // reflectVec = glm::normalize(lightRay.direction - 2.0* glm::dot(hit.normalizedVec_,lightRay.direction)*hit.normalizedVec_ );
+  reflectVec = glm::normalize(glm::reflect(-(lightRay.direction), hit.normalVec_));
+  
+  float temp;
+  float ifTemp = glm::dot(reflectVec, glm::normalize(-(ray.direction)));
+
+  if (ifTemp > 0){
+    temp = ifTemp;
+  }
+  else
+    temp = 0.0;
+
+  float squareTemp = pow(temp, hit.shape_->getMaterial()->reflexivity_);
+  returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * squareTemp;
+  //return Color(1.0,0.0,1.0);
+  return returnColor; 
+}
+
 Color Renderer::calcToneMapping(Color const& color){
   Color returnColor;
   returnColor.r = (color.r/(color.r +1));
@@ -178,75 +183,13 @@ Hit Renderer::calcClosestHit(Ray const& ray){
   return closest;
 }
 
-
-// Slides 11, 12
-Color Renderer::calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay){
-  Color returnColor;
-  glm::vec3 normDir = glm::normalize(lightRay.direction);
-  glm::vec3 normHit = glm::normalize(hit.normalizedVec_);
-  float temp = glm::dot(normHit, normDir);
-
-  if (temp > 0.0)
-    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_)*temp;
-  else
-    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * 0.0;
- 
-  return returnColor;
-}
-
-// Slide 14
-Color Renderer::calcSpecularColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay, Ray const& ray){
-  Color returnColor;
-  glm::vec3 reflectVec;
-  // reflectVec = glm::normalize(lightRay.direction - 2.0* glm::dot(hit.normalizedVec_,lightRay.direction)*hit.normalizedVec_ );
-  reflectVec = glm::normalize(glm::reflect(-(lightRay.direction), hit.normalizedVec_));
-  
-  float temp;
-  float ifTemp = glm::dot(reflectVec, glm::normalize(-(ray.direction)));
-
-  if (ifTemp > 0){
-    temp = ifTemp;
-  }
-  else
-    temp = 0.0;
-
-  float squareTemp = pow(temp, hit.shape_->getMaterial()->reflexivity_);
-  returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * squareTemp;
-
-  return returnColor; 
-}
-
 Color Renderer::calcReflection(Hit const& hit, Ray const& ray){
   Color reflectColor;
-  glm::vec3 reflectVec = glm::normalize(glm::reflect(ray.direction, hit.normalizedVec_));
+  glm::vec3 reflectVec = glm::normalize(glm::reflect(ray.direction, hit.normalVec_));
 
   Ray tempRay(((0.01f * reflectVec) + hit.intersectionPoint_),reflectVec);
   reflectColor = rayTrace(tempRay);
   return reflectColor;
-}
-
-Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit){
-  Color lightColor;
-  /*
-  glm::vec3 pi = ray.origin + glm::vec3{(ray.direction.x *t),(ray.direction.y * t),(ray.direction.z *t)};
-  glm::vec3 l = light->position_ - pi;
-  glm::vec3 N = shape->getNormalized(pi); 
-  float dt = glm::dot(glm::normalize(l), glm::normalize(N));
-            */
-  glm::vec3 lightDir = glm::normalize((light->position_)-(hit.intersectionPoint_));
-  float dt = glm::dot(lightDir, hit.normalizedVec_);
-
-  Ray tempRay(hit.intersectionPoint_ + (0.01f * hit.normalizedVec_), lightDir);
-
-  Hit shadowHit;
-  shadowHit = calcClosestHit(tempRay);
-  if (shadowHit.hit_){
-    lightColor = light->color_ *(calcSpecularColor(light,hit, tempRay, ray) + calcDiffuseColor(light, hit, tempRay));      
-    return lightColor;
-  }
-  else{
-    return lightColor;
-  }
 }
 
 void Renderer::write(Pixel const& p)

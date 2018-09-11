@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Renderer sdfReader::readSdf(string const& fileInput)
+Scene sdfReader::readSdf(string const& fileInput)
 {
     Scene outputScene{};
 
@@ -226,7 +226,7 @@ Renderer sdfReader::readSdf(string const& fileInput)
                 strStream >> fileName;
 
         
-                return Renderer{outputScene,x_res,y_res,fileName};
+                //return Renderer{outputScene,x_res,y_res,fileName};
             }
 
             if (!currentWord.compare("transform")){
@@ -267,7 +267,8 @@ Renderer sdfReader::readSdf(string const& fileInput)
         
     }
     cout << "failed to find render instruction" << endl;
-    return Renderer{outputScene, 800, 700, "sceneOne.ppm"};
+    //return Renderer{outputScene, 800, 700, "sceneOne.ppm"};
+    return outputScene;
 };
 
 shared_ptr<Material> sdfReader::searchMatMap(string const& matName) {

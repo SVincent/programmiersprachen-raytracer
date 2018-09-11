@@ -30,8 +30,6 @@ public:
   Renderer(Scene scene, unsigned w, unsigned h, std::string const& file);
 
   void render();
-  void render2();
-  void render3();
 
   Color rayTrace(Ray const& ray);
   Hit calcClosestHit(Ray const& ray); 

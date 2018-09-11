@@ -95,7 +95,7 @@ Hit Sphere::intersect(Ray const& ray){
             returnHit.shape_ = this;
             returnHit.intersectionPoint_=transformedPos;
             returnHit.distance_= fullCalc;
-            returnHit.normalizedVec_=glm::vec3{normalizedTransf.x, normalizedTransf.y, normalizedTransf.z};
+            returnHit.normalVec_=glm::vec3{normalizedTransf.x, normalizedTransf.y, normalizedTransf.z};
             
         }
     }

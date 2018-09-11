@@ -13,3 +13,5 @@ renderresult_007.ppm: Dinge scheinen zu funktionieren?
 renderresult_008.ppm: Probleme mit box-intersect
 
 renderresult_009.ppm: irgendwas ging bei der box-intersect-methode gründlich schief
+
+renderresult_010.ppm: nach einer katastrophe rendert garnichts mehr - dies ist das Ergebnis nach langem bugfixing

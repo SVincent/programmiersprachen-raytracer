@@ -24,7 +24,7 @@ struct sdfReader{
 
     // read sdf file 
     //Scene readSdf(string const& fileInput);
-    Renderer readSdf(string const& fileInput);
+    Scene readSdf(string const& fileInput);
 
     shared_ptr<Material> searchMatMap(string const& matName);
     shared_ptr<Shape> searchShapeMap(string const& shapeName);
