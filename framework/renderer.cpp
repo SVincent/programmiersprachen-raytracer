@@ -67,8 +67,8 @@ void Renderer::render3(){
     for (int x=0; x < width_; ++x){
       Pixel p(x,y);
       p.color = backgroundcolor;
-
-      const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
+      const Ray ray = scene_.mainCam_.shootRay(x,y,1);
+      //const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,1));
       for (auto& shape: scene_.shapes_){
         //Color tempColor = shape->getMaterial()->getColor();
         Color objectColor = shape->getMaterial()->getColor();
