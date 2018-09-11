@@ -109,7 +109,7 @@ void Renderer::render3(){
   ppm_.save(filename_);
 }
 
-Color Renderer::rayTrace(Ray const& ray){
+Color Renderer::rayTrace(Ray const& ray){ 
   Color backgroundcolor = Color(0.0, 0.0, 0.0);
   Hit closestHit;
   Hit tempHit;

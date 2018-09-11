@@ -218,12 +218,12 @@ Renderer sdfReader::readSdf(string const& fileInput)
                 unsigned int y_res;
 
                 strStream >> cameraName;
-
-                strStream >> fileName;
-
                 strStream >> x_res;
                 strStream >> y_res;
 
+                strStream >> fileName;
+
+        
                 return Renderer{outputScene,x_res,y_res,fileName};
             }
         currentLine = "";
