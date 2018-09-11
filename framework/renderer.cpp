@@ -62,9 +62,6 @@ void Renderer::render2(){
 
 void Renderer::render3(){
   Color backgroundcolor = Color(0.0,0.0,0.0);
-  //shared_ptr<Light> light = make_shared<Light>(scene_.lights_[0]);
-  //shared_ptr<Light> light = scene_.lights_[0];
-  //light.color_=Color(1.0,1.0,1.0);
   float t;
   for (int y=0; y < height_; ++y){
     for (int x=0; x < width_; ++x){
@@ -126,29 +123,20 @@ Color Renderer::rayTrace(Ray const& ray){
   
   if (closestHit.hit_){
     //return closestHit.shape_->getMaterial()->getColor();
-    return calcShade(ray, closestHit,1);
+    return calcShade(ray, closestHit);
   }
   
   if (closestHit.shape_ != nullptr) { 
-    return calcShade(ray, closestHit,1);
+    return calcShade(ray, closestHit);
     //return Color(0.0,1.0,0.0);
   }
   else {
     return backgroundcolor; //default backgroundcolor
   }
 }
-/*
-Color Renderer::rayTrace(Ray const& ray, float depth){
-  Hit hit = calcClosestHit(ray);
 
-  if (hit.hit_){
-    return calcShade(ray, hit, depth);
-  }
-  else
-    return scene_.ambientLightCol_;
-}*/
 
-Color Renderer::calcShade( Ray const& ray, Hit const& hit, float depth) {
+Color Renderer::calcShade( Ray const& ray, Hit const& hit) {
   // calculate ambient, slide 13
   Color ambientColor = (scene_.ambientLightCol_ * hit.shape_->getMaterial()->ambientcoefficient_);
   
@@ -227,7 +215,7 @@ Color Renderer::calcSpecularColor(std::shared_ptr<Light> const& light, Hit const
   return returnColor; 
 }
 
-Color Renderer::calcReflection(Hit const& hit, Ray const& ray, float factor){
+Color Renderer::calcReflection(Hit const& hit, Ray const& ray){
   Color reflectColor;
   glm::vec3 reflectVec = glm::normalize(glm::reflect(ray.direction, hit.normalizedVec_));
 
