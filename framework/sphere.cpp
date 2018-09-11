@@ -46,26 +46,6 @@ std::ostream& Sphere::print(std::ostream& os) const {
  	return os;
 };
 
-bool Sphere::intersectBool(Ray const& ray) {
-    glm::vec3 direction = glm::normalize(ray.direction);
-    float distance = 0.0f;
-    return glm::intersectRaySphere(ray.origin,direction,center_,radius_*radius_,distance);
-};
-
-bool Sphere::intersectBoolTwo(const Ray& ray, float &t) const{
-    const glm::vec3 o = ray.origin;
-    const glm::vec3 d = ray.direction;
-    const glm::vec3 oc = o - center_;
-    const float b = 2 * glm::dot(oc, d);
-    const float c = glm::dot(oc, oc) - radius_*radius_;
-    float disc = b*b - 4 * c;
-    if (disc < 1e-4) return false;
-    disc = sqrt(disc);
-    const float t0 = -b - disc;
-    const float t1 = -b + disc;
-    t = (t0 < t1) ? t0 : t1;
-    return true;
-}
 // Line-Sphere intersection as described on wikipedia
 Hit Sphere::intersect(Ray const& ray){
     //cout << "intersecting sphere " << this->getName() << std::endl;

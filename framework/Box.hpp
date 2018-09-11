@@ -4,6 +4,7 @@
 #include "shape.hpp"
 #include <limits>
 #include <glm/vec3.hpp>
+#include <memory>
 
 class Box: public Shape {
 public:
@@ -20,8 +21,6 @@ public:
 	double volume() override;
     std::ostream& print(std::ostream& os) const override;
     Hit planeHit(Ray const& ray, glm::vec3 vertex1, glm::vec3 vertex2, glm::vec3 vertex3, glm::vec3 vertex4) const;
-    bool intersectBool(Ray const& ray) override;
-    bool intersectBoolTwo(Ray const& ray, float& t) const override;
     Hit intersect(Ray const& ray) override;
     /*bool intersectBool2(Ray const& ray);
     Hit intersect2(Ray const& ray);*/
