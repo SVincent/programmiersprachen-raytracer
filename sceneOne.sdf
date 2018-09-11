@@ -1,0 +1,13 @@
+define camera mainCam 120 0 0 0 0 0 1 0 1 0
+define ambient 0.1 0.1 0.1 
+
+define material red 1 0 0 1 0 0 1 0 0 20
+define material green 0 1 0 0 1 0 0 1 0 50
+define material blue 0 0 1 0 0 1 0 0 1 10
+define material ambientgrey 1.0 1.0 1.0 0.5 0.5 0.5 0.5 0.5 0.5 25
+define material diffusegrey 0.5 0.5 0.5 1.0 1.0 1.0 0.5 0.5 0.5 25
+define material speculargrey 0.5 0.5 0.5 0.5 0.5 0.5 1.0 1.0 1.0 25
+define material truegrey 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 25
+define shape sphere asphere 150 150 100 72 red
+
+define light redpointlight1 0 0 0 1.0 0.0 0.0 100

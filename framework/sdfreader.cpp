@@ -192,8 +192,8 @@ Renderer sdfReader::readSdf(string const& fileInput)
                     cam.name_ = cameraName;
                     cam.fov_ = fov;
                     cam.origin_= eye;
-                    cam.direction_=dir;
-                    cam.upVec_ = up;
+                    cam.direction_=glm::normalize(dir);
+                    cam.upVec_ = glm::normalize(up);
 
                     outputScene.mainCam_=cam;
                     cout << "Added camera: " << cameraName << " to the scene." << endl;
@@ -227,6 +227,39 @@ Renderer sdfReader::readSdf(string const& fileInput)
         
                 return Renderer{outputScene,x_res,y_res,fileName};
             }
+
+            if (!currentWord.compare("transform")){
+                cout << "transformation input" << endl;
+                
+                string shapeName;
+                string transformMethod;
+                glm::vec3 parameter;
+
+                strStream >> shapeName;
+                strStream >> transformMethod;
+
+                strStream >> parameter.x;
+                strStream >> parameter.y;
+                strStream >> parameter.z;
+
+                auto shape = searchShapeMap(shapeName);
+                if (shape != nullptr){
+                    if(transformMethod == "translate"){
+                        shape->translate(parameter);
+                    }
+                    else if (transformMethod == "rotate"){
+                        float angle;
+                        strStream >> angle; 
+                        shape->rotate(parameter);
+                    }
+                    else if (transformMethod == "scale"){
+                        shape->scale(parameter);
+                    }
+                    else {
+                        cout << "No valid transformation method entered." << endl;
+                    }
+                }
+            }
         currentLine = "";
         currentWord = "";
         }
@@ -241,6 +274,13 @@ shared_ptr<Material> sdfReader::searchMatMap(string const& matName) {
     it = matMap_.find(matName);
     return it->second;
 };
+
+shared_ptr<Shape> sdfReader::searchShapeMap(string const& shapeName) {
+    map<string,shared_ptr<Shape>>::iterator it;
+    it = shapeMap_.find(shapeName);
+    return it->second;
+};
+
 
 bool operator<(shared_ptr<Material> const& lhs, shared_ptr<Material> const& rhs) {
     return (lhs->getMaterialName() < rhs->getMaterialName());

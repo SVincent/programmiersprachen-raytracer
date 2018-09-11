@@ -12,7 +12,7 @@ struct camera {
     camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec, float fov);
 
     //methods
-    Ray shootRay(float x, float y, float distance);
+    Ray shootRay(glm::vec3 dir);
     Ray shootRay(float x_, float y_);
 
     //members 

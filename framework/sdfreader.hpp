@@ -27,9 +27,11 @@ struct sdfReader{
     Renderer readSdf(string const& fileInput);
 
     shared_ptr<Material> searchMatMap(string const& matName);
+    shared_ptr<Shape> searchShapeMap(string const& shapeName);
 
     //member variables
     map<string,shared_ptr<Material>> matMap_;
+    map<string,shared_ptr<Shape>> shapeMap_;
 };
 
 bool operator<(shared_ptr<Material> const& lhs, shared_ptr<Material> const& rhs);
