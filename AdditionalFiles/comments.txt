@@ -15,3 +15,7 @@ renderresult_008.ppm: Probleme mit box-intersect
 renderresult_009.ppm: irgendwas ging bei der box-intersect-methode gründlich schief
 
 renderresult_010.ppm: nach einer katastrophe rendert garnichts mehr - dies ist das Ergebnis nach langem bugfixing
+
+renderresult_013.ppm: ambient, diffuse und specular werden nun richtig berechnet - licht-brightness von über 1 erlaubt blow-out der farben.
+
+renderresult_014.ppm: ein glm::normalize verhinderte korrekte Beleuchtungsberechnung bei spheres
