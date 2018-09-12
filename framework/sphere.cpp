@@ -46,12 +46,14 @@ std::ostream& Sphere::print(std::ostream& os) const {
  	return os;
 };
 
+
+
 // Line-Sphere intersection as described on wikipedia
 Hit Sphere::intersect(Ray const& ray){
     //cout << "intersecting sphere " << this->getName() << std::endl;
     Hit returnHit; 
     Ray newRay = newRay.transformRay(inv_transformationMatrix_,ray);
-    newRay.direction = glm::normalize(newRay.direction);
+    //newRay.direction = glm::normalize(newRay.direction);
     glm::vec3 rDirection = newRay.direction;
     glm::vec3 rOrigin = newRay.origin;
 
@@ -60,6 +62,7 @@ Hit Sphere::intersect(Ray const& ray){
     float tempValue = (docScalar*docScalar)-((glm::length(rOrigin - center_))*(glm::length(rOrigin - center_))) + (radius_ * radius_);
 
     float rootValue = std::min(sqrt(tempValue), -sqrt(tempValue));
+    
     float fullCalc = -1 * (docScalar) + rootValue;
 
     if (tempValue > 0){

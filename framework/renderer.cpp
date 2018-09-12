@@ -61,27 +61,25 @@ Color Renderer::rayTrace(Ray const& ray){
   if (closestHit.hit_){
     cout << "x: " << closestHit.intersectionPoint_.x << " y: " << closestHit.intersectionPoint_.y << " z: " << closestHit.intersectionPoint_.z << endl;
     return calcShade(ray, closestHit);
-    //return Color(0.0,1.0,0.0);
   }
-  /*
-  if (closestHit.shape_ != nullptr) { 
-    return Color(0.0,0.0,1.0);
-  }*/
   else {
-    return backgroundcolor; //default backgroundcolor
+    return backgroundcolor;
   }
 }
 
 
 Color Renderer::calcShade( Ray const& ray, Hit const& hit) {
   // calculate ambient, slide 13
-  Color ambientColor = (scene_.ambientLightCol_ * hit.shape_->getMaterial()->ambientcoefficient_);
-  
+  Color combinedColor = (scene_.ambientLightCol_ * hit.shape_->getMaterial()->ambientcoefficient_);
+  int depth = 0; //todo: recursively countdown
   for (auto& light: scene_.lights_){
-    ambientColor += calcPointLight(light,ray, hit);
+    combinedColor += calcPointLight(light,ray, hit);
+  }
+  if (depth>0) {
+    combinedColor = calcReflection(hit, ray);
   }
   
-  return ambientColor;
+  return combinedColor;
 }
 
 Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit){
@@ -91,7 +89,6 @@ Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& r
   float dt = glm::dot(lightDir, hit.normalVec_);
 
   Ray tempRay(hit.intersectionPoint_ + (0.01f * hit.normalVec_), lightDir);
-  //Ray tempRay(hit.intersectionPoint_, lightDir);
 
   Hit closestHit;
   closestHit = calcClosestHit(tempRay);
@@ -111,11 +108,10 @@ Color Renderer::calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const&
   glm::vec3 normHit = glm::normalize(hit.normalVec_);
   float temp = glm::dot(normHit, normDir);
 
-  if (temp >= 0.0)
+  if (temp >= 0.0) {
     returnColor = (hit.shape_->getMaterial()->diffusecoefficient_*light->color_*light->brightness_*temp);
-  else
-    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * 0.0;
- 
+  }
+
   return returnColor;
 }
 
@@ -124,13 +120,13 @@ Color Renderer::calcSpecularColor(std::shared_ptr<Light> const& light, Hit const
   Color returnColor;
   glm::vec3 reflectVec;
 
-  //changed ray direction for testing
-  reflectVec = glm::normalize(glm::reflect(lightRay.direction, hit.normalVec_));
+  reflectVec = glm::normalize(glm::reflect(-(lightRay.direction), hit.normalVec_));
   
   float temp;
-  float ifTemp = glm::dot(reflectVec, glm::normalize(ray.direction));
+  float ifTemp = glm::dot(reflectVec, glm::normalize(-(ray.direction)));
 
   if (ifTemp > 0){
+  
     temp = ifTemp;
   }
   else {
@@ -171,7 +167,8 @@ Color Renderer::calcReflection(Hit const& hit, Ray const& ray){
 
   Ray tempRay(((0.01f * reflectVec) + hit.intersectionPoint_),reflectVec);
   reflectColor = rayTrace(tempRay);
-  return reflectColor;
+  Color returnColor = (Color{1.0f,1.0f,1.0f}-hit.shape_->getMaterial()->specularcoefficient_) + (reflectColor*hit.shape_->getMaterial()->specularcoefficient_);
+  return returnColor;
 }
 
 void Renderer::write(Pixel const& p)

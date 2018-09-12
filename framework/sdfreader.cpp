@@ -267,7 +267,7 @@ Scene sdfReader::readSdf(string const& fileInput)
         }
         
     }
-    cout << "failed to find render instruction" << endl;
+    //cout << "failed to find render instruction" << endl;
     //return Renderer{outputScene, 800, 700, "sceneOne.ppm"};
     return outputScene;
 };
