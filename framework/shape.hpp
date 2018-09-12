@@ -8,6 +8,7 @@
 #include <memory>
 #include <glm/vec3.hpp>
 #include <glm/glm.hpp>
+#include "glm/gtc/matrix_transform.hpp"
 
 class Shape {
 public:
@@ -25,7 +26,7 @@ public:
     virtual Hit intersect(Ray const& ray) = 0;
 
     void translate(glm::vec3 const& translation);
-    void rotate(glm::vec3 const& rotationAxis);
+    void rotate(float angle, glm::vec3 const& rotationVec);
     void scale(glm::vec3 const& scales);
 
     virtual glm::vec3 getNormalized(const glm::vec3 pi) const = 0;

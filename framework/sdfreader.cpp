@@ -249,8 +249,10 @@ Scene sdfReader::readSdf(string const& fileInput)
                         shape->translate(parameter);
                     }
                     else if (transformMethod == "rotate"){
-                    
-                        shape->rotate(parameter);
+                        float angle;
+                        strStream >> angle;
+                        shape->rotate(angle, parameter);
+                        cout << "rotating about " << angle << endl;
                     }
                     else if (transformMethod == "scale"){
                         shape->scale(parameter);

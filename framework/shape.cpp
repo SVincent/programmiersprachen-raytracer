@@ -1,6 +1,4 @@
 #include "shape.hpp"
-#include <string>
-
 using namespace std;
 
 //constructors
@@ -54,8 +52,15 @@ void Shape::translate(glm::vec3 const& translation){
     inv_transformationMatrix_ = glm::inverse(transformationMatrix_);
 }
 
-void Shape::rotate(glm::vec3 const& rotationAngles){
-    if (rotationAngles.x != 0){
+void Shape::rotate(float angle, glm::vec3 const& rotationVec){
+
+    float angle_rad = (angle*3.1415926535897f)/180.0f;
+    glm::mat4x4 R = glm::rotate(glm::mat4(1.0), angle_rad, rotationVec);
+    rotationMatrix_ = R;
+    transformationMatrix_ = translateMatrix_ * rotationMatrix_ * scaleMatrix_;
+    inv_transformationMatrix_ = glm::inverse(transformationMatrix_);
+
+    /*if (rotationAngles.x != 0){
         float angle = rotationAngles.x;
         glm::mat4 tempMatrix{1.0, 0.0, 0.0, 0.0,
                              0.0, cos(angle), -sin(angle), 0.0,
@@ -86,16 +91,17 @@ void Shape::rotate(glm::vec3 const& rotationAngles){
         rotationMatrix_ = tempMatrix;
         transformationMatrix_ = translateMatrix_ * rotationMatrix_ * scaleMatrix_;
         inv_transformationMatrix_ = glm::inverse(transformationMatrix_);
-    }
+    }*/
 }
 
 void Shape::scale(glm::vec3 const& scales){
-    glm::mat4 tempMatrix;
+    glm::mat4x4 tempMatrix = glm::scale(glm::mat4(1.0),scales);
+    /*
     tempMatrix [0] = glm::vec4{scales.x, 0.0, 0.0, 0.0};
     tempMatrix [1] = glm::vec4{0.0, scales.y, 0.0, 0.0};
     tempMatrix [2] = glm::vec4{0.0, 0.0, scales.z, 0.0};
-    tempMatrix [3] = glm::vec4{0.0, 0.0, 0.0, 1.0};
-
+    tempMatrix [3] = glm::vec4{0.0, 0.0, 0.0, 1.0};*/
+    
     scaleMatrix_ = tempMatrix;
     transformationMatrix_ = translateMatrix_ * rotationMatrix_ * scaleMatrix_;
     inv_transformationMatrix_ = glm::inverse(transformationMatrix_);
