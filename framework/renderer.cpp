@@ -111,8 +111,8 @@ Color Renderer::calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const&
   glm::vec3 normHit = glm::normalize(hit.normalVec_);
   float temp = glm::dot(normHit, normDir);
 
-  if (temp > 0.0)
-    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_)*temp;
+  if (temp >= 0.0)
+    returnColor = (hit.shape_->getMaterial()->diffusecoefficient_*light->color_*light->brightness_*temp);
   else
     returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * 0.0;
  
@@ -123,19 +123,22 @@ Color Renderer::calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const&
 Color Renderer::calcSpecularColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay, Ray const& ray){
   Color returnColor;
   glm::vec3 reflectVec;
-  reflectVec = glm::normalize(glm::reflect(-(lightRay.direction), hit.normalVec_));
+
+  //changed ray direction for testing
+  reflectVec = glm::normalize(glm::reflect(lightRay.direction, hit.normalVec_));
   
   float temp;
-  float ifTemp = glm::dot(reflectVec, glm::normalize(-(ray.direction)));
+  float ifTemp = glm::dot(reflectVec, glm::normalize(ray.direction));
 
   if (ifTemp > 0){
     temp = ifTemp;
   }
-  else
+  else {
     temp = 0.0;
+  }
 
   float squareTemp = pow(temp, hit.shape_->getMaterial()->reflexivity_);
-  returnColor = (hit.shape_->getMaterial()->diffusecoefficient_) * squareTemp;
+  returnColor = (hit.shape_->getMaterial()->specularcoefficient_ * squareTemp * light->color_ * light->brightness_);
 
   return returnColor; 
 }
