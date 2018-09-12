@@ -24,8 +24,6 @@ public:
     virtual std::ostream& print(std::ostream& os) const;
     virtual Hit intersect(Ray const& ray) = 0;
 
-    Ray transform(Ray const& ray);
-
     void translate(glm::vec3 const& translation);
     void rotate(glm::vec3 const& rotationAxis);
     void scale(glm::vec3 const& scales);

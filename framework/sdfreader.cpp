@@ -249,8 +249,7 @@ Scene sdfReader::readSdf(string const& fileInput)
                         shape->translate(parameter);
                     }
                     else if (transformMethod == "rotate"){
-                        float angle;
-                        strStream >> angle; 
+                    
                         shape->rotate(parameter);
                     }
                     else if (transformMethod == "scale"){
@@ -278,11 +277,8 @@ shared_ptr<Material> sdfReader::searchMatMap(string const& matName) {
 };
 
 shared_ptr<Shape> sdfReader::searchShapeMap(string const& shapeName) {
-    cout << "test1"<< endl;
     map<string,shared_ptr<Shape>>::iterator it;
-    cout << "test2" << endl;
     it = shapeMap_.find(shapeName);
-    cout << "test3";
     return it->second;
 };
 
