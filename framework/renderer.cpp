@@ -20,17 +20,20 @@ Renderer::Renderer(Scene scene, unsigned w, unsigned h, std::string const& file)
 
 void Renderer::render(){
   Hit hit;
+  int z = (scene_.mainCam_.xres_/2)/(tan(scene_.mainCam_.fov_/360*M_PI));
   for (int y=0; y < height_; ++y){
     for (int x=0; x < width_; ++x){
       Pixel p(x,y);
-      //const Ray ray = scene_.mainCam_.shootRay(x,y,-1);
-      const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,-1));
+      glm::vec3 direction(-(scene_.mainCam_.xres_/2)+0.5+x,-(scene_.mainCam_.yres_/2)+0.5+y,-z);
+      Ray ray = scene_.mainCam_.shootRay(direction);
+      //const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,-1));
       p.color = rayTrace(ray); 
       for (auto& shape: scene_.shapes_) {
         if (!hit.hit_) {
           hit = shape->intersect(ray);
         }
       }
+      //p.color = calcToneMapping(p.color);
       write(p);
     }
   }
@@ -93,7 +96,7 @@ Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& r
   Hit closestHit;
   closestHit = calcClosestHit(tempRay);
   if (closestHit.hit_){
-    lightColor = light->color_ *(calcSpecularColor(light,hit, tempRay, ray) + calcDiffuseColor(light, hit, tempRay));   
+    lightColor = light->color_ *(calcSpecularColor(light,hit, tempRay, ray) + calcDiffuseColor(light, hit, tempRay)*dt);   
     return lightColor;
   }
   else if (!closestHit.hit_) {

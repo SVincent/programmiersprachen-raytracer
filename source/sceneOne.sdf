@@ -1,4 +1,4 @@
-define camera mainCam 45 0 0 0 0 0 1 0 1 0
+define camera mainCam 90 0 0 0 0 0 -1 0 1 0
 define ambient 0.1 0.1 0.1 
 
 define material truered 1 0 0 1 0 0 1 0 0 20
@@ -9,13 +9,11 @@ define material green 0 1 0 0.8 0.8 0.8 0.5 0.5 0.5 50
 define material blue 0 0 1 0.8 0.8 0.8 0.5 0.5 0.5 10
 define material ambientgrey 1.0 1.0 1.0 0.5 0.5 0.5 0.5 0.5 0.5 25
 
-define shape box abox 100 100 -100 102 102 -102 red
+define shape box abox -400 -350 -300 -750 -250 -950 red
+define shape sphere asphere -150 -50 -400 100 green
 
-define light redpointlight1 0 0 0 1.0 0.0 0.0 100
-define light greenpointlight1 0 400 0 0.0 1.0 0.0 100
-define light bluepointlight1 400 400 0 0.0 0.0 1.0 100
-define light redpointlight2 400 400 0 1.0 0.0 1.0 100
-define light whitepointlight1 400 0 0 1.0 1.0 1.0 100
+define light redpointlight1 -200 -200 -250 0.8 0.0 0.0 1
+define light cyanpointlight1 0 150 -300 0.0 0.75 0.75 20
 
 render mainCam 800 700 testScene.ppm
 
