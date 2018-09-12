@@ -9,12 +9,21 @@ define material green 0 1 0 0.8 0.8 0.8 0.5 0.5 0.5 50
 define material blue 0 0 1 0.8 0.8 0.8 0.5 0.5 0.5 10
 define material ambientgrey 1.0 1.0 1.0 0.5 0.5 0.5 0.5 0.5 0.5 25
 
+<<<<<<< HEAD
 define shape box bbox 0 0 -400 -50 -50 -450 trueblue
 define shape box abox -400 -350 -300 -750 -250 -950 truered
 define shape sphere asphere -150 -50 -400 100 truegreen
+=======
+define shape box abox -400 -350 -300 -750 -250 -950 red
+define shape box abox 100 50 -420 200 100 -570 ambientgrey
+define shape sphere asphere -150 -50 -400 100 green
+define shape sphere asphere 300 -50 -32090 blue
+>>>>>>> 5a69b87649c82fd7534624ddfec7cec620bfa625
 
-define light redpointlight1 -200 -200 -250 0.8 0.0 0.0 1
-define light cyanpointlight1 0 150 -300 0.0 0.75 0.75 20
+define light redpointlight1 -200 -200 -250 0.8 0.0 0.0 0.7
+define light cyanpointlight1 0 150 -300 0.0 0.75 0.75 0.5
+define light purplelight1 -400 300 -450 9.0 0.0 0.85 0.85
+define light orangepointlight1 250 -380 -100 9.0 0.9 0.0 0.8
 
 render mainCam 800 700 testScene.ppm
 
