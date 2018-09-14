@@ -95,9 +95,7 @@ Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& r
     lightColor = light->color_ *(calcSpecularColor(light,hit, tempRay, ray) + calcDiffuseColor(light, hit, tempRay)*dt);   
     return lightColor;
   }
-  else if (!closestHit.hit_) {
-    return lightColor;
-  }
+  return lightColor;
 }
 
 // Slides 11, 12
