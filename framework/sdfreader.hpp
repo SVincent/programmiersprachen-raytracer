@@ -32,6 +32,7 @@ struct sdfReader{
     //member variables
     map<string,shared_ptr<Material>> matMap_;
     map<string,shared_ptr<Shape>> shapeMap_;
+    string fileOutputName_;
 };
 
 bool operator<(shared_ptr<Material> const& lhs, shared_ptr<Material> const& rhs);

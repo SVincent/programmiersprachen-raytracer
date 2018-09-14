@@ -11,17 +11,16 @@
 
 int main(int argc, char* argv[])
 {
-  unsigned const image_width = 800;
-  unsigned const image_height = 700;
   std::string const filename = "./testScene.ppm";
 
   sdfReader sdfR;
   Scene newScene;
   newScene = sdfR.readSdf("sceneOne.sdf");
-  newScene.mainCam_.xres_=800;
-  newScene.mainCam_.yres_=700;
 
-  Renderer renderer{newScene, image_width, image_height, filename};
+  unsigned const image_width = newScene.mainCam_.xres_;
+  unsigned const image_height = newScene.mainCam_.yres_;
+
+  Renderer renderer{newScene, image_width, image_height, sdfR.fileOutputName_};
   //create separate thread to see updates of pixels while rendering
   std::thread render_thread([&renderer]() {renderer.render();});
 

@@ -223,10 +223,11 @@ Scene sdfReader::readSdf(string const& fileInput)
                 strStream >> x_res;
                 strStream >> y_res;
 
-                strStream >> fileName;
+                outputScene.mainCam_.xres_=x_res;
+                outputScene.mainCam_.yres_=y_res;
 
-        
-                //return Renderer{outputScene,x_res,y_res,fileName};
+                strStream >> fileName;
+                fileOutputName_ = fileName;
             }
 
             if (!currentWord.compare("transform")){
@@ -267,8 +268,6 @@ Scene sdfReader::readSdf(string const& fileInput)
         }
         
     }
-    //cout << "failed to find render instruction" << endl;
-    //return Renderer{outputScene, 800, 700, "sceneOne.ppm"};
     return outputScene;
 };
 
