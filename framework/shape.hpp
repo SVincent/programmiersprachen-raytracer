@@ -28,9 +28,7 @@ public:
     void translate(glm::vec3 const& translation);
     void rotate(float angle, glm::vec3 const& rotationVec);
     void scale(glm::vec3 const& scales);
-
-    virtual glm::vec3 getNormalized(const glm::vec3 pi) const = 0;
-
+    
     //getter
     std::string getName();
     std::shared_ptr<Material> getMaterial();

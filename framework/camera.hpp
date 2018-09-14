@@ -25,8 +25,8 @@ struct camera {
     glm::vec3 u_;
     glm::vec3 v_;
     
-    int xres_{800};
-    int yres_{700};
+    int xres_;
+    int yres_;
 
     float distance_;
     float fov_;

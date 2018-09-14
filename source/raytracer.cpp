@@ -17,8 +17,9 @@ int main(int argc, char* argv[])
 
   sdfReader sdfR;
   Scene newScene;
-  newScene = sdfR.readSdf("/home/vincent/Documents/programming/programmiersprachen-raytracer/source/sceneOne.sdf");
-  //Renderer renderer = sdfR.readSdf("/home/vincent/Documents/programming/programmiersprachen-raytracer/source/sceneOne.sdf");
+  newScene = sdfR.readSdf("sceneOne.sdf");
+  newScene.mainCam_.xres_=800;
+  newScene.mainCam_.yres_=700;
 
   Renderer renderer{newScene, image_width, image_height, filename};
   //create separate thread to see updates of pixels while rendering

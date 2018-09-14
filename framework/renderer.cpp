@@ -53,7 +53,6 @@ Color Renderer::rayTrace(Ray const& ray){
     tempHit = shape->intersect(ray);
     if (tempHit.distance_ < closestHit.distance_){
       closestHit = tempHit;
-      closestHit.normalVec_ =  shape->getNormalized(tempHit.intersectionPoint_); 
     }
     closestObject = shape;
   }

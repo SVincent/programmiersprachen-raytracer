@@ -54,9 +54,6 @@ std::ostream& Box::print(std::ostream& os) const {
 	return os;
 };
 
-glm::vec3 Box::getNormalized(const glm::vec3 pi) const{
-    return glm::vec3{1,1,1};
-}
 
 Hit Box::intersect(Ray const& ray) {
     Ray newRay = newRay.transformRay(inv_transformationMatrix_,ray);

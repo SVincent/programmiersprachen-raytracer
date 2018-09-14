@@ -20,8 +20,6 @@ public:
     std::ostream& print(std::ostream& os) const override;
 
     Hit intersect(Ray const& ray) override;
-
-    glm::vec3 getNormalized(const glm::vec3 pi) const override;
  
     //getter
     glm::vec3 getCenter() const;

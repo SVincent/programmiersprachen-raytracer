@@ -22,10 +22,6 @@ public:
     std::ostream& print(std::ostream& os) const override;
     Hit planeHit(Ray const& ray, glm::vec3 vertex1, glm::vec3 vertex2, glm::vec3 vertex3, glm::vec3 vertex4) const;
     Hit intersect(Ray const& ray) override;
-    /*bool intersectBool2(Ray const& ray);
-    Hit intersect2(Ray const& ray);*/
-
-    glm::vec3 getNormalized(const glm::vec3 pi) const;
 
     //getter
     glm::vec3 getMinimum() const;

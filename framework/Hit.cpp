@@ -1,11 +1,11 @@
 #include "Hit.hpp"
+#include <cmath>
 
 Hit::Hit():
     hit_{false},
     shape_ {nullptr},
-    intersectionPoint_{0.0, 0.0, 0.0},
-    //distance_{50}
-    distance_{std::numeric_limits<float>::infinity()} //muss vielleicht aus der initialisierungsliste heraus
+    intersectionPoint_{glm::vec3{INFINITY}},
+    distance_{std::numeric_limits<float>::infinity()}
     {};
 
 Hit::Hit(bool hit, Shape* shape, glm::vec3 intersectionPoint):
