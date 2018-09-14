@@ -22,10 +22,13 @@ void Renderer::render(){
   Hit hit;
   int z = (scene_.mainCam_.xres_/2)/(tan(scene_.mainCam_.fov_/360*M_PI));
   for (int y=0; y < height_; ++y){
+    float pos_y = (((float)height_) / -2);
     for (int x=0; x < width_; ++x){
+      float pos_x = (((float)width_) / -2);
       Pixel p(x,y);
       glm::vec3 direction(-(scene_.mainCam_.xres_/2)+0.5+x,-(scene_.mainCam_.yres_/2)+0.5+y,-z);
       Ray ray = scene_.mainCam_.shootRay(direction);
+      Ray ray = scene_.mainCam_.shootRay(pos_x,pos_y, direction);
       //const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,-1));
       p.color = rayTrace(ray); 
       for (auto& shape: scene_.shapes_) {
@@ -33,7 +36,7 @@ void Renderer::render(){
           hit = shape->intersect(ray);
         }
       }
-      //p.color = calcToneMapping(p.color);
+      p.color = calcToneMapping(p.color);
       write(p);
     }
   }
