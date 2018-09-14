@@ -47,11 +47,11 @@ std::ostream& Sphere::print(std::ostream& os) const {
 };
 
 
-
+/*
 // Line-Sphere intersection as described on wikipedia
 Hit Sphere::intersect(Ray const& ray){
     Hit returnHit; 
-    Ray newRay = newRay.transformRay(inv_transformationMatrix_,ray);
+    Ray newRay = transformRay(inv_transformationMatrix_,ray);
     newRay.direction = glm::normalize(newRay.direction);
     glm::vec3 rDirection = newRay.direction;
     glm::vec3 rOrigin = newRay.origin;
@@ -82,6 +82,68 @@ Hit Sphere::intersect(Ray const& ray){
         }
     }
     return returnHit;
+}*/
+
+Hit Sphere::intersect(Ray const& inray)
+{
+  Hit sphere_hit;
+
+  Ray ray
+  {
+    inray.origin,
+
+    glm::normalize(inray.direction)
+
+  };
+
+
+  ray = transformRay(inv_transformationMatrix_, ray);
+
+
+  float t0;
+  float t1;
+
+  glm::vec3 L = center_ - ray.origin;
+
+  float tca = glm::dot(L, ray.direction);
+
+  float d2 = glm::dot(L, L) - tca * tca;
+
+  if(d2 > (radius_ * radius_))
+  {
+    return sphere_hit;
+  }
+
+  float thc = sqrt((radius_ * radius_) - d2);
+
+  t0 = tca - thc;
+
+  t1 = tca + thc;
+
+  if(t0 > t1)
+  {
+    std::swap(t0, t1);
+  }
+
+  if(t0 < 0)
+  {
+    t0 = t1;
+
+    if(t0 < 0)
+    {
+      return sphere_hit;
+    }
+  }
+
+  sphere_hit.hit_ = true;
+  sphere_hit.distance_ = t0;
+  sphere_hit.shape_ = this;
+  sphere_hit.intersectionPoint_ = ray.origin + ray.direction * sphere_hit.distance_;
+  sphere_hit.normalVec_ = glm::normalize(sphere_hit.intersectionPoint_ - center_);
+  sphere_hit.intersectionPoint_ = glm::vec3(inv_transformationMatrix_ * glm::vec4(sphere_hit.intersectionPoint_, 1));
+  sphere_hit.normalVec_ = glm::vec3(glm::mat3(glm::transpose(inv_transformationMatrix_)) * sphere_hit.normalVec_);    
+
+  return sphere_hit;
 }
 
 //getter

@@ -56,7 +56,7 @@ std::ostream& Box::print(std::ostream& os) const {
 
 
 Hit Box::intersect(Ray const& ray) {
-    Ray newRay = newRay.transformRay(inv_transformationMatrix_,ray);
+    Ray newRay = transformRay(inv_transformationMatrix_,ray);
     glm::vec3 inv_direction {1.0/newRay.direction.x,1.0/newRay.direction.y,1.0/newRay.direction.z};
 
     float t1 = (maximum_.x - newRay.origin.x) * inv_direction.x;
