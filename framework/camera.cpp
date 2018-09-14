@@ -18,13 +18,12 @@ camera::camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec, float fov
     fov_{fov}
     {}
 
-Ray camera::shootRay(glm::vec3 distance) const{
-    Ray ray(origin_, distance);
+Ray camera::shootRay(glm::vec3 direction) const{
+    Ray ray(origin_, direction);
     return ray;
 }
 
-Ray camera::shootRay(float x_, float y_){
-    //std::cout << "shooting ray from camera." << std::endl;
+Ray camera::shootRay(float x_, float y_, glm::vec3 direction){
     glm::mat4 camMatrix_ = {u_.x, v_.x, -direction_.x, origin_.x,
                             u_.y, v_.y, -direction_.y, origin_.y,
                             u_.z, v_.z, -direction_.z, origin_.z,

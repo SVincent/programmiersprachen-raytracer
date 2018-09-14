@@ -12,8 +12,8 @@ struct camera {
     camera(glm::vec3 origin, glm::vec3 direction, glm::vec3 upVec, float fov);
 
     //methods
-    Ray shootRay(glm::vec3 distance) const;
-    Ray shootRay(float x_, float y_);
+    Ray shootRay(glm::vec3 direction) const;
+    Ray shootRay(float x_, float y_, glm::vec3 direction);
 
     //members 
     //Beobachtungspunkt e = origin
