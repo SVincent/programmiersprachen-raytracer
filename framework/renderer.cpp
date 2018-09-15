@@ -28,9 +28,9 @@ void Renderer::render(){
       Pixel p(x,y);
       glm::vec3 direction(-(scene_.mainCam_.xres_/2)+0.5+x,-(scene_.mainCam_.yres_/2)+0.5+y,-z);
       Ray ray = scene_.mainCam_.shootRay(direction);
-      Ray ray = scene_.mainCam_.shootRay(pos_x,pos_y, direction);
+      //Ray ray = scene_.mainCam_.shootRay(pos_x,pos_y, direction);
       //const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,-1));
-      p.color = rayTrace(ray); 
+      p.color = rayTrace(ray,1); 
       for (auto& shape: scene_.shapes_) {
         if (!hit.hit_) {
           hit = shape->intersect(ray);
@@ -46,7 +46,7 @@ void Renderer::render(){
   ppm_.save(filename_);
 }
 
-Color Renderer::rayTrace(Ray const& ray){ 
+Color Renderer::rayTrace(Ray const& ray, int depth){ 
   Color backgroundcolor = Color(0.25, 0.25, 0.25);
   Hit closestHit;
   Hit tempHit;
@@ -61,8 +61,8 @@ Color Renderer::rayTrace(Ray const& ray){
   }
   
   if (closestHit.hit_){
-    cout << "x: " << closestHit.intersectionPoint_.x << " y: " << closestHit.intersectionPoint_.y << " z: " << closestHit.intersectionPoint_.z << endl;
-    return calcShade(ray, closestHit);
+    //cout << "x: " << closestHit.intersectionPoint_.x << " y: " << closestHit.intersectionPoint_.y << " z: " << closestHit.intersectionPoint_.z << endl;
+    return calcShade(ray, closestHit, depth);
   }
   else {
     return backgroundcolor;
@@ -70,17 +70,15 @@ Color Renderer::rayTrace(Ray const& ray){
 }
 
 
-Color Renderer::calcShade( Ray const& ray, Hit const& hit) {
+Color Renderer::calcShade( Ray const& ray, Hit const& hit, int depth) {
   // calculate ambient, slide 13
   Color combinedColor = (scene_.ambientLightCol_ * hit.shape_->getMaterial()->ambientcoefficient_);
-  int depth = 0; //todo: recursively countdown
   for (auto& light: scene_.lights_){
     combinedColor += calcPointLight(light,ray, hit);
   }
   if (depth>0) {
-    combinedColor = calcReflection(hit, ray);
+    combinedColor += calcReflection(hit, ray, depth-1);
   }
-  
   return combinedColor;
 }
 
@@ -161,14 +159,18 @@ Hit Renderer::calcClosestHit(Ray const& ray){
   return closest;
 }
 
-Color Renderer::calcReflection(Hit const& hit, Ray const& ray){
+Color Renderer::calcReflection(Hit const& hit, Ray const& ray, int depth){
   Color reflectColor;
   glm::vec3 reflectVec = glm::normalize(glm::reflect(ray.direction, hit.normalVec_));
 
   Ray tempRay(((0.01f * reflectVec) + hit.intersectionPoint_),reflectVec);
-  reflectColor = rayTrace(tempRay);
-  Color returnColor = (Color{1.0f,1.0f,1.0f}-hit.shape_->getMaterial()->specularcoefficient_) + (reflectColor*hit.shape_->getMaterial()->specularcoefficient_);
-  return returnColor;
+  reflectColor = rayTrace(tempRay, depth);
+  //Color returnColor = (Color{1.0f,1.0f,1.0f}-hit.shape_->getMaterial()->specularcoefficient_) + (reflectColor*hit.shape_->getMaterial()->specularcoefficient_);
+  cout << "reflectColor before: r: " << reflectColor.r << " g: " << reflectColor.g << " b: " << reflectColor.b;
+  reflectColor += hit.shape_->getMaterial()->specularcoefficient_ *hit.shape_->getMaterial()->getColor();
+  cout << "reflectColor after: r: " << reflectColor.r << " g: " << reflectColor.g << " b: " << reflectColor.b << endl;
+
+  return reflectColor;
 }
 
 void Renderer::write(Pixel const& p)

@@ -31,16 +31,16 @@ public:
 
   void render();
 
-  Color rayTrace(Ray const& ray);
+  Color rayTrace(Ray const& ray, int depth);
   Hit calcClosestHit(Ray const& ray); 
   
   Color calcToneMapping(Color const& color);
 
-  Color calcShade(Ray const& ray, Hit const & hit);
+  Color calcShade(Ray const& ray, Hit const & hit, int depth);
   Color calcPointLight(std::shared_ptr<Light> const& light, Ray const& ray, Hit const& hit);
   Color calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay);
   Color calcSpecularColor(std::shared_ptr<Light> const& light, Hit const& hit, Ray const& lightRay, Ray const& ray);
-  Color calcReflection(Hit const& hit, Ray const& ray);
+  Color calcReflection(Hit const& hit, Ray const& ray, int depth);
 
   void write(Pixel const& p);
 
