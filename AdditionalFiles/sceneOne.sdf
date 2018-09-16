@@ -1,0 +1,27 @@
+define camera mainCam 120 0 0 0 100 100 100 0 0 0
+define ambient 0.1 0.1 0.1 
+
+define material red 1 0 0 1 0 0 1 0 0 1.0
+define material green 0 1 0 0 1 0 0 1 0 1.0
+define material blue 0 0 1 0 0 1 0 0 1 1.0
+define material ambientgrey 1.0 1.0 1.0 0.5 0.5 0.5 0.5 0.5 0.5 1.0
+define material diffusegrey 0.5 0.5 0.5 1.0 1.0 1.0 0.5 0.5 0.5 1.0
+define material speculargrey 0.5 0.5 0.5 0.5 0.5 0.5 1.0 1.0 1.0 1.0
+define material truegrey 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 1.0
+
+define shape sphere asphere 0 0 -400 100 ambientgrey
+define shape sphere bsphere -200 -200 -400 100 green
+define shape sphere csphere -200 200 -400 100 blue
+define shape sphere dsphere 200 -200 -400 100 red
+define shape sphere floorsphere 0 0 -10000 9500 truegrey
+
+
+define shape box abox -300 -350 -250 -220 -120 -220 red
+
+define light redpointlight1 0 0 0 1.0 0.0 0.0 1.0
+define light greenpointlight1 125 125 125 0.0 1.0 0.0 1.0
+define light bluepointlight1 0 200 400 0.0 0.0 1.0 1.0
+define light whitepointlight 250 150 50 1.0 1.0 1.0 1.0
+
+render mainCam 800 700 testScene.ppm
+
