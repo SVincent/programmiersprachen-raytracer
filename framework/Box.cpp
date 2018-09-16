@@ -155,7 +155,7 @@ Hit Box::intersect(Ray const& newRay) {
         return closest;
     }
 };
-*/
+
 Hit Box::planeHit(Ray const& newRay, glm::vec3 vertex1, glm::vec3 vertex2, glm::vec3 vertex3, glm::vec3 vertex4) const{
     Hit hit;
     glm::vec3 norm{ glm::normalize(glm::cross(vertex4-vertex1, vertex2-vertex1))};
@@ -181,7 +181,7 @@ Hit Box::planeHit(Ray const& newRay, glm::vec3 vertex1, glm::vec3 vertex2, glm::
     if (hit.hit_) {
         return hit;
     }
-};
+};*/
 
 //getter
 glm::vec3 Box::getMinimum() const {

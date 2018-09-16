@@ -30,7 +30,7 @@ void Renderer::render(){
       Ray ray = scene_.mainCam_.shootRay(direction);
       //Ray ray = scene_.mainCam_.shootRay(pos_x,pos_y, direction);
       //const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,-1));
-      p.color = rayTrace(ray,1); 
+      p.color = rayTrace(ray,0); 
       for (auto& shape: scene_.shapes_) {
         if (!hit.hit_) {
           hit = shape->intersect(ray);
@@ -50,17 +50,20 @@ Color Renderer::rayTrace(Ray const& ray, int depth){
   Color backgroundcolor = Color(0.25, 0.25, 0.25);
   Hit closestHit;
   Hit tempHit;
-  std::shared_ptr<Shape> closestObject = nullptr;
+  //std::shared_ptr<Shape> closestObject = nullptr;
 
   for(auto& shape : scene_.shapes_){
     tempHit = shape->intersect(ray);
     if (tempHit.distance_ < closestHit.distance_){
       closestHit = tempHit;
     }
-    closestObject = shape;
+    //closestObject = shape;
   }
   
   if (closestHit.hit_){
+    if (std::isinf(closestHit.distance_)){
+      cout << "rayTrace: something went wrong with hit" << endl;
+    }
     //cout << "x: " << closestHit.intersectionPoint_.x << " y: " << closestHit.intersectionPoint_.y << " z: " << closestHit.intersectionPoint_.z << endl;
     return calcShade(ray, closestHit, depth);
   }
@@ -76,7 +79,10 @@ Color Renderer::calcShade( Ray const& ray, Hit const& hit, int depth) {
   for (auto& light: scene_.lights_){
     combinedColor += calcPointLight(light,ray, hit);
   }
-  if (depth>0) {
+     if (std::isinf(hit.distance_)){
+      cout << "calcShade: something went wrong with hit" << endl;
+    }
+  if (depth>0 && hit.shape_->getMaterial()->reflexivity_ != 0.0) {
     combinedColor += calcReflection(hit, ray, depth-1);
   }
   return combinedColor;
@@ -92,7 +98,7 @@ Color Renderer::calcPointLight(std::shared_ptr<Light> const& light, Ray const& r
 
   Hit closestHit;
   closestHit = calcClosestHit(tempRay);
-  if (closestHit.hit_){
+  if (!closestHit.hit_){
     lightColor = light->color_ *(calcSpecularColor(light,hit, tempRay, ray) + calcDiffuseColor(light, hit, tempRay)*dt);   
     return lightColor;
   }
@@ -109,7 +115,6 @@ Color Renderer::calcDiffuseColor(std::shared_ptr<Light> const& light, Hit const&
   if (temp >= 0.0) {
     returnColor = (hit.shape_->getMaterial()->diffusecoefficient_*light->color_*light->brightness_*temp);
   }
-
   return returnColor;
 }
 
@@ -154,7 +159,7 @@ Hit Renderer::calcClosestHit(Ray const& ray){
     temp = shape->intersect(ray);
     if (temp.distance_ < closest.distance_)
       closest = temp;
-      closest.hit_ = true;
+      //closest.hit_ = true;
   }
   return closest;
 }
@@ -164,11 +169,25 @@ Color Renderer::calcReflection(Hit const& hit, Ray const& ray, int depth){
   glm::vec3 reflectVec = glm::normalize(glm::reflect(ray.direction, hit.normalVec_));
 
   Ray tempRay(((0.01f * reflectVec) + hit.intersectionPoint_),reflectVec);
+    if (std::isnan(tempRay.origin.x)) {
+      cout << "tempRay.x NaN spilling" << endl;
+  }
   reflectColor = rayTrace(tempRay, depth);
+
+  /*
+  if (reflectColor.r != reflectColor.r) { //if rgb-values are NaN this returns true
+    reflectColor.r = hit.shape_->getMaterial()->getColor().r;
+  }
+  if (reflectColor.g != reflectColor.g) { //if rgb-values are NaN this returns true
+    reflectColor.g = hit.shape_->getMaterial()->getColor().g;
+  }
+  if (reflectColor.b != reflectColor.b) { //if rgb-values are NaN this returns true
+    reflectColor.b = hit.shape_->getMaterial()->getColor().b;
+  }*/
   //Color returnColor = (Color{1.0f,1.0f,1.0f}-hit.shape_->getMaterial()->specularcoefficient_) + (reflectColor*hit.shape_->getMaterial()->specularcoefficient_);
-  cout << "reflectColor before: r: " << reflectColor.r << " g: " << reflectColor.g << " b: " << reflectColor.b;
-  reflectColor += hit.shape_->getMaterial()->specularcoefficient_ *hit.shape_->getMaterial()->getColor();
-  cout << "reflectColor after: r: " << reflectColor.r << " g: " << reflectColor.g << " b: " << reflectColor.b << endl;
+  //cout << "reflectColor before: r: " << reflectColor.r << " g: " << reflectColor.g << " b: " << reflectColor.b;
+  reflectColor *= hit.shape_->getMaterial()->specularcoefficient_ *hit.shape_->getMaterial()->getColor();
+  //cout << "reflectColor after: r: " << reflectColor.r << " g: " << reflectColor.g << " b: " << reflectColor.b << endl;
 
   return reflectColor;
 }

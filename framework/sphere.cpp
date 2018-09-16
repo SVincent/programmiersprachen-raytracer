@@ -106,7 +106,16 @@ Hit Sphere::intersect(Ray const& ray) {
 
   t0 = tca - thc;
   t1 = tca + thc;
-
+  /*
+    if (std::isnan(tca)) {
+      cout << "ray origin: x: " << ray.origin.x << " y: " << ray.origin.y << " z: " << ray.origin.z << endl;
+  }/*
+  if (std::isnan(tca)) {
+      cout << "tca NaN spilling" << endl;
+  }
+    if (std::isnan(thc)) {
+      cout << "thc NaN spilling" << endl;
+  }*/
   if(t0 > t1) {
     std::swap(t0, t1);
   }
