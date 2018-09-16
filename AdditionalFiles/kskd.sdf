@@ -1,0 +1,279 @@
+define camera mainCam 120 0 0 0 100 100 100 0 0 0
+define ambient 0.0 0.0 0.0 
+
+define material truegrey 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 1.0
+
+define material ks0kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+define material ks0kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.0 0.0 0.0 0.0
+define material ks0kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.0 0.0 0.0 0.0
+define material ks0kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.0 0.0 0.0 0.0
+define material ks0kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.0 0.0 0.0 0.0
+define material ks0kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.0 0.0 0.0 0.0
+define material ks0kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.0 0.0 0.0 0.0
+define material ks0kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.0 0.0 0.0 0.0
+define material ks0kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.0 0.0 0.0 0.0
+define material ks0kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.0 0.0 0.0 0.0
+define material ks0kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.0 0.0 0.0 0.0
+
+define material ks1kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.1 0.1 0.1 0.0
+define material ks1kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.1 0.1 0.1 0.0
+define material ks1kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.1 0.1 0.1 0.0
+define material ks1kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.1 0.1 0.1 0.0
+define material ks1kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.1 0.1 0.1 0.0
+define material ks1kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.1 0.1 0.1 0.0
+define material ks1kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.1 0.1 0.1 0.0
+define material ks1kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.1 0.1 0.1 0.0
+define material ks1kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.1 0.1 0.1 0.0
+define material ks1kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.1 0.1 0.1 0.0
+define material ks1kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.1 0.1 0.1 0.0
+
+define material ks2kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.2 0.2 0.2 0.0
+define material ks2kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.2 0.2 0.2 0.0
+define material ks2kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.2 0.2 0.2 0.0
+define material ks2kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.2 0.2 0.2 0.0
+define material ks2kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.2 0.2 0.2 0.0
+define material ks2kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.2 0.2 0.2 0.0
+define material ks2kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.2 0.2 0.2 0.0
+define material ks2kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.2 0.2 0.2 0.0
+define material ks2kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.2 0.2 0.2 0.0
+define material ks2kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.2 0.2 0.2 0.0
+define material ks2kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.2 0.2 0.2 0.0
+
+define material ks3kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.3 0.3 0.3 0.0
+define material ks3kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.3 0.3 0.3 0.0
+define material ks3kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.3 0.3 0.3 0.0
+define material ks3kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.3 0.3 0.3 0.0
+define material ks3kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.3 0.3 0.3 0.0
+define material ks3kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.3 0.3 0.3 0.0
+define material ks3kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.3 0.3 0.3 0.0
+define material ks3kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.3 0.3 0.3 0.0
+define material ks3kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.3 0.3 0.3 0.0
+define material ks3kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.3 0.3 0.3 0.0
+define material ks3kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.3 0.3 0.3 0.0
+
+define material ks4kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.4 0.4 0.4 0.0
+define material ks4kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.4 0.4 0.4 0.0
+define material ks4kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.4 0.4 0.4 0.0
+define material ks4kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.4 0.4 0.4 0.0
+define material ks4kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.4 0.4 0.4 0.0
+define material ks4kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.4 0.4 0.4 0.0
+define material ks4kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.4 0.4 0.4 0.0
+define material ks4kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.4 0.4 0.4 0.0
+define material ks4kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.4 0.4 0.4 0.0
+define material ks4kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.4 0.4 0.4 0.0
+define material ks4kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.4 0.4 0.4 0.0
+
+define material ks5kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.5 0.5 0.5 0.0
+define material ks5kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.5 0.5 0.5 0.0
+define material ks5kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.5 0.5 0.5 0.0
+define material ks5kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.5 0.5 0.5 0.0
+define material ks5kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.5 0.5 0.5 0.0
+define material ks5kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.5 0.5 0.5 0.0
+define material ks5kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.5 0.5 0.5 0.0
+define material ks5kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.5 0.5 0.5 0.0
+define material ks5kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.5 0.5 0.5 0.0
+define material ks5kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.5 0.5 0.5 0.0
+define material ks5kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.5 0.5 0.5 0.0
+
+define material ks6kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.6 0.6 0.6 0.0
+define material ks6kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.6 0.6 0.6 0.0
+define material ks6kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.6 0.6 0.6 0.0
+define material ks6kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.6 0.6 0.6 0.0
+define material ks6kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.6 0.6 0.6 0.0
+define material ks6kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.6 0.6 0.6 0.0
+define material ks6kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.6 0.6 0.6 0.0
+define material ks6kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.6 0.6 0.6 0.0
+define material ks6kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.6 0.6 0.6 0.0
+define material ks6kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.6 0.6 0.6 0.0
+define material ks6kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.6 0.6 0.6 0.0
+
+define material ks7kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.7 0.7 0.7 0.0
+define material ks7kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.7 0.7 0.7 0.0
+define material ks7kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.7 0.7 0.7 0.0
+define material ks7kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.7 0.7 0.7 0.0
+define material ks7kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.7 0.7 0.7 0.0
+define material ks7kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.7 0.7 0.7 0.0
+define material ks7kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.7 0.7 0.7 0.0
+define material ks7kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.7 0.7 0.7 0.0
+define material ks7kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.7 0.7 0.7 0.0
+define material ks7kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.7 0.7 0.7 0.0
+define material ks7kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.7 0.7 0.7 0.0
+
+define material ks8kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.8 0.8 0.8 0.0
+define material ks8kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.8 0.8 0.8 0.0
+define material ks8kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.8 0.8 0.8 0.0
+define material ks8kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.8 0.8 0.8 0.0
+define material ks8kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.8 0.8 0.8 0.0
+define material ks8kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.8 0.8 0.8 0.0
+define material ks8kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.8 0.8 0.8 0.0
+define material ks8kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.8 0.8 0.8 0.0
+define material ks8kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.8 0.8 0.8 0.0
+define material ks8kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.8 0.8 0.8 0.0
+define material ks8kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.8 0.8 0.8 0.0
+
+define material ks9kd0 1.0 1.0 1.0 0.0 0.0 0.0 0.9 0.9 0.9 0.0
+define material ks9kd1 1.0 1.0 1.0 0.1 0.1 0.1 0.9 0.9 0.9 0.0
+define material ks9kd2 1.0 1.0 1.0 0.2 0.2 0.2 0.9 0.9 0.9 0.0
+define material ks9kd3 1.0 1.0 1.0 0.3 0.3 0.3 0.9 0.9 0.9 0.0
+define material ks9kd4 1.0 1.0 1.0 0.4 0.4 0.4 0.9 0.9 0.9 0.0
+define material ks9kd5 1.0 1.0 1.0 0.5 0.5 0.5 0.9 0.9 0.9 0.0
+define material ks9kd6 1.0 1.0 1.0 0.6 0.6 0.6 0.9 0.9 0.9 0.0
+define material ks9kd7 1.0 1.0 1.0 0.7 0.7 0.7 0.9 0.9 0.9 0.0
+define material ks9kd8 1.0 1.0 1.0 0.8 0.8 0.8 0.9 0.9 0.9 0.0
+define material ks9kd9 1.0 1.0 1.0 0.9 0.9 0.9 0.9 0.9 0.9 0.0
+define material ks9kd10 1.0 1.0 1.0 1.0 1.0 1.0 0.9 0.9 0.9 0.0
+
+define material ks10kd0 1.0 1.0 1.0 0.0 0.0 0.0 1.0 1.0 1.0 0.0
+define material ks10kd1 1.0 1.0 1.0 0.1 0.1 0.1 1.0 1.0 1.0 0.0
+define material ks10kd2 1.0 1.0 1.0 0.2 0.2 0.2 1.0 1.0 1.0 0.0
+define material ks10kd3 1.0 1.0 1.0 0.3 0.3 0.3 1.0 1.0 1.0 0.0
+define material ks10kd4 1.0 1.0 1.0 0.4 0.4 0.4 1.0 1.0 1.0 0.0
+define material ks10kd5 1.0 1.0 1.0 0.5 0.5 0.5 1.0 1.0 1.0 0.0
+define material ks10kd6 1.0 1.0 1.0 0.6 0.6 0.6 1.0 1.0 1.0 0.0
+define material ks10kd7 1.0 1.0 1.0 0.7 0.7 0.7 1.0 1.0 1.0 0.0
+define material ks10kd8 1.0 1.0 1.0 0.8 0.8 0.8 1.0 1.0 1.0 0.0
+define material ks10kd9 1.0 1.0 1.0 0.9 0.9 0.9 1.0 1.0 1.0 0.0
+define material ks10kd10 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 0.0
+
+define shape sphere floorsphere 0 0 -10000 9500 truegrey
+
+define shape sphere spherex0y0 -500 -500 -400 50 ks0kd0
+define shape sphere spherex1y0 -400 -500 -400 50 ks0kd1
+define shape sphere spherex2y0 -300 -500 -400 50 ks0kd2
+define shape sphere spherex3y0 -200 -500 -400 50 ks0kd3
+define shape sphere spherex4y0 -100 -500 -400 50 ks0kd4
+define shape sphere spherex5y0 0 -500 -400 50 ks0kd5
+define shape sphere spherex6y0 100 -500 -400 50 ks0kd6
+define shape sphere spherex7y0 200 -500 -400 50 ks0kd7
+define shape sphere spherex8y0 300 -500 -400 50 ks0kd8
+define shape sphere spherex9y0 400 -500 -400 50 ks0kd9
+define shape sphere spherex10y0 500 -500 -400 50 ks0kd10
+
+define shape sphere spherex0y1 -500 -400 -400 50 ks1kd0
+define shape sphere spherex1y1 -400 -400 -400 50 ks1kd1
+define shape sphere spherex2y1 -300 -400 -400 50 ks1kd2
+define shape sphere spherex3y1 -200 -400 -400 50 ks1kd3
+define shape sphere spherex4y1 -100 -400 -400 50 ks1kd4
+define shape sphere spherex5y1 0 -400 -400 50 ks1kd5
+define shape sphere spherex6y1 100 -400 -400 50 ks1kd6
+define shape sphere spherex7y1 200 -400 -400 50 ks1kd7
+define shape sphere spherex8y1 300 -400 -400 50 ks1kd8
+define shape sphere spherex9y1 400 -400 -400 50 ks1kd9
+define shape sphere spherex10y1 500 -400 -400 50 ks1kd10
+
+define shape sphere spherex0y2 -500 -300 -400 50 ks2kd0
+define shape sphere spherex1y2 -400 -300 -400 50 ks2kd1
+define shape sphere spherex2y2 -300 -300 -400 50 ks2kd2
+define shape sphere spherex3y2 -200 -300 -400 50 ks2kd3
+define shape sphere spherex4y2 -100 -300 -400 50 ks2kd4
+define shape sphere spherex5y2 0 -300 -400 50 ks2kd5
+define shape sphere spherex6y2 100 -300 -400 50 ks2kd6
+define shape sphere spherex7y2 200 -300 -400 50 ks2kd7
+define shape sphere spherex8y2 300 -300 -400 50 ks2kd8
+define shape sphere spherex9y2 400 -300 -400 50 ks2kd9
+define shape sphere spherex10y2 500 -300 -400 50 ks2kd10
+
+define shape sphere spherex0y3 -500 -200 -400 50 ks3kd0
+define shape sphere spherex1y3 -400 -200 -400 50 ks3kd1
+define shape sphere spherex2y3 -300 -200 -400 50 ks3kd2
+define shape sphere spherex3y3 -200 -200 -400 50 ks3kd3
+define shape sphere spherex4y3 -100 -200 -400 50 ks3kd4
+define shape sphere spherex5y3 0 -200 -400 50 ks3kd5
+define shape sphere spherex6y3 100 -200 -400 50 ks3kd6
+define shape sphere spherex7y3 200 -200 -400 50 ks3kd7
+define shape sphere spherex8y3 300 -200 -400 50 ks3kd8
+define shape sphere spherex9y3 400 -200 -400 50 ks3kd9
+define shape sphere spherex10y3 500 -200 -400 50 ks3kd10
+
+define shape sphere spherex0y4 -500 -100 -400 50 ks4kd0
+define shape sphere spherex1y4 -400 -100 -400 50 ks4kd1
+define shape sphere spherex2y4 -300 -100 -400 50 ks4kd2
+define shape sphere spherex3y4 -200 -100 -400 50 ks4kd3
+define shape sphere spherex4y4 -100 -100 -400 50 ks4kd4
+define shape sphere spherex5y4 0 -100 -400 50 ks4kd5
+define shape sphere spherex6y4 100 -100 -400 50 ks4kd6
+define shape sphere spherex7y4 200 -100 -400 50 ks4kd7
+define shape sphere spherex8y4 300 -100 -400 50 ks4kd8
+define shape sphere spherex9y4 400 -100 -400 50 ks4kd9
+define shape sphere spherex10y4 500 -100 -400 50 ks4kd10
+
+define shape sphere spherex0y5 -500 0 -400 50 ks5kd0
+define shape sphere spherex1y5 -400 0 -400 50 ks5kd1
+define shape sphere spherex2y5 -300 0 -400 50 ks5kd2
+define shape sphere spherex3y5 -200 0 -400 50 ks5kd3
+define shape sphere spherex4y5 -100 0 -400 50 ks5kd4
+define shape sphere spherex5y5 0 0 -400 50 ks5kd5
+define shape sphere spherex6y5 100 0 -400 50 ks5kd6
+define shape sphere spherex7y5 200 0 -400 50 ks5kd7
+define shape sphere spherex8y5 300 0 -400 50 ks5kd8
+define shape sphere spherex9y5 400 0 -400 50 ks5kd9
+define shape sphere spherex10y5 500 0 -400 50 ks5kd10
+
+define shape sphere spherex0y6 -500 100 -400 50 ks6kd0
+define shape sphere spherex1y6 -400 100 -400 50 ks6kd1
+define shape sphere spherex2y6 -300 100 -400 50 ks6kd2
+define shape sphere spherex3y6 -200 100 -400 50 ks6kd3
+define shape sphere spherex4y6 -100 100 -400 50 ks6kd4
+define shape sphere spherex5y6 0 100 -400 50 ks6kd5
+define shape sphere spherex6y6 100 100 -400 50 ks6kd6
+define shape sphere spherex7y6 200 100 -400 50 ks6kd7
+define shape sphere spherex8y6 300 100 -400 50 ks6kd8
+define shape sphere spherex9y6 400 100 -400 50 ks6kd9
+define shape sphere spherex10y6 500 100 -400 50 ks6kd10
+
+define shape sphere spherex0y7 -500 200 -400 50 ks7kd0
+define shape sphere spherex1y7 -400 200 -400 50 ks7kd1
+define shape sphere spherex2y7 -300 200 -400 50 ks7kd2
+define shape sphere spherex3y7 -200 200 -400 50 ks7kd3
+define shape sphere spherex4y7 -100 200 -400 50 ks7kd4
+define shape sphere spherex5y7 0 200 -400 50 ks7kd5
+define shape sphere spherex6y7 100 200 -400 50 ks7kd6
+define shape sphere spherex7y7 200 200 -400 50 ks7kd7
+define shape sphere spherex8y7 300 200 -400 50 ks7kd8
+define shape sphere spherex9y7 400 200 -400 50 ks7kd9
+define shape sphere spherex10y7 500 200 -400 50 ks7kd10
+
+define shape sphere spherex0y8 -500 300 -400 50 ks8kd0
+define shape sphere spherex1y8 -400 300 -400 50 ks8kd1
+define shape sphere spherex2y8 -300 300 -400 50 ks8kd2
+define shape sphere spherex3y8 -200 300 -400 50 ks8kd3
+define shape sphere spherex4y8 -100 300 -400 50 ks8kd4
+define shape sphere spherex5y8 0 300 -400 50 ks8kd5
+define shape sphere spherex6y8 100 300 -400 50 ks8kd6
+define shape sphere spherex7y8 200 300 -400 50 ks8kd7
+define shape sphere spherex8y8 300 300 -400 50 ks8kd8
+define shape sphere spherex9y8 400 300 -400 50 ks8kd9
+define shape sphere spherex10y8 500 300 -400 50 ks8kd10
+
+define shape sphere spherex0y9 -500 400 -400 50 ks9kd0
+define shape sphere spherex1y9 -400 400 -400 50 ks9kd1
+define shape sphere spherex2y9 -300 400 -400 50 ks9kd2
+define shape sphere spherex3y9 -200 400 -400 50 ks9kd3
+define shape sphere spherex4y9 -100 400 -400 50 ks9kd4
+define shape sphere spherex5y9 0 400 -400 50 ks9kd5
+define shape sphere spherex6y9 100 400 -400 50 ks9kd6
+define shape sphere spherex7y9 200 400 -400 50 ks9kd7
+define shape sphere spherex8y9 300 400 -400 50 ks9kd8
+define shape sphere spherex9y9 400 400 -400 50 ks9kd9
+define shape sphere spherex10y9 500 400 -400 50 ks9kd10
+
+define shape sphere spherex0y10 -500 500 -400 50 ks10kd0
+define shape sphere spherex1y10 -400 500 -400 50 ks10kd1
+define shape sphere spherex2y10 -300 500 -400 50 ks10kd2
+define shape sphere spherex3y10 -200 500 -400 50 ks10kd3
+define shape sphere spherex4y10 -100 500 -400 50 ks10kd4
+define shape sphere spherex5y10 0 500 -400 50 ks10kd5
+define shape sphere spherex6y10 100 500 -400 50 ks10kd6
+define shape sphere spherex7y10 200 500 -400 50 ks10kd7
+define shape sphere spherex8y10 300 500 -400 50 ks10kd8
+define shape sphere spherex9y10 400 500 -400 50 ks10kd9
+define shape sphere spherex10y10 500 500 -400 50 ks10kd10
+
+define light whitepointlight1 0 0 50 1.0 1.0 1.0 1.0
+define light whitepointlight2 -500 -500 -300 1.0 1.0 1.0 1.0
+define light whitepointlight3 -500 500 -300 1.0 1.0 1.0 1.0
+define light whitepointlight4 500 -500 -300 1.0 1.0 1.0 1.0
+define light whitepointlight5 500 500 -300 1.0 1.0 1.0 1.0
+
+render mainCam 800 700 kskd.ppm
+
