@@ -91,7 +91,8 @@ Hit Box::intersect(Ray const& ray) {
             tmin * newRay.direction.z
         };
 
-        glm::vec3 normal{std::numeric_limits<float>::infinity(),std::numeric_limits<float>::infinity(),std::numeric_limits<float>::infinity()};
+        //glm::vec3 normal{std::numeric_limits<float>::infinity(),std::numeric_limits<float>::infinity(),std::numeric_limits<float>::infinity()};
+        glm::vec3 normal{0.0f,0.0f,0.0f};
         float bias = 0.0009f;
         //getting the normal vec on the side of the intersection
         if (abs(b_hit.intersectionPoint_.x - maximum_.x) < bias) {

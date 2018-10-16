@@ -23,5 +23,5 @@ define light greenpointlight1 125 125 125 0.0 1.0 0.0 1.0
 define light bluepointlight1 0 200 400 0.0 0.0 1.0 1.0
 define light whitepointlight 250 150 50 1.0 1.0 1.0 1.0
 
-render mainCam 800 700 testScene.ppm
+render mainCam 800 600 testScene.ppm
 

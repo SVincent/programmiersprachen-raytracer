@@ -30,11 +30,13 @@ void Renderer::render(){
       Ray ray = scene_.mainCam_.shootRay(direction);
       //Ray ray = scene_.mainCam_.shootRay(pos_x,pos_y, direction);
       //const Ray ray(glm::vec3(x,y,0),glm::vec3(0,0,-1));
-      p.color = rayTrace(ray,0); 
       for (auto& shape: scene_.shapes_) {
         if (!hit.hit_) {
           hit = shape->intersect(ray);
         }
+      }
+      if (hit.hit_) {
+        p.color = rayTrace(ray,3); 
       }
       p.color = calcToneMapping(p.color);
       write(p);
@@ -124,18 +126,7 @@ Color Renderer::calcSpecularColor(std::shared_ptr<Light> const& light, Hit const
   glm::vec3 reflectVec;
 
   reflectVec = glm::normalize(glm::reflect(-(lightRay.direction), hit.normalVec_));
-  
-  float temp;
-  float ifTemp = glm::dot(reflectVec, glm::normalize(-(ray.direction)));
-
-  if (ifTemp > 0){
-  
-    temp = ifTemp;
-  }
-  else {
-    temp = 0.0;
-  }
-
+  float temp = std::max(glm::dot(reflectVec, glm::normalize(-(ray.direction))),0.0f);
   float squareTemp = pow(temp, hit.shape_->getMaterial()->reflexivity_);
   returnColor = (hit.shape_->getMaterial()->specularcoefficient_ * squareTemp * light->color_ * light->brightness_);
 

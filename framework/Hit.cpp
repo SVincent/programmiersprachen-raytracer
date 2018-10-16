@@ -5,7 +5,8 @@ Hit::Hit():
     hit_{false},
     shape_ {nullptr},
     intersectionPoint_{glm::vec3{INFINITY}},
-    distance_{std::numeric_limits<float>::infinity()}
+    distance_{std::numeric_limits<float>::infinity()},
+    normalVec_{glm::vec3(0.0,0.0,0.0)}
     {};
 
 Hit::Hit(bool hit, Shape* shape, glm::vec3 intersectionPoint):
